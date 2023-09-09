@@ -13,6 +13,7 @@ import com.dainn.bll.impl.AccountBLL;
 import com.dainn.dto.AccountDTO;
 import com.dainn.gui.AdminUI;
 import com.dainn.gui.LoginUI;
+import com.dainn.gui.UserUI;
 
 public class LoginController implements ActionListener, MouseListener {
     private LoginUI loginUI;
@@ -79,7 +80,7 @@ public class LoginController implements ActionListener, MouseListener {
 					new AdminUI(accountDTO);
                 } else if (accountDTO.getRoleId().equals("USER")) {
                     loginUI.setVisible(false);
-//					new UserUI();
+					new UserUI();
                 }
             } else {
                 JOptionPane.showMessageDialog(loginUI, "Thông tin đăng nhập không chính xác.");
