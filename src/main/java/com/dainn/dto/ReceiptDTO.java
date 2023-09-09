@@ -11,5 +11,5 @@ public class ReceiptDTO {
     private Integer accountId;
     private java.sql.Timestamp createdDate;
     private Integer totalPrice;
-
+    private Integer status;
 }
