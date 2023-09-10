@@ -214,7 +214,7 @@ public class AdminUI extends JFrame {
 		separator.setBounds(0, 98, 174, 15);
 		panel.add(separator);
 
-		JLabel lblNewLabel_5 = new JLabel("Dainn Phone");
+		JLabel lblNewLabel_5 = new JLabel("Dainn Store");
 		lblNewLabel_5.setForeground(new Color(0, 0, 0));
 		lblNewLabel_5.setFont(new Font("Segoe Print", Font.BOLD, 24));
 		lblNewLabel_5.setBounds(10, 41, 186, 47);
@@ -567,19 +567,9 @@ public class AdminUI extends JFrame {
 //		comboBox_orderMonth.addActionListener(adminOrderController);
 //		comboBox_orderMonth.addActionListener(adminOrderController);
 		comboBox_orderMonth.addItem("Tháng đặt hàng");
-		comboBox_orderMonth.addItem("Tháng 1");
-		comboBox_orderMonth.addItem("Tháng 2");
-		comboBox_orderMonth.addItem("Tháng 3");
-		comboBox_orderMonth.addItem("Tháng 4");
-		comboBox_orderMonth.addItem("Tháng 5");
-		comboBox_orderMonth.addItem("Tháng 6");
-		comboBox_orderMonth.addItem("Tháng 7");
-		comboBox_orderMonth.addItem("Tháng 8");
-		comboBox_orderMonth.addItem("Tháng 9");
-		comboBox_orderMonth.addItem("Tháng 10");
-		comboBox_orderMonth.addItem("Tháng 11");
-		comboBox_orderMonth.addItem("Tháng 12");
-		
+		for (int i = 1; i <= 12; i++) {
+			comboBox_orderMonth.addItem("Tháng " + i);
+		}
 		comboBox_orderMonth.setBounds(586, 15, 114, 20);
 		panel_5_1.add(comboBox_orderMonth);
 
@@ -1106,7 +1096,7 @@ public class AdminUI extends JFrame {
 		
 		JLabel lblNewLabel_9_2_2_1_1 = new JLabel("Mã sản phẩm:");
 		lblNewLabel_9_2_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_2_2_1_1.setBounds(487, 175, 66, 13);
+		lblNewLabel_9_2_2_1_1.setBounds(487, 175, 77, 13);
 		panel_receipt.add(lblNewLabel_9_2_2_1_1);
 		
 		JComboBox comboBox_receiptProdId = new JComboBox();

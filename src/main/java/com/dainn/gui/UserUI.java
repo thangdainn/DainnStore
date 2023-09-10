@@ -16,14 +16,30 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Dimension;
+
 import javax.swing.JSeparator;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
+import java.awt.GridLayout;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JProgressBar;
+import javax.swing.JSlider;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 
 public class UserUI extends JFrame {
 
 	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JPanel panel_3;
+	private JTextField tF_quantity;
 
 	
 	public UserUI() {
@@ -43,7 +59,7 @@ public class UserUI extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_5 = new JLabel("Dainn Phone");
+		JLabel lblNewLabel_5 = new JLabel("Dainn Store");
 		lblNewLabel_5.setForeground(Color.BLACK);
 		lblNewLabel_5.setFont(new Font("Segoe Print", Font.BOLD, 24));
 		lblNewLabel_5.setBounds(10, 23, 169, 47);
@@ -262,19 +278,176 @@ public class UserUI extends JFrame {
 		cart_1.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-account-30.png")));
 		panel_1.add(cart_1);
 		
+		textField = new JTextField();
+		textField.setBounds(172, 12, 311, 29);
+		panel_1.add(textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setBounds(493, 11, 30, 30);
+		btnNewButton_1.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-search-24.png")));
+		panel_1.add(btnNewButton_1);
+		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(190, 63, 893, 557);
+		panel_2.setBounds(190, 52, 893, 568);
 		contentPane.add(panel_2);
 		panel_2.setLayout(new CardLayout(0, 0));
 		
-		JPanel panel_3 = new JPanel();
-		panel_2.add(panel_3, "name_349270714058800");
-		panel_3.setLayout(null);
+		JPanel card_product = new JPanel();
+		panel_2.add(card_product, "name_349270714058800");
+		card_product.setLayout(null);
 		
 		JPanel panel_4 = new JPanel();
-		panel_2.add(panel_4, "name_349277620621800");
+		panel_4.setBounds(0, 0, 893, 39);
+		card_product.add(panel_4);
 		panel_4.setLayout(null);
+		
+		JLabel lblNewLabel_6 = new JLabel("Từ:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_6.setBounds(569, 5, 23, 29);
+		panel_4.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Đến:");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_7.setBounds(691, 5, 29, 29);
+		panel_4.add(lblNewLabel_7);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(591, 10, 90, 19);
+		panel_4.add(textField_1);
+		textField_1.setColumns(10);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(720, 10, 90, 19);
+		panel_4.add(textField_2);
+		
+		JLabel lblNewLabel_4 = new JLabel("Lọc theo giá:");
+		lblNewLabel_4.setForeground(new Color(0, 102, 102));
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_4.setBounds(481, 7, 78, 24);
+		panel_4.add(lblNewLabel_4);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setBounds(820, 6, 26, 26);
+		btnNewButton.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-filter-24.png")));
+		panel_4.add(btnNewButton);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 37, 893, 531);
+		card_product.add(scrollPane);
+		
+		panel_3 = new JPanel();
+		scrollPane.setViewportView(panel_3);
+		panel_3.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_6 = new JPanel();
+		panel_6.setBorder(null);
+		FlowLayout flowLayout_1 = (FlowLayout) panel_6.getLayout();
+		flowLayout_1.setHgap(10);
+		panel_3.add(panel_6, BorderLayout.WEST);
+		
+		JPanel panel_7 = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) panel_7.getLayout();
+		flowLayout.setHgap(10);
+		panel_3.add(panel_7, BorderLayout.EAST);
+		
+		JPanel panel_8 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_8.getLayout();
+		flowLayout_2.setVgap(10);
+		panel_3.add(panel_8, BorderLayout.NORTH);
+		
+		JPanel panel_9 = new JPanel();
+		panel_3.add(panel_9, BorderLayout.SOUTH);
+		
+		this.addPanelProduct(panel_3, 3);
+		
+		JPanel panel_receipt = new JPanel();
+		panel_2.add(panel_receipt, "name_349277620621800");
+		panel_receipt.setLayout(null);
 
 		this.setVisible(true);
+	}
+	
+	public void addPanelProduct(JPanel Panel, int length) {
+		int row = 3;
+		if (length / 5 <= 2) {
+			row = 3;
+		} else if (length % 5 != 0) {
+			row = length / 5 + 1;
+		} else {
+			row = length / 5;
+		}
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(new Color(240, 240, 240));
+		Panel.add(panel_5, BorderLayout.CENTER);
+		panel_5.setLayout(new GridLayout(row, 5, 22, 20));
+		int countEmptyPanel = 0;
+		if (row == 3 && length < 13){
+			countEmptyPanel = 13 - length;
+		}
+
+		for (int i = 1; i <= length; i++) {
+			panel_5.add(createPanelProduct(length));
+        }
+		for (int i = 1; i <= countEmptyPanel; i++) {
+			panel_5.add(emptyPanelProduct());
+		}
+	}
+	
+	public JPanel createPanelProduct(int length) {
+		JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_3_3.setBackground(new Color(255, 255, 255));
+		panel_3_3.setPreferredSize(new Dimension(149, 190));
+
+		JLabel lblNewLabel_3 = new JLabel("");
+		lblNewLabel_3.setBackground(new Color(255, 255, 255));
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_3.setPreferredSize(new Dimension(105, 105));
+		panel_3_3.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_8 = new JLabel("iPhone 14 Pro Max");
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setPreferredSize(new Dimension(129, 21));
+		panel_3_3.add(lblNewLabel_8);
+
+		JPanel pricePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+		pricePanel.setBackground(Color.WHITE);
+
+		JLabel lblNewLabel_8_1_1 = new JLabel("Giá:");
+		lblNewLabel_8_1_1.setHorizontalAlignment(SwingConstants.CENTER);
+		panel_3_3.add(lblNewLabel_8_1_1);
+
+		JLabel lblNewLabel_8_1 = new JLabel("24000000");
+		lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_3_3.add(lblNewLabel_8_1);
+
+		panel_3_3.add(pricePanel);
+
+		JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+		actionPanel.setBackground(Color.WHITE);
+
+		tF_quantity = new JTextField();
+		tF_quantity.setHorizontalAlignment(SwingConstants.CENTER);
+		tF_quantity.setPreferredSize(new Dimension(25, 23));
+		actionPanel.add(tF_quantity);
+		tF_quantity.setColumns(3);
+
+		JButton btnNewButton_2 = new JButton("");
+		btnNewButton_2.setHorizontalAlignment(SwingConstants.CENTER);
+		btnNewButton_2.setPreferredSize(new Dimension(26, 25));
+		btnNewButton_2.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-shopping-cart-22.png")));
+		actionPanel.add(btnNewButton_2);
+
+		panel_3_3.add(actionPanel);
+		
+		return panel_3_3;
+	}
+
+	public JPanel emptyPanelProduct(){
+		JPanel emptyPanel = new JPanel();
+		emptyPanel.setBackground(new Color(240, 240, 240));
+		emptyPanel.setPreferredSize(new Dimension(149, 190));
+		return emptyPanel;
 	}
 }
