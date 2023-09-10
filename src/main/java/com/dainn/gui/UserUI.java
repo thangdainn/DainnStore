@@ -1,36 +1,10 @@
 package com.dainn.gui;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.CardLayout;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.Dimension;
-
-import javax.swing.JSeparator;
-import javax.swing.border.EtchedBorder;
-import javax.swing.border.LineBorder;
-import javax.swing.border.MatteBorder;
-import java.awt.GridLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.JProgressBar;
-import javax.swing.JSlider;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
 public class UserUI extends JFrame {
 
@@ -370,7 +344,7 @@ public class UserUI extends JFrame {
 	}
 	
 	public void addPanelProduct(JPanel Panel, int length) {
-		int row = 3;
+		int row;
 		if (length / 5 <= 2) {
 			row = 3;
 		} else if (length % 5 != 0) {
@@ -388,14 +362,14 @@ public class UserUI extends JFrame {
 		}
 
 		for (int i = 1; i <= length; i++) {
-			panel_5.add(createPanelProduct(length));
+			panel_5.add(createPanelProduct());
         }
 		for (int i = 1; i <= countEmptyPanel; i++) {
 			panel_5.add(emptyPanelProduct());
 		}
 	}
 	
-	public JPanel createPanelProduct(int length) {
+	public JPanel createPanelProduct() {
 		JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_3_3.setBackground(new Color(255, 255, 255));
 		panel_3_3.setPreferredSize(new Dimension(149, 190));

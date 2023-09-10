@@ -1,15 +1,15 @@
-package com.dainn.bll.impl;
+package com.dainn.service.impl;
 
-import com.dainn.bll.IAccountBLL;
+import com.dainn.service.IAccountService;
 import com.dainn.dao.IAccountDAO;
 import com.dainn.dao.impl.AccountDAO;
 import com.dainn.dto.AccountDTO;
 
-public class AccountBLL implements IAccountBLL {
+public class AccountService implements IAccountService {
 
     private IAccountDAO accountDAO;
 
-    public AccountBLL() {
+    public AccountService() {
         this.accountDAO = new AccountDAO();
     }
 

@@ -8,8 +8,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.*;
 
-import com.dainn.bll.IAccountBLL;
-import com.dainn.bll.impl.AccountBLL;
+import com.dainn.service.IAccountService;
+import com.dainn.service.impl.AccountService;
 import com.dainn.dto.AccountDTO;
 import com.dainn.gui.AdminUI;
 import com.dainn.gui.LoginUI;
@@ -17,11 +17,11 @@ import com.dainn.gui.UserUI;
 
 public class LoginController implements ActionListener, MouseListener {
     private LoginUI loginUI;
-    private IAccountBLL accountBLL;
+    private IAccountService accountService;
 
     public LoginController(LoginUI loginUI) {
         this.loginUI = loginUI;
-        this.accountBLL = new AccountBLL();
+        this.accountService = new AccountService();
     }
 
     @Override
@@ -73,7 +73,7 @@ public class LoginController implements ActionListener, MouseListener {
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(loginUI, "Vui lòng điền đầy đủ thông tin!");
         } else {
-            AccountDTO accountDTO = accountBLL.findByUserNameAndPasswordAndStatus(username, password, 1);
+            AccountDTO accountDTO = accountService.findByUserNameAndPasswordAndStatus(username, password, 1);
             if (accountDTO != null) {
                 if (accountDTO.getRoleId().equals("ADMIN")) {
                     loginUI.setVisible(false);
@@ -101,7 +101,7 @@ public class LoginController implements ActionListener, MouseListener {
         } else if (!phone.matches(regex) || phone.length() > 10){
             JOptionPane.showMessageDialog(loginUI, "Số điện thoại không hợp lệ.");
         } else if (rePassword.equals(password)) {
-            AccountDTO accountDTO = accountBLL.findByUserName(username);
+            AccountDTO accountDTO = accountService.findByUserName(username);
             if (accountDTO == null) {
                 accountDTO = new AccountDTO();
                 accountDTO.setUsername(username);
@@ -111,7 +111,7 @@ public class LoginController implements ActionListener, MouseListener {
                 accountDTO.setPassword(password);
                 accountDTO.setStatus(1);
                 accountDTO.setRoleId("USER");
-                accountBLL.save(accountDTO);
+                accountService.save(accountDTO);
                 JOptionPane.showMessageDialog(loginUI, "Tạo tài khoản thành công.");
                 loginUI.showCard("panel_login");
             } else {

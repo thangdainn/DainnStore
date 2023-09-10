@@ -1,49 +1,18 @@
 package com.dainn.gui;
 
-import java.awt.CardLayout;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Font;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.util.List;
+import com.dainn.controller.admin.AdminHomeController;
+import com.dainn.dto.AccountDTO;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
-
-import com.dainn.controller.admin.AdminHomeController;
-import com.dainn.dto.AccountDTO;
-//import com.thangdainn.PS.controller.AdminAccController;
-//import com.thangdainn.PS.controller.AdminCusController;
-//import com.thangdainn.PS.controller.AdminHomeController;
-//import com.thangdainn.PS.controller.AdminOrderController;
-//import com.thangdainn.PS.controller.AdminProductController;
-//import com.thangdainn.PS.dao.AccountDAO;
-//import com.thangdainn.PS.dao.CustomerDAO;
-//import com.thangdainn.PS.dao.CustomerOrderDAO;
-//import com.thangdainn.PS.dao.ProductDAO;
-//import com.thangdainn.PS.entitys.Access;
-//import com.thangdainn.PS.entitys.Account;
-//import com.thangdainn.PS.entitys.Customer;
-//import com.thangdainn.PS.entitys.CustomerOrder;
-//import com.thangdainn.PS.entitys.Product;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class AdminUI extends JFrame {
 
