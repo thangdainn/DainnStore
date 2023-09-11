@@ -1,6 +1,7 @@
 package com.dainn.gui;
 
 import com.dainn.controller.user.UserHomeController;
+import com.dainn.controller.user.UserProductController;
 import com.dainn.dto.ProductDTO;
 import com.dainn.service.IProductService;
 import com.dainn.service.impl.ProductService;
@@ -32,11 +33,13 @@ public class UserUI extends JFrame {
 	private JLabel lbl_header;
 	public JPanel currentPanel;
 	private boolean drag_card = true;
+	public UserProductController userProductController;
 
 	public UserUI(){
+		this.userProductController = new UserProductController(this);
 		this.init();
 		List<ProductDTO> products = this.productService.findAll();
-		this.currentPanel = this.addPanelProduct(this.panel_3, products);
+		this.currentPanel = this.addPanelProduct(this.panel_3, products, userProductController);
 	}
 	
 	public void init() {
@@ -317,6 +320,8 @@ public class UserUI extends JFrame {
 		
 		JButton btn_find = new JButton("");
 		btn_find.setName("find");
+		btn_find.addMouseListener(userProductController);
+		btn_find.addActionListener(userProductController);
 		btn_find.setBounds(493, 11, 30, 30);
 		btn_find.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-search-24.png")));
 		panel_1.add(btn_find);
@@ -363,6 +368,8 @@ public class UserUI extends JFrame {
 		
 		JButton btn_filterByPrice = new JButton("");
 		btn_filterByPrice.setName("filterByPrice");
+		btn_filterByPrice.addActionListener(userProductController);
+		btn_filterByPrice.addMouseListener(userProductController);
 		btn_filterByPrice.setBounds(820, 6, 26, 26);
 		btn_filterByPrice.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-filter-24.png")));
 		panel_4.add(btn_filterByPrice);
@@ -514,7 +521,7 @@ public class UserUI extends JFrame {
 		this.setVisible(true);
 	}
 	
-	public JPanel addPanelProduct(JPanel Panel, List<ProductDTO> products) {
+	public JPanel addPanelProduct(JPanel Panel, List<ProductDTO> products, UserProductController userProductController) {
 		int length = products.size();
 		int row = length / 5;
 		int countEmptyPanel = 0;
@@ -534,7 +541,7 @@ public class UserUI extends JFrame {
 		panel_5.setLayout(new GridLayout(row, 5, 22, 20));
 
 		for (ProductDTO product : products){
-			panel_5.add(createPanelProduct(product));
+			panel_5.add(createPanelProduct(product, userProductController));
 		}
 
 		for (int i = 1; i <= countEmptyPanel; i++) {
@@ -543,7 +550,7 @@ public class UserUI extends JFrame {
 		return panel_5;
 	}
 	
-	public JPanel createPanelProduct(ProductDTO product) {
+	public JPanel createPanelProduct(ProductDTO product, UserProductController userProductController) {
 		JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_3_3.setBackground(new Color(255, 255, 255));
 		panel_3_3.setPreferredSize(new Dimension(149, 190));
@@ -581,11 +588,14 @@ public class UserUI extends JFrame {
 		actionPanel.add(tF_quantity);
 		tF_quantity.setColumns(3);
 
-		JButton btnNewButton_2 = new JButton("");
-		btnNewButton_2.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNewButton_2.setPreferredSize(new Dimension(26, 25));
-		btnNewButton_2.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-shopping-cart-22.png")));
-		actionPanel.add(btnNewButton_2);
+		JButton btn_addCart = new JButton("");
+		btn_addCart.addMouseListener(userProductController);
+		btn_addCart.addActionListener(userProductController);
+		btn_addCart.setName("addCart");
+		btn_addCart.setHorizontalAlignment(SwingConstants.CENTER);
+		btn_addCart.setPreferredSize(new Dimension(26, 25));
+		btn_addCart.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-shopping-cart-22.png")));
+		actionPanel.add(btn_addCart);
 
 		panel_3_3.add(actionPanel);
 		
