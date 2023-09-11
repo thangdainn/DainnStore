@@ -5,6 +5,8 @@ import com.dainn.controller.user.UserProductController;
 import com.dainn.dto.ProductDTO;
 import com.dainn.service.IProductService;
 import com.dainn.service.impl.ProductService;
+import com.dainn.utils.NumberTextField;
+import com.dainn.utils.ImageUtil;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -34,6 +36,7 @@ public class UserUI extends JFrame {
 	public JPanel currentPanel;
 	private boolean drag_card = true;
 	public UserProductController userProductController;
+	private JTextField tF_receiptImportPrice;
 
 	public UserUI(){
 		this.userProductController = new UserProductController(this);
@@ -351,11 +354,13 @@ public class UserUI extends JFrame {
 		panel_4.add(lblNewLabel_7);
 		
 		tF_minPrice = new JTextField();
+		NumberTextField.numberTextField(tF_minPrice);
 		tF_minPrice.setBounds(591, 10, 90, 19);
 		panel_4.add(tF_minPrice);
 		tF_minPrice.setColumns(10);
 		
 		tF_maxPrice = new JTextField();
+		NumberTextField.numberTextField(tF_maxPrice);
 		tF_maxPrice.setColumns(10);
 		tF_maxPrice.setBounds(720, 10, 90, 19);
 		panel_4.add(tF_maxPrice);
@@ -412,48 +417,61 @@ public class UserUI extends JFrame {
 		JPanel product_infor_1 = new JPanel();
 		product_infor_1.setLayout(null);
 		product_infor_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Th\u00F4ng tin phi\u1EBFu nh\u1EADp", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		product_infor_1.setBounds(10, 10, 873, 78);
+		product_infor_1.setBounds(10, 10, 873, 118);
 		card_receipt.add(product_infor_1);
 		
 		JLabel lblNewLabel_9_4 = new JLabel("Mã nhà cung cấp:");
 		lblNewLabel_9_4.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_4.setBounds(50, 29, 91, 13);
+		lblNewLabel_9_4.setBounds(93, 30, 91, 13);
 		product_infor_1.add(lblNewLabel_9_4);
 		
 		JLabel lblNewLabel_9_1_2 = new JLabel("Mã sản phẩm:");
 		lblNewLabel_9_1_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_1_2.setBounds(341, 29, 91, 13);
+		lblNewLabel_9_1_2.setBounds(93, 73, 91, 13);
 		product_infor_1.add(lblNewLabel_9_1_2);
 		
 		JComboBox comboBox_receiptProdId = new JComboBox();
 		comboBox_receiptProdId.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_receiptProdId.setBounds(425, 26, 126, 19);
+		comboBox_receiptProdId.setBounds(194, 70, 126, 19);
 		product_infor_1.add(comboBox_receiptProdId);
 		
 		JLabel lblNewLabel_9_2_2_1 = new JLabel("Số lượng:");
 		lblNewLabel_9_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_2_2_1.setBounds(621, 29, 57, 13);
+		lblNewLabel_9_2_2_1.setBounds(523, 73, 57, 13);
 		product_infor_1.add(lblNewLabel_9_2_2_1);
 		
 		JComboBox comboBox_receiptSuppId = new JComboBox();
 		comboBox_receiptSuppId.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_receiptSuppId.setBounds(151, 26, 126, 19);
+		comboBox_receiptSuppId.setBounds(194, 27, 126, 19);
 		product_infor_1.add(comboBox_receiptSuppId);
 		
 		tF_receiptQuantity = new JTextField();
+		NumberTextField.numberTextField(tF_receiptQuantity);
 		tF_receiptQuantity.setColumns(10);
 		tF_receiptQuantity.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		tF_receiptQuantity.setBounds(688, 26, 126, 19);
+		tF_receiptQuantity.setBounds(590, 70, 126, 19);
 		product_infor_1.add(tF_receiptQuantity);
+		
+		JLabel lblNewLabel_9_2_2_1_1 = new JLabel("Giá nhập:");
+		lblNewLabel_9_2_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_2_2_1_1.setBounds(523, 30, 57, 13);
+		product_infor_1.add(lblNewLabel_9_2_2_1_1);
+		
+		tF_receiptImportPrice = new JTextField();
+		NumberTextField.numberTextField(tF_receiptImportPrice);
+		tF_receiptImportPrice.setColumns(10);
+		tF_receiptImportPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		tF_receiptImportPrice.setBounds(590, 27, 126, 19);
+		product_infor_1.add(tF_receiptImportPrice);
 		
 		JPanel product_infor_1_1 = new JPanel();
 		product_infor_1_1.setLayout(null);
 		product_infor_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "S\u1EA3n ph\u1EA9m nh\u1EADp", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		product_infor_1_1.setBounds(10, 98, 873, 392);
+		product_infor_1_1.setBounds(10, 138, 873, 352);
 		card_receipt.add(product_infor_1_1);
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(10, 26, 853, 327);
+		scrollPane_1.setBounds(10, 26, 853, 282);
 		product_infor_1_1.add(scrollPane_1);
 		
 		table_receiptProd = new JTable();
@@ -461,7 +479,7 @@ public class UserUI extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"M\u00E3 s\u1EA3n ph\u1EA9m", "T\u00EAn s\u1EA3n ph\u1EA9m", "S\u1ED1 l\u01B0\u1EE3ng", "\u0110\u01A1n gi\u00E1", "Th\u00E0nh ti\u1EC1n"
+				"M\u00E3 s\u1EA3n ph\u1EA9m", "T\u00EAn s\u1EA3n ph\u1EA9m", "S\u1ED1 l\u01B0\u1EE3ng", "Gi\u00E1 nh\u1EADp", "Th\u00E0nh ti\u1EC1n"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
@@ -483,39 +501,39 @@ public class UserUI extends JFrame {
 		
 		tF_receiptTotalPrice = new JTextField();
 		tF_receiptTotalPrice.setEditable(false);
-		tF_receiptTotalPrice.setBounds(770, 363, 93, 19);
+		tF_receiptTotalPrice.setBounds(770, 318, 93, 19);
 		product_infor_1_1.add(tF_receiptTotalPrice);
 		tF_receiptTotalPrice.setColumns(10);
 		
 		JLabel lblNewLabel_9 = new JLabel("Tổng tiền:");
 		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9.setBounds(713, 363, 58, 19);
+		lblNewLabel_9.setBounds(714, 318, 58, 19);
 		product_infor_1_1.add(lblNewLabel_9);
 		
 		JPanel panel_4_1 = new JPanel();
 		panel_4_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 		panel_4_1.setLayout(null);
-		panel_4_1.setBounds(24, 493, 842, 51);
+		panel_4_1.setBounds(83, 493, 727, 51);
 		card_receipt.add(panel_4_1);
 		
 		JButton btn_receiptAddProd = new JButton("Thêm sản phẩm");
 		btn_receiptAddProd.setBackground(new Color(149, 92, 211));
-		btn_receiptAddProd.setBounds(115, 15, 107, 21);
+		btn_receiptAddProd.setBounds(42, 15, 107, 21);
 		panel_4_1.add(btn_receiptAddProd);
 		
 		JButton btn_receiptDeleteProd = new JButton("Xóa sản phẩm");
 		btn_receiptDeleteProd.setBackground(new Color(149, 92, 211));
-		btn_receiptDeleteProd.setBounds(232, 15, 107, 21);
+		btn_receiptDeleteProd.setBounds(159, 15, 107, 21);
 		panel_4_1.add(btn_receiptDeleteProd);
 		
 		JButton btn_receiptDeleteAllProd = new JButton("Xóa tất cả");
 		btn_receiptDeleteAllProd.setBackground(new Color(149, 92, 211));
-		btn_receiptDeleteAllProd.setBounds(349, 15, 107, 21);
+		btn_receiptDeleteAllProd.setBounds(276, 15, 107, 21);
 		panel_4_1.add(btn_receiptDeleteAllProd);
 		
 		JButton btn_createReceipt = new JButton("Tạo phiếu");
 		btn_createReceipt.setBackground(new Color(149, 92, 211));
-		btn_createReceipt.setBounds(675, 15, 85, 21);
+		btn_createReceipt.setBounds(606, 15, 85, 21);
 		panel_4_1.add(btn_createReceipt);
 
 		this.setVisible(true);
@@ -554,11 +572,13 @@ public class UserUI extends JFrame {
 		JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_3_3.setBackground(new Color(255, 255, 255));
 		panel_3_3.setPreferredSize(new Dimension(149, 190));
+//		panel_3_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(128, 128, 128), null));
 
-		JLabel lblNewLabel_3 = new JLabel(product.getImage());
-		lblNewLabel_3.setBackground(new Color(255, 255, 255));
+		JLabel lblNewLabel_3 = new JLabel();
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setPreferredSize(new Dimension(105, 105));
+		lblNewLabel_3.setSize(new Dimension(105, 105));
+		ImageUtil.scaleImage(product.getImage(), lblNewLabel_3);
 		panel_3_3.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_8 = new JLabel(product.getName());
@@ -583,6 +603,7 @@ public class UserUI extends JFrame {
 		actionPanel.setBackground(Color.WHITE);
 
 		tF_quantity = new JTextField();
+		NumberTextField.numberTextField(tF_quantity);
 		tF_quantity.setHorizontalAlignment(SwingConstants.CENTER);
 		tF_quantity.setPreferredSize(new Dimension(25, 23));
 		actionPanel.add(tF_quantity);
@@ -662,5 +683,4 @@ public class UserUI extends JFrame {
 		}
 		return this.currentCategoryName;
 	}
-
 }
