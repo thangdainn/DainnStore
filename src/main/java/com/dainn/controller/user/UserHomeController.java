@@ -35,16 +35,17 @@ public class UserHomeController implements ActionListener, MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        this.userUI.currentPanel.setVisible(false);
     	JPanel panel = (JPanel) e.getSource();
     	String result = this.userUI.handleShowCard(panel);
     	if (result.equals("all")) {
     		List<ProductDTO> products = this.productService.findAll();
-    		this.userUI.addPanelProduct(this.userUI.panel_3, products);
-    	} else if (result.equals("none")) {
+    		this.userUI.currentPanel = this.userUI.addPanelProduct(this.userUI.panel_3, products);
+    	} else if (result.equals("receipt")) {
     		
     	} else {
     		List<ProductDTO> products = this.productService.findByCategoryName(result);
-            this.userUI.addPanelProduct(this.userUI.panel_3, products);
+            this.userUI.currentPanel = this.userUI.addPanelProduct(this.userUI.panel_3, products);
     	}
     }
 

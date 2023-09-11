@@ -2,6 +2,8 @@ package com.dainn.gui;
 
 import com.dainn.controller.user.UserHomeController;
 import com.dainn.dto.ProductDTO;
+import com.dainn.service.IProductService;
+import com.dainn.service.impl.ProductService;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +17,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class UserUI extends JFrame {
 
+	private IProductService productService = new ProductService();
+	public String currentCategoryName = "all";
 	private JPanel contentPane;
 	private JTextField tF_find;
 	private JTextField tF_minPrice;
@@ -26,9 +30,16 @@ public class UserUI extends JFrame {
 	private JTextField tF_receiptTotalPrice;
 	private JPanel panel_card;
 	private JLabel lbl_header;
+	public JPanel currentPanel;
+	private boolean drag_card = true;
 
+	public UserUI(){
+		this.init();
+		List<ProductDTO> products = this.productService.findAll();
+		this.currentPanel = this.addPanelProduct(this.panel_3, products);
+	}
 	
-	public UserUI() {
+	public void init() {
 		setSize(1097, 657);
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -289,7 +300,7 @@ public class UserUI extends JFrame {
 		
 		lbl_header = new JLabel("Tất cả");
 		lbl_header.setForeground(new Color(0, 128, 128));
-		lbl_header.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.BOLD, 26));
+		lbl_header.setFont(new Font("Times New Roman", Font.BOLD, 26));
 		lbl_header.setBounds(21, 4, 182, 45);
 		panel_1.add(lbl_header);
 		
@@ -503,24 +514,24 @@ public class UserUI extends JFrame {
 		this.setVisible(true);
 	}
 	
-	public void addPanelProduct(JPanel Panel, List<ProductDTO> products) {
-		int row;
+	public JPanel addPanelProduct(JPanel Panel, List<ProductDTO> products) {
 		int length = products.size();
-		if (length / 5 <= 2) {
+		int row = length / 5;
+		int countEmptyPanel = 0;
+		if (row <= 2) {
 			row = 3;
-		} else if (length % 5 != 0) {
-			row = length / 5 + 1;
+			countEmptyPanel = 15 - length;
 		} else {
-			row = length / 5;
+			int temp = length % 5;
+			if (temp != 0) {
+				row = length / 5 + 1;
+				countEmptyPanel = 5 - temp;
+			}
 		}
 		JPanel panel_5 = new JPanel();
 		panel_5.setBackground(new Color(240, 240, 240));
 		Panel.add(panel_5, BorderLayout.CENTER);
 		panel_5.setLayout(new GridLayout(row, 5, 22, 20));
-		int countEmptyPanel = 0;
-		if (row == 3 && length > 0 && length < 13){
-			countEmptyPanel = 13 - length;
-		}
 
 		for (ProductDTO product : products){
 			panel_5.add(createPanelProduct(product));
@@ -529,6 +540,7 @@ public class UserUI extends JFrame {
 		for (int i = 1; i <= countEmptyPanel; i++) {
 			panel_5.add(emptyPanelProduct());
 		}
+		return panel_5;
 	}
 	
 	public JPanel createPanelProduct(ProductDTO product) {
@@ -536,13 +548,13 @@ public class UserUI extends JFrame {
 		panel_3_3.setBackground(new Color(255, 255, 255));
 		panel_3_3.setPreferredSize(new Dimension(149, 190));
 
-		JLabel lblNewLabel_3 = new JLabel("");
+		JLabel lblNewLabel_3 = new JLabel(product.getImage());
 		lblNewLabel_3.setBackground(new Color(255, 255, 255));
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setPreferredSize(new Dimension(105, 105));
 		panel_3_3.add(lblNewLabel_3);
 		
-		JLabel lblNewLabel_8 = new JLabel("iPhone 14 Pro Max");
+		JLabel lblNewLabel_8 = new JLabel(product.getName());
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setPreferredSize(new Dimension(129, 21));
 		panel_3_3.add(lblNewLabel_8);
@@ -554,7 +566,7 @@ public class UserUI extends JFrame {
 		lblNewLabel_8_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panel_3_3.add(lblNewLabel_8_1_1);
 
-		JLabel lblNewLabel_8_1 = new JLabel("24000000");
+		JLabel lblNewLabel_8_1 = new JLabel(product.getPrice() + "");
 		lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_3_3.add(lblNewLabel_8_1);
 
@@ -589,36 +601,56 @@ public class UserUI extends JFrame {
 	
 	public String handleShowCard(JPanel panel) {
 		CardLayout cardLayout = (CardLayout) this.panel_card.getLayout();
-		String result = "none";
+//		this.currentCategoryName = "none";
 		if (panel.getName().equals("receipt")) {
 			this.lbl_header.setText("Nhập hàng");
+			this.drag_card = false;
 			cardLayout.show(panel_card, "card_receipt");
+			this.currentCategoryName = "receipt";
 		} else if (panel.getName().equals("allProduct")){
 			this.lbl_header.setText("Tất cả");
-			cardLayout.show(panel_card, "card_product");
-			result = "all";
+			if (!this.drag_card){
+				cardLayout.show(panel_card, "card_product");
+				this.drag_card = true;
+			}
+			this.currentCategoryName = "all";
 		} else if (panel.getName().equals("iPhone")){
-			this.lbl_header.setText("Nhập hàng");
-			cardLayout.show(panel_card, "card_product");
-			result = "iPhone";
+			this.lbl_header.setText("iPhone");
+			if (!this.drag_card){
+				cardLayout.show(panel_card, "card_product");
+				this.drag_card = false;
+			}
+			this.currentCategoryName = "iPhone";
 		} else if (panel.getName().equals("iPad")){
 			this.lbl_header.setText("iPad");
-			cardLayout.show(panel_card, "card_product");
-			result = "iPad";
+			if (!this.drag_card){
+				cardLayout.show(panel_card, "card_product");
+				this.drag_card = false;
+			}
+			this.currentCategoryName = "iPad";
 		} else if (panel.getName().equals("watch")){
 			this.lbl_header.setText("Apple Watch");
-			cardLayout.show(panel_card, "card_product");
-			result = "Watch";
+			if (!this.drag_card){
+				cardLayout.show(panel_card, "card_product");
+				this.drag_card = false;
+			}
+			this.currentCategoryName = "Watch";
 		} else if (panel.getName().equals("macBook")){
 			this.lbl_header.setText("Mac");
-			cardLayout.show(panel_card, "card_product");
-			result = "Mac";
+			if (!this.drag_card){
+				cardLayout.show(panel_card, "card_product");
+				this.drag_card = false;
+			}
+			this.currentCategoryName = "Mac";
 		} else if (panel.getName().equals("airPods")){
 			this.lbl_header.setText("AirPods");
-			cardLayout.show(panel_card, "card_product");
-			result = "AirPods";
+			if (!this.drag_card){
+				cardLayout.show(panel_card, "card_product");
+				this.drag_card = false;
+			}
+			this.currentCategoryName = "AirPods";
 		}
-		return result;
+		return this.currentCategoryName;
 	}
 
 }
