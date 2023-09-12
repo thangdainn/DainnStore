@@ -31,7 +31,6 @@ public class ImageUtil {
                 JOptionPane.showMessageDialog(frame, "File ảnh không đúng định dạng");
             }
         }
-        System.out.println(imgPath);
         return imgPath;
     }
 }
