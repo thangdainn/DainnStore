@@ -22,10 +22,9 @@ public class ImageUtil {
             String fileName = file.getName();
             if (fileName.endsWith(".png") || fileName.endsWith(".jpg")) {
                 String resourcePath = "src/main/resources";
-                int lengthResourcePath = resourcePath.length();
                 String absolutePath = file.getAbsolutePath();
                 absolutePath = absolutePath.replace(File.separator, "/");
-                imgPath = absolutePath.substring(absolutePath.lastIndexOf(resourcePath) + lengthResourcePath);
+                imgPath = absolutePath.substring(absolutePath.lastIndexOf(resourcePath) + resourcePath.length());
                 scaleImage(imgPath, label);
             } else {
                 JOptionPane.showMessageDialog(frame, "File ảnh không đúng định dạng");
