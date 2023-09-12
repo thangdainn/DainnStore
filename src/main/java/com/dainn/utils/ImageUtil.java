@@ -6,7 +6,7 @@ import java.io.File;
 
 public class ImageUtil {
     public static void scaleImage(String path, JLabel label) {
-        ImageIcon icon = new ImageIcon(path);
+        ImageIcon icon = new ImageIcon("src/main/resources" + path);
         Image img = icon.getImage();
         Image imgScale = img.getScaledInstance(label.getWidth(), label.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon scaledIcon = new ImageIcon(imgScale);

@@ -2,6 +2,7 @@ package com.dainn.gui;
 
 import com.dainn.controller.admin.AdminHomeController;
 import com.dainn.dto.AccountDTO;
+import com.dainn.utils.NumberTextField;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -60,6 +61,8 @@ public class AdminUI extends JFrame {
 	public JTable table_receipt;
 	public JTextField textField_receiptQuantity;
 	public JTable table_receiptProd;
+	private JTextField textField_receiptAccId;
+	private JTextField textField_receiptPrice;
 
 	public AdminUI(AccountDTO account) {
 		this.init();
@@ -277,25 +280,27 @@ public class AdminUI extends JFrame {
 		product_infor.add(textField_proName);
 
 		textField_proQuantity = new JTextField();
+		NumberTextField.numberTextField(textField_proQuantity);
 		textField_proQuantity.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_proQuantity.setColumns(10);
 		textField_proQuantity.setBounds(140, 111, 145, 19);
 		product_infor.add(textField_proQuantity);
 
-		JLabel lblNewLabel_9_1_1 = new JLabel("Mã loại sản phẩm:");
+		JLabel lblNewLabel_9_1_1 = new JLabel("Loại sản phẩm:");
 		lblNewLabel_9_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_1_1.setBounds(321, 73, 109, 13);
+		lblNewLabel_9_1_1.setBounds(334, 71, 84, 13);
 		product_infor.add(lblNewLabel_9_1_1);
 
 		JLabel lblNewLabel_9_3 = new JLabel("Đơn giá:");
 		lblNewLabel_9_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3.setBounds(321, 31, 109, 13);
+		lblNewLabel_9_3.setBounds(334, 29, 75, 13);
 		product_infor.add(lblNewLabel_9_3);
 
 		textField_proPrice = new JTextField();
+		NumberTextField.numberTextField(textField_proPrice);
 		textField_proPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_proPrice.setColumns(10);
-		textField_proPrice.setBounds(428, 29, 145, 19);
+		textField_proPrice.setBounds(428, 26, 145, 19);
 		product_infor.add(textField_proPrice);
 
 		JLabel lblNewLabel_9_3_1 = new JLabel("Hình ảnh:");
@@ -318,12 +323,12 @@ public class AdminUI extends JFrame {
 		
 		comboBox_prodCateId = new JComboBox();
 		comboBox_prodCateId.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_prodCateId.addItem("Chọn mã loại sản phẩm");
-		comboBox_prodCateId.addItem("iphone");
-		comboBox_prodCateId.addItem("ipad");
-		comboBox_prodCateId.addItem("mac");
-		comboBox_prodCateId.addItem("watch");
-		comboBox_prodCateId.addItem("airpods");
+		comboBox_prodCateId.addItem("Chọn loại sản phẩm");
+		comboBox_prodCateId.addItem("iPhone");
+		comboBox_prodCateId.addItem("iPad");
+		comboBox_prodCateId.addItem("MacBook");
+		comboBox_prodCateId.addItem("Apple Watch");
+		comboBox_prodCateId.addItem("AirPods");
 		comboBox_prodCateId.setBounds(428, 68, 145, 19);
 		product_infor.add(comboBox_prodCateId);
 
@@ -600,6 +605,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_9_3_3);
 
 		textField_cusPhone = new JTextField();
+		NumberTextField.numberTextField(textField_cusPhone);
 		textField_cusPhone.setColumns(10);
 		textField_cusPhone.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_cusPhone.setBounds(439, 30, 124, 19);
@@ -901,8 +907,12 @@ public class AdminUI extends JFrame {
 		panel_5_4.add(btn_receiptFind);
 		
 		JComboBox comboBox_receiptMonth = new JComboBox();
-		comboBox_receiptMonth.setBounds(644, 15, 103, 20);
+		comboBox_receiptMonth.setBounds(743, 15, 77, 20);
 		panel_5_4.add(comboBox_receiptMonth);
+		
+		JComboBox comboBox_receiptMonth_1 = new JComboBox();
+		comboBox_receiptMonth_1.setBounds(641, 15, 77, 20);
+		panel_5_4.add(comboBox_receiptMonth_1);
 		
 		JPanel product_infor_1 = new JPanel();
 		product_infor_1.setLayout(null);
@@ -922,7 +932,7 @@ public class AdminUI extends JFrame {
 		
 		JLabel lblNewLabel_9_2_2 = new JLabel("Ngày nhập:");
 		lblNewLabel_9_2_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_2_2.setBounds(583, 29, 62, 13);
+		lblNewLabel_9_2_2.setBounds(321, 71, 62, 13);
 		product_infor_1.add(lblNewLabel_9_2_2);
 		
 		textField_receiptId = new JTextField();
@@ -933,21 +943,22 @@ public class AdminUI extends JFrame {
 		product_infor_1.add(textField_receiptId);
 		
 		textField_receiptTotalPrice = new JTextField();
+		textField_receiptTotalPrice.setEditable(false);
 		textField_receiptTotalPrice.setColumns(10);
 		textField_receiptTotalPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_receiptTotalPrice.setBounds(403, 68, 126, 19);
+		textField_receiptTotalPrice.setBounds(654, 26, 126, 19);
 		product_infor_1.add(textField_receiptTotalPrice);
 		
 		JLabel lblNewLabel_9_3_2 = new JLabel("Thành tiền:");
 		lblNewLabel_9_3_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3_2.setBounds(321, 71, 109, 13);
+		lblNewLabel_9_3_2.setBounds(583, 29, 73, 13);
 		product_infor_1.add(lblNewLabel_9_3_2);
 		
 		textField_receiptDate = new JTextField();
 		textField_receiptDate.setEditable(false);
 		textField_receiptDate.setColumns(10);
 		textField_receiptDate.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_receiptDate.setBounds(655, 26, 126, 19);
+		textField_receiptDate.setBounds(403, 68, 126, 19);
 		product_infor_1.add(textField_receiptDate);
 		
 		JComboBox comboBox_receiptSuppId = new JComboBox();
@@ -955,14 +966,17 @@ public class AdminUI extends JFrame {
 		comboBox_receiptSuppId.setBounds(140, 68, 126, 19);
 		product_infor_1.add(comboBox_receiptSuppId);
 		
-		JComboBox comboBox_receiptAccId = new JComboBox();
-		comboBox_receiptAccId.setBounds(403, 26, 126, 19);
-		product_infor_1.add(comboBox_receiptAccId);
-		
 		JLabel lblNewLabel_9_2_2_1 = new JLabel("Mã nhân viên:");
 		lblNewLabel_9_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_2_2_1.setBounds(321, 29, 91, 13);
 		product_infor_1.add(lblNewLabel_9_2_2_1);
+		
+		textField_receiptAccId = new JTextField();
+		textField_receiptAccId.setEditable(false);
+		textField_receiptAccId.setColumns(10);
+		textField_receiptAccId.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		textField_receiptAccId.setBounds(403, 26, 126, 19);
+		product_infor_1.add(textField_receiptAccId);
 		
 		JPanel panel_3_4 = new JPanel();
 		panel_3_4.setLayout(null);
@@ -1034,11 +1048,11 @@ public class AdminUI extends JFrame {
 		JPanel panel_3_4_1 = new JPanel();
 		panel_3_4_1.setLayout(null);
 		panel_3_4_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Danh s\u00E1ch h\u00E0ng nh\u1EADp", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_3_4_1.setBounds(477, 209, 365, 259);
+		panel_3_4_1.setBounds(477, 236, 365, 232);
 		panel_receipt.add(panel_3_4_1);
 		
 		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(10, 20, 345, 229);
+		scrollPane_5.setBounds(10, 20, 345, 202);
 		panel_3_4_1.add(scrollPane_5);
 		
 		table_receiptProd = new JTable();
@@ -1078,6 +1092,7 @@ public class AdminUI extends JFrame {
 		panel_receipt.add(lblNewLabel_9_2_2_1_1_1);
 		
 		textField_receiptQuantity = new JTextField();
+		NumberTextField.numberTextField(textField_receiptQuantity);
 		textField_receiptQuantity.setColumns(10);
 		textField_receiptQuantity.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_receiptQuantity.setBounds(737, 172, 77, 19);
@@ -1096,6 +1111,18 @@ public class AdminUI extends JFrame {
 		btnReceipt_deleteProd.setBackground(new Color(149, 92, 211));
 		btnReceipt_deleteProd.setBounds(681, 478, 85, 21);
 		panel_receipt.add(btnReceipt_deleteProd);
+		
+		JLabel lblNewLabel_9_2_2_2 = new JLabel("Giá nhập:");
+		lblNewLabel_9_2_2_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_2_2_2.setBounds(488, 208, 62, 13);
+		panel_receipt.add(lblNewLabel_9_2_2_2);
+		
+		textField_receiptPrice = new JTextField();
+		NumberTextField.numberTextField(textField_receiptPrice);
+		textField_receiptPrice.setColumns(10);
+		textField_receiptPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		textField_receiptPrice.setBounds(563, 207, 106, 19);
+		panel_receipt.add(textField_receiptPrice);
 
 		JPanel panel_header = new JPanel();
 		panel_header.setBackground(new Color(100, 98, 179));
