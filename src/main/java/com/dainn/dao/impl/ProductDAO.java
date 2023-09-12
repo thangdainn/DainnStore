@@ -18,4 +18,16 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
         String sql = "SELECT * FROM product";
         return query(sql, new ProductMapper());
     }
+
+    @Override
+    public List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer categoryId, Integer status) {
+        String sql = "SELECT * FROM product WHERE category_id = ? AND status = ? AND price BETWEEN ? AND ?";
+        return query(sql, new ProductMapper(), categoryId, status, fromPrice, toPrice);
+    }
+
+    @Override
+    public List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer status) {
+        String sql = "SELECT * FROM product WHERE status = ? AND price BETWEEN ? AND ?";
+        return query(sql, new ProductMapper(), status, fromPrice, toPrice);
+    }
 }

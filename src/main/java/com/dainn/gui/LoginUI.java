@@ -11,7 +11,7 @@ public class LoginUI extends JFrame {
 
 	public JPanel contentPane;
 	public JTextField tFLogin_username;
-	public JTextField tFLogin_password;
+	public JPasswordField tFLogin_password;
 	public JTextField tFSignUp_username;
 	public JTextField tFSignUp_password;
 	public JTextField tFSignUp_repassword;
@@ -77,7 +77,7 @@ public class LoginUI extends JFrame {
 		tFLogin_username.setBounds(86, 212, 152, 27);
 		panel_login.add(tFLogin_username);
 
-		tFLogin_password = new JTextField();
+		tFLogin_password = new JPasswordField();
 		tFLogin_password.setColumns(10);
 		tFLogin_password.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
 		tFLogin_password.setBackground(new Color(234, 234, 234));

@@ -24,8 +24,8 @@ public class UserUI extends JFrame {
 	public String currentCategoryName = "all";
 	private JPanel contentPane;
 	private JTextField tF_find;
-	private JTextField tF_minPrice;
-	private JTextField tF_maxPrice;
+	public JTextField tF_minPrice;
+	public JTextField tF_maxPrice;
 	public JPanel panel_3;
 	private JTextField tF_quantity;
 	private JTextField tF_receiptQuantity;
@@ -568,16 +568,22 @@ public class UserUI extends JFrame {
 		return panel_5;
 	}
 	
-	public JPanel createPanelProduct(ProductDTO product, UserProductController userProductController) {
+	public JPanel createPanelProduct(final ProductDTO product, UserProductController userProductController) {
 		JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_3_3.setBackground(new Color(255, 255, 255));
 		panel_3_3.setPreferredSize(new Dimension(149, 190));
+		panel_3_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new ProductDetailUI(product);
+			}
+		});
 //		panel_3_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(128, 128, 128), null));
 
 		JLabel lblNewLabel_3 = new JLabel();
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setPreferredSize(new Dimension(105, 105));
-		lblNewLabel_3.setSize(new Dimension(105, 105));
+		lblNewLabel_3.setPreferredSize(new Dimension(125, 125));
+		lblNewLabel_3.setSize(new Dimension(125, 125));
 		ImageUtil.scaleImage(product.getImage(), lblNewLabel_3);
 		panel_3_3.add(lblNewLabel_3);
 		
@@ -599,26 +605,26 @@ public class UserUI extends JFrame {
 
 		panel_3_3.add(pricePanel);
 
-		JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-		actionPanel.setBackground(Color.WHITE);
+//		JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+//		actionPanel.setBackground(Color.WHITE);
 
-		tF_quantity = new JTextField();
-		NumberTextField.numberTextField(tF_quantity);
-		tF_quantity.setHorizontalAlignment(SwingConstants.CENTER);
-		tF_quantity.setPreferredSize(new Dimension(25, 23));
-		actionPanel.add(tF_quantity);
-		tF_quantity.setColumns(3);
+//		tF_quantity = new JTextField();
+//		NumberTextField.numberTextField(tF_quantity);
+//		tF_quantity.setHorizontalAlignment(SwingConstants.CENTER);
+//		tF_quantity.setPreferredSize(new Dimension(25, 23));
+//		actionPanel.add(tF_quantity);
+//		tF_quantity.setColumns(3);
 
-		JButton btn_addCart = new JButton("");
-		btn_addCart.addMouseListener(userProductController);
-		btn_addCart.addActionListener(userProductController);
-		btn_addCart.setName("addCart");
-		btn_addCart.setHorizontalAlignment(SwingConstants.CENTER);
-		btn_addCart.setPreferredSize(new Dimension(26, 25));
-		btn_addCart.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-shopping-cart-22.png")));
-		actionPanel.add(btn_addCart);
+//		JButton btn_addCart = new JButton("");
+//		btn_addCart.addMouseListener(userProductController);
+//		btn_addCart.addActionListener(userProductController);
+//		btn_addCart.setName("addCart");
+//		btn_addCart.setHorizontalAlignment(SwingConstants.CENTER);
+//		btn_addCart.setPreferredSize(new Dimension(26, 25));
+//		btn_addCart.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-shopping-cart-22.png")));
+//		actionPanel.add(btn_addCart);
 
-		panel_3_3.add(actionPanel);
+//		panel_3_3.add(actionPanel);
 		
 		return panel_3_3;
 	}
