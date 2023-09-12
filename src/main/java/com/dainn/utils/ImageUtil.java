@@ -21,15 +21,17 @@ public class ImageUtil {
             File file = fc.getSelectedFile();
             String fileName = file.getName();
             if (fileName.endsWith(".png") || fileName.endsWith(".jpg")) {
-                String resourcePath = "src/main/resources/";
+                String resourcePath = "src/main/resources";
+                int lengthResourcePath = resourcePath.length();
                 String absolutePath = file.getAbsolutePath();
                 absolutePath = absolutePath.replace(File.separator, "/");
-                imgPath = absolutePath.substring(absolutePath.lastIndexOf(resourcePath));
+                imgPath = absolutePath.substring(absolutePath.lastIndexOf(resourcePath) + lengthResourcePath);
                 scaleImage(imgPath, label);
             } else {
                 JOptionPane.showMessageDialog(frame, "File ảnh không đúng định dạng");
             }
         }
+        System.out.println(imgPath);
         return imgPath;
     }
 }
