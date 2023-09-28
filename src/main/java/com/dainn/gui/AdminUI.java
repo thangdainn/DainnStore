@@ -63,6 +63,11 @@ public class AdminUI extends JFrame {
 	public JTable table_receiptProd;
 	private JTextField textField_receiptAccId;
 	private JTextField textField_receiptPrice;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_4;
+	private JTextField textField_2;
+	private JTable table_category;
 
 	public AdminUI(AccountDTO account) {
 		this.init();
@@ -233,6 +238,50 @@ public class AdminUI extends JFrame {
 		lbl_logOut.setBounds(0, 0, 45, 45);
 		panel_logOut.add(lbl_logOut);
 		lbl_logOut.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-log-out-43.png")));
+		
+		JPanel btn_category = new JPanel();
+		btn_category.addMouseListener(adminHomeController);
+		btn_category.setLayout(null);
+		btn_category.setName("category");
+		btn_category.setForeground(Color.BLACK);
+		btn_category.setBackground(new Color(84, 40, 132));
+		btn_category.setBounds(0, 455, 242, 47);
+		panel.add(btn_category);
+		
+		JLabel lblNewLabel_6_1 = new JLabel("");
+		lblNewLabel_6_1.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-category-38.png")));
+		lblNewLabel_6_1.setBackground(Color.WHITE);
+		lblNewLabel_6_1.setBounds(10, 3, 40, 40);
+		btn_category.add(lblNewLabel_6_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("Quản lý loại hàng");
+		lblNewLabel_1_1_1.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_1_1_1.setForeground(Color.BLACK);
+		lblNewLabel_1_1_1.setBackground(new Color(143, 88, 199));
+		lblNewLabel_1_1_1.setBounds(66, 3, 167, 40);
+		btn_category.add(lblNewLabel_1_1_1);
+		
+		JPanel btn_analytics = new JPanel();
+		btn_analytics.addMouseListener(adminHomeController);
+		btn_analytics.setLayout(null);
+		btn_analytics.setName("analytics");
+		btn_analytics.setForeground(Color.BLACK);
+		btn_analytics.setBackground(new Color(84, 40, 132));
+		btn_analytics.setBounds(0, 508, 242, 47);
+		panel.add(btn_analytics);
+		
+		JLabel lblNewLabel_6_1_1 = new JLabel("");
+		lblNewLabel_6_1_1.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-analytics-38.png")));
+		lblNewLabel_6_1_1.setBackground(Color.WHITE);
+		lblNewLabel_6_1_1.setBounds(10, 3, 40, 40);
+		btn_analytics.add(lblNewLabel_6_1_1);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("Thống kê");
+		lblNewLabel_1_1_1_1.setForeground(Color.BLACK);
+		lblNewLabel_1_1_1_1.setFont(new Font("Arial", Font.BOLD, 16));
+		lblNewLabel_1_1_1_1.setBackground(new Color(143, 88, 199));
+		lblNewLabel_1_1_1_1.setBounds(66, 3, 167, 40);
+		btn_analytics.add(lblNewLabel_1_1_1_1);
 
 		panel_cards = new JPanel();
 		panel_cards.setBounds(241, 70, 842, 550);
@@ -907,12 +956,12 @@ public class AdminUI extends JFrame {
 		panel_5_4.add(btn_receiptFind);
 		
 		JComboBox comboBox_receiptMonth = new JComboBox();
-		comboBox_receiptMonth.setBounds(743, 15, 77, 20);
+		comboBox_receiptMonth.addItem("Tháng nhập hàng");
+		for (int i = 1; i <= 12; i++) {
+			comboBox_receiptMonth.addItem("Tháng " + i);
+		}
+		comboBox_receiptMonth.setBounds(690, 15, 113, 20);
 		panel_5_4.add(comboBox_receiptMonth);
-		
-		JComboBox comboBox_receiptMonth_1 = new JComboBox();
-		comboBox_receiptMonth_1.setBounds(641, 15, 77, 20);
-		panel_5_4.add(comboBox_receiptMonth_1);
 		
 		JPanel product_infor_1 = new JPanel();
 		product_infor_1.setLayout(null);
@@ -1083,6 +1132,7 @@ public class AdminUI extends JFrame {
 		panel_receipt.add(lblNewLabel_9_2_2_1_1);
 		
 		JComboBox comboBox_receiptProdId = new JComboBox();
+		comboBox_receiptProdId.addItem("Chọn mã");
 		comboBox_receiptProdId.setBounds(563, 172, 77, 19);
 		panel_receipt.add(comboBox_receiptProdId);
 		
@@ -1123,6 +1173,142 @@ public class AdminUI extends JFrame {
 		textField_receiptPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_receiptPrice.setBounds(563, 207, 106, 19);
 		panel_receipt.add(textField_receiptPrice);
+		
+		JPanel panel_category = new JPanel();
+		panel_category.setLayout(null);
+		panel_category.setName("");
+		panel_cards.add(panel_category, "panel_category");
+		
+		JPanel panel_5_4_1 = new JPanel();
+		panel_5_4_1.setLayout(null);
+		panel_5_4_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
+
+		
+
+								"T\u00ECm ki\u1EBFm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_5_4_1.setBounds(0, 0, 842, 51);
+		panel_category.add(panel_5_4_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		textField.setBackground(Color.WHITE);
+		textField.setBounds(98, 16, 347, 19);
+		panel_5_4_1.add(textField);
+		
+		JLabel lblNewLabel_8_4_1 = new JLabel("Tìm kiếm");
+		lblNewLabel_8_4_1.setBounds(43, 19, 45, 13);
+		panel_5_4_1.add(lblNewLabel_8_4_1);
+		
+		JButton btn_receiptFind_1 = new JButton("Tìm");
+		btn_receiptFind_1.setBackground(new Color(149, 92, 211));
+		btn_receiptFind_1.setBounds(455, 15, 85, 21);
+		panel_5_4_1.add(btn_receiptFind_1);
+		
+		JPanel product_infor_1_1 = new JPanel();
+		product_infor_1_1.setLayout(null);
+		product_infor_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Th\u00F4ng tin lo\u1EA1i h\u00E0ng", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		product_infor_1_1.setBounds(0, 50, 842, 112);
+		panel_category.add(product_infor_1_1);
+		
+		JLabel lblNewLabel_9_4_1 = new JLabel("Mã loại hàng:");
+		lblNewLabel_9_4_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_4_1.setBounds(53, 29, 91, 13);
+		product_infor_1_1.add(lblNewLabel_9_4_1);
+		
+		JLabel lblNewLabel_9_1_2_1 = new JLabel("Tên loại hàng:");
+		lblNewLabel_9_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_1_2_1.setBounds(53, 71, 91, 13);
+		product_infor_1_1.add(lblNewLabel_9_1_2_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setEditable(false);
+		textField_1.setColumns(10);
+		textField_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		textField_1.setBounds(140, 27, 126, 19);
+		product_infor_1_1.add(textField_1);
+		
+		JLabel lblNewLabel_9_2_2_1_2 = new JLabel("Mô tả:");
+		lblNewLabel_9_2_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_2_2_1_2.setBounds(348, 29, 45, 13);
+		product_infor_1_1.add(lblNewLabel_9_2_2_1_2);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		textField_4.setBounds(403, 26, 347, 19);
+		product_infor_1_1.add(textField_4);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		textField_2.setBounds(140, 68, 126, 19);
+		product_infor_1_1.add(textField_2);
+		
+		JPanel panel_3_4_2 = new JPanel();
+		panel_3_4_2.setLayout(null);
+		panel_3_4_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Danh s\u00E1ch lo\u1EA1i h\u00E0ng", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_3_4_2.setBounds(0, 161, 842, 338);
+		panel_category.add(panel_3_4_2);
+		
+		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setBounds(10, 21, 822, 307);
+		panel_3_4_2.add(scrollPane_6);
+		
+		table_category = new JTable();
+		table_category.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"M\u00E3 lo\u1EA1i h\u00E0ng", "T\u00EAn lo\u1EA1i h\u00E0ng", "M\u00F4 t\u1EA3"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_category.getColumnModel().getColumn(0).setResizable(false);
+		table_category.getColumnModel().getColumn(1).setResizable(false);
+		table_category.getColumnModel().getColumn(1).setPreferredWidth(124);
+		table_category.getColumnModel().getColumn(2).setResizable(false);
+		table_category.getColumnModel().getColumn(2).setPreferredWidth(368);
+		scrollPane_6.setViewportView(table_category);
+		
+		JPanel panel_4_1_1 = new JPanel();
+		panel_4_1_1.setLayout(null);
+		panel_4_1_1.setBounds(0, 499, 842, 51);
+		panel_category.add(panel_4_1_1);
+		
+		JButton btn_addCategory = new JButton("Thêm");
+		btn_addCategory.setBackground(new Color(149, 92, 211));
+		btn_addCategory.setBounds(188, 15, 85, 21);
+		panel_4_1_1.add(btn_addCategory);
+		
+		JButton btn_updateCategory = new JButton("Sửa");
+		btn_updateCategory.setBackground(new Color(149, 92, 211));
+		btn_updateCategory.setBounds(283, 15, 85, 21);
+		panel_4_1_1.add(btn_updateCategory);
+		
+		JButton btn_deleteCategory = new JButton("Xóa");
+		btn_deleteCategory.setBackground(new Color(149, 92, 211));
+		btn_deleteCategory.setBounds(378, 15, 85, 21);
+		panel_4_1_1.add(btn_deleteCategory);
+		
+		JButton btn_deleteAllCategory = new JButton("Xóa tất cả");
+		btn_deleteAllCategory.setBackground(new Color(149, 92, 211));
+		btn_deleteAllCategory.setBounds(473, 15, 85, 21);
+		panel_4_1_1.add(btn_deleteAllCategory);
+		
+		JButton btn_resetCategory = new JButton("Làm mới");
+		btn_resetCategory.setBackground(new Color(149, 92, 211));
+		btn_resetCategory.setBounds(568, 15, 85, 21);
+		panel_4_1_1.add(btn_resetCategory);
+		
+		JPanel panel_analytics = new JPanel();
+		panel_cards.add(panel_analytics, "panel_analytics");
 
 		JPanel panel_header = new JPanel();
 		panel_header.setBackground(new Color(100, 98, 179));
@@ -1191,6 +1377,14 @@ public class AdminUI extends JFrame {
 		} else if (panel.getName().equals("receipt")) {
 			this.lbl_header.setText("Quản lý nhập hàng");
 			cardLayout.show(panel_cards, "panel_receipt");
+
+		} else if (panel.getName().equals("category")) {
+			this.lbl_header.setText("Quản lý loại hàng");
+			cardLayout.show(panel_cards, "panel_category");
+			
+		} else if (panel.getName().equals("analytics")) {
+			this.lbl_header.setText("Thống kê");
+			cardLayout.show(panel_cards, "panel_analytics");
 		}
 	}
 
