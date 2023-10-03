@@ -1,9 +1,9 @@
 package com.dainn.gui;
 
-import com.dainn.dto.ColorDTO;
+import com.dainn.dto.RomDTO;
 import com.dainn.dto.ProductDTO;
-import com.dainn.service.IColorService;
-import com.dainn.service.impl.ColorService;
+import com.dainn.service.IRomService;
+import com.dainn.service.impl.RomService;
 import com.dainn.utils.ImageUtil;
 
 import javax.swing.*;
@@ -13,17 +13,17 @@ import java.util.List;
 
 public class ProductDetailUI extends JFrame {
 
-	private IColorService colorService;
+	private IRomService romservice;
 	private JPanel contentPane;
 	private ProductDTO productDTO;
-	private JComboBox comboBox_color;
-	private List<ColorDTO> colors;
+	private JComboBox comboBox_rom;
+	private List<RomDTO> roms;
 
 	public ProductDetailUI(ProductDTO productDTO){
 		setResizable(false);
-		this.colorService = new ColorService();
+		this.romservice = new RomService();
 		this.productDTO = productDTO;
-		this.colors = colorService.findAll();
+		this.roms = romservice.findByProduct_Id(productDTO.getId());
 		this.init();
 		this.setVisible(true);
 	}
@@ -56,15 +56,14 @@ public class ProductDetailUI extends JFrame {
 		lblNewLabel_2.setBounds(73, 389, 260, 29);
 		contentPane.add(lblNewLabel_2);
 		
-		comboBox_color = new JComboBox();
-		comboBox_color.addItem("Chọn màu");
-		for (ColorDTO color : this.colors){
-			comboBox_color.addItem(color.getName());
+		comboBox_rom = new JComboBox();
+		for (RomDTO color : this.roms){
+			comboBox_rom.addItem(color.getCapacity());
 		}
-		comboBox_color.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		comboBox_color.setBounds(105, 430, 89, 27);
+		comboBox_rom.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		comboBox_rom.setBounds(105, 430, 89, 27);
 		
-		contentPane.add(comboBox_color);
+		contentPane.add(comboBox_rom);
 		
 		JButton btn_addToCart = new JButton("Thêm vào giỏ hàng");
 		btn_addToCart.setBorderPainted(false);
