@@ -30,7 +30,6 @@ public class ProductDetailUI extends JFrame {
 
 	public void init() {
 		setTitle("Chi tiết sản phẩm");
-//		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(420, 598);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
