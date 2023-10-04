@@ -602,7 +602,6 @@ public class UserUI extends JFrame {
                 new ProductDetailUI(product);
             }
         });
-//		panel_3_3.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(128, 128, 128), null));
 
         JLabel lblNewLabel_3 = new JLabel();
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -623,32 +622,11 @@ public class UserUI extends JFrame {
         lblNewLabel_8_1_1.setHorizontalAlignment(SwingConstants.CENTER);
         panel_3_3.add(lblNewLabel_8_1_1);
 
-        JLabel lblNewLabel_8_1 = new JLabel(product.getPrice() + "");
+        JLabel lblNewLabel_8_1 = new JLabel(product.getPrice() + "đ");
         lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.LEFT);
         panel_3_3.add(lblNewLabel_8_1);
 
         panel_3_3.add(pricePanel);
-
-//		JPanel actionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-//		actionPanel.setBackground(Color.WHITE);
-
-//		tF_quantity = new JTextField();
-//		NumberTextField.numberTextField(tF_quantity);
-//		tF_quantity.setHorizontalAlignment(SwingConstants.CENTER);
-//		tF_quantity.setPreferredSize(new Dimension(25, 23));
-//		actionPanel.add(tF_quantity);
-//		tF_quantity.setColumns(3);
-
-//		JButton btn_addCart = new JButton("");
-//		btn_addCart.addMouseListener(userProductController);
-//		btn_addCart.addActionListener(userProductController);
-//		btn_addCart.setName("addCart");
-//		btn_addCart.setHorizontalAlignment(SwingConstants.CENTER);
-//		btn_addCart.setPreferredSize(new Dimension(26, 25));
-//		btn_addCart.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-shopping-cart-22.png")));
-//		actionPanel.add(btn_addCart);
-
-//		panel_3_3.add(actionPanel);
 
         return panel_3_3;
     }
@@ -662,7 +640,6 @@ public class UserUI extends JFrame {
 
     public String handleShowCard(JPanel panel) {
         CardLayout cardLayout = (CardLayout) this.panel_card.getLayout();
-//		this.currentCategoryName = "none";
         if (panel.getName().equals("receipt")) {
             this.lbl_header.setText("Nhập hàng");
             this.drag_card = false;

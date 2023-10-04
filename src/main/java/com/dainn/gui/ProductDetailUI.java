@@ -43,7 +43,7 @@ public class ProductDetailUI extends JFrame {
 		ImageUtil.scaleImage(productDTO.getImage(), lblNewLabel);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Giá: " + productDTO.getPrice());
+		JLabel lblNewLabel_1_1 = new JLabel("Giá: " + productDTO.getPrice() + "đ");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
 		lblNewLabel_1_1.setBounds(204, 428, 146, 29);
