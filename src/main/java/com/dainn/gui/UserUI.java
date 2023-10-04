@@ -37,6 +37,8 @@ public class UserUI extends JFrame {
 	private boolean drag_card = true;
 	public UserProductController userProductController;
 	private JTextField tF_receiptImportPrice;
+	private JButton btn_find;
+	private JButton btn_filterByPrice;
 
 	public UserUI(){
 		this.userProductController = new UserProductController(this);
@@ -321,10 +323,20 @@ public class UserUI extends JFrame {
 		panel_1.add(tF_find);
 		tF_find.setColumns(10);
 		
-		JButton btn_find = new JButton("");
+		btn_find = new JButton("");
 		btn_find.setName("find");
-		btn_find.addMouseListener(userProductController);
 		btn_find.addActionListener(userProductController);
+		btn_find.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btn_find.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btn_find.setCursor(Cursor.getDefaultCursor());
+			}
+		});
 		btn_find.setBounds(493, 11, 30, 30);
 		btn_find.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-search-24.png")));
 		panel_1.add(btn_find);
@@ -371,10 +383,20 @@ public class UserUI extends JFrame {
 		lblNewLabel_4.setBounds(481, 7, 78, 24);
 		panel_4.add(lblNewLabel_4);
 		
-		JButton btn_filterByPrice = new JButton("");
+		btn_filterByPrice = new JButton("");
 		btn_filterByPrice.setName("filterByPrice");
 		btn_filterByPrice.addActionListener(userProductController);
-		btn_filterByPrice.addMouseListener(userProductController);
+		btn_filterByPrice.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btn_filterByPrice.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btn_filterByPrice.setCursor(Cursor.getDefaultCursor());
+			}
+		});
 		btn_filterByPrice.setBounds(820, 6, 26, 26);
 		btn_filterByPrice.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-filter-24.png")));
 		panel_4.add(btn_filterByPrice);
@@ -570,6 +592,7 @@ public class UserUI extends JFrame {
 	
 	public JPanel createPanelProduct(final ProductDTO product, UserProductController userProductController) {
 		JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		panel_3_3.addMouseListener(userProductController);
 		panel_3_3.setBackground(new Color(255, 255, 255));
 		panel_3_3.setPreferredSize(new Dimension(149, 190));
 		panel_3_3.addMouseListener(new MouseAdapter() {

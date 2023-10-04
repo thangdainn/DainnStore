@@ -64,13 +64,13 @@ public class UserProductController implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        JButton btn = (JButton) e.getSource();
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JPanel panel = (JPanel) e.getSource();
+        panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        JButton btn = (JButton) e.getSource();
-        btn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+        JPanel panel = (JPanel) e.getSource();
+        panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
     }
 }
