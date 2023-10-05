@@ -624,16 +624,13 @@ public class UserUI extends JFrame {
         lblNewLabel_8_1_1.setHorizontalAlignment(SwingConstants.CENTER);
         panel_3_3.add(lblNewLabel_8_1_1);
 
-//        int price = product.getPrice() + product.getPrice() * rom.getPercent() / 100;
-//        JLabel lblNewLabel_8_1 = new JLabel(product.getPrice() + "đ");
-//        lblNewLabel_8_1;
         final Integer priceItem;
         if (rom != null){
             priceItem = product.getPrice() + product.getPrice() * rom.getPercent() / 100;
         } else {
             priceItem = product.getPrice();
         }
-        lblNewLabel_8_1 = new JLabel((priceItem + ""));
+        lblNewLabel_8_1 = new JLabel((priceItem + "đ"));
         lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.LEFT);
         panel_3_3.add(lblNewLabel_8_1);
 
