@@ -1,6 +1,7 @@
 package com.dainn.controller.user;
 
 import com.dainn.dto.ProductDTO;
+import com.dainn.gui.ProductDetailUI;
 import com.dainn.gui.UserUI;
 import com.dainn.service.IProductService;
 import com.dainn.service.impl.ProductService;
@@ -58,7 +59,6 @@ public class UserProductController implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override

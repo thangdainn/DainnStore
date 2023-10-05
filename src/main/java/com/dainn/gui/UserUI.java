@@ -3,8 +3,11 @@ package com.dainn.gui;
 import com.dainn.controller.user.UserHomeController;
 import com.dainn.controller.user.UserProductController;
 import com.dainn.dto.ProductDTO;
+import com.dainn.dto.RomDTO;
 import com.dainn.service.IProductService;
+import com.dainn.service.IRomService;
 import com.dainn.service.impl.ProductService;
+import com.dainn.service.impl.RomService;
 import com.dainn.utils.NumberTextField;
 import com.dainn.utils.ImageUtil;
 
@@ -21,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 public class UserUI extends JFrame {
 
     private IProductService productService = new ProductService();
+    private IRomService romService = new RomService();
     public String currentCategoryName = "all";
     private JPanel contentPane;
     public JTextField tF_find;
@@ -39,6 +43,7 @@ public class UserUI extends JFrame {
     private JTextField tF_receiptImportPrice;
     private JButton btn_find;
     private JButton btn_filterByPrice;
+    public JLabel lblNewLabel_8_1;
 
     public UserUI() {
         this.userProductController = new UserProductController(this);
@@ -48,6 +53,7 @@ public class UserUI extends JFrame {
     }
 
     public void init() {
+        setTitle("Dainn Store");
         setSize(1097, 657);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -582,7 +588,8 @@ public class UserUI extends JFrame {
         panel_5.setLayout(new GridLayout(row, 5, 22, 20));
 
         for (ProductDTO product : products) {
-            panel_5.add(createPanelProduct(product, userProductController));
+            RomDTO rom = romService.findTop1ByProduct_Id(product.getId());
+            panel_5.add(createPanelProduct(product, rom, userProductController));
         }
 
         for (int i = 1; i <= countEmptyPanel; i++) {
@@ -591,17 +598,12 @@ public class UserUI extends JFrame {
         return panel_5;
     }
 
-    public JPanel createPanelProduct(final ProductDTO product, UserProductController userProductController) {
+    public JPanel createPanelProduct(final ProductDTO product, RomDTO rom, UserProductController userProductController) {
         JPanel panel_3_3 = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 5));
         panel_3_3.addMouseListener(userProductController);
         panel_3_3.setBackground(new Color(255, 255, 255));
         panel_3_3.setPreferredSize(new Dimension(149, 190));
-        panel_3_3.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                new ProductDetailUI(product);
-            }
-        });
+
 
         JLabel lblNewLabel_3 = new JLabel();
         lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -622,12 +624,26 @@ public class UserUI extends JFrame {
         lblNewLabel_8_1_1.setHorizontalAlignment(SwingConstants.CENTER);
         panel_3_3.add(lblNewLabel_8_1_1);
 
-        JLabel lblNewLabel_8_1 = new JLabel(product.getPrice() + "đ");
+//        int price = product.getPrice() + product.getPrice() * rom.getPercent() / 100;
+//        JLabel lblNewLabel_8_1 = new JLabel(product.getPrice() + "đ");
+//        lblNewLabel_8_1;
+        final Integer priceItem;
+        if (rom != null){
+            priceItem = product.getPrice() + product.getPrice() * rom.getPercent() / 100;
+        } else {
+            priceItem = product.getPrice();
+        }
+        lblNewLabel_8_1 = new JLabel((priceItem + ""));
         lblNewLabel_8_1.setHorizontalAlignment(SwingConstants.LEFT);
         panel_3_3.add(lblNewLabel_8_1);
 
         panel_3_3.add(pricePanel);
-
+        panel_3_3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new ProductDetailUI(product, priceItem);
+            }
+        });
         return panel_3_3;
     }
 

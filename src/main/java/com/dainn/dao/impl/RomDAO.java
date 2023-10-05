@@ -15,13 +15,15 @@ public class RomDAO extends AbstractDAO<RomDTO> implements IRomDAO {
 
     @Override
     public List<RomDTO> findByProduct_Id(Integer id) {
-        String sql = "SELECT * FROM rom r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ?";
-        return query(sql, new RomMapper(), id);
+        String sql = "SELECT * FROM rom r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ? ORDER BY r.percent ASC";
+        List<RomDTO> roms = query(sql, new RomMapper(), id);
+        return roms.isEmpty() ? null : roms;
     }
 
     @Override
     public RomDTO findTop1ByProduct_Id(Integer id) {
-        String sql = "SELECT * FROM `rom` r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ? ORDER BY r.capacity ASC LIMIT 1";
-        return query(sql, new RomMapper(), id).get(0);
+        String sql = "SELECT * FROM rom r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ? ORDER BY r.percent ASC LIMIT 1";
+        List<RomDTO> roms = query(sql, new RomMapper(), id);
+        return roms.isEmpty() ? null : roms.get(0);
     }
 }

@@ -25,4 +25,9 @@ public class RomService implements IRomService {
         return romDAO.findByProduct_Id(id);
     }
 
+    @Override
+    public RomDTO findTop1ByProduct_Id(Integer id) {
+        return romDAO.findTop1ByProduct_Id(id);
+    }
+
 }

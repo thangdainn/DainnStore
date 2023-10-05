@@ -17,14 +17,16 @@ public class ProductDetailUI extends JFrame {
 	private IRomService romservice;
 	private JPanel contentPane;
 	private ProductDTO productDTO;
+	private Integer price;
 	public JComboBox comboBox_rom;
 	private List<RomDTO> roms;
 	public JLabel lbl_price;
 
-	public ProductDetailUI(ProductDTO productDTO){
+	public ProductDetailUI(ProductDTO productDTO, Integer price){
 		setResizable(false);
 		this.romservice = new RomService();
 		this.productDTO = productDTO;
+		this.price = price;
 		this.roms = romservice.findByProduct_Id(productDTO.getId());
 		this.init();
 		this.setVisible(true);
@@ -47,10 +49,10 @@ public class ProductDetailUI extends JFrame {
 		ImageUtil.scaleImage(productDTO.getImage(), lblNewLabel);
 		contentPane.add(lblNewLabel);
 		
-		lbl_price = new JLabel(productDTO.getPrice() + "");
+		lbl_price = new JLabel(price + "");
 		lbl_price.setHorizontalAlignment(SwingConstants.RIGHT);
 		lbl_price.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lbl_price.setBounds(214, 428, 89, 29);
+		lbl_price.setBounds(121, 428, 83, 29);
 		contentPane.add(lbl_price);
 		
 		JLabel lblNewLabel_2 = new JLabel(productDTO.getName());
@@ -60,12 +62,16 @@ public class ProductDetailUI extends JFrame {
 		contentPane.add(lblNewLabel_2);
 		
 		comboBox_rom = new JComboBox();
-		for (RomDTO color : this.roms){
-			comboBox_rom.addItem(color.getCapacity());
+		if (roms != null){
+			for (RomDTO color : this.roms){
+				comboBox_rom.addItem(color.getCapacity());
+				comboBox_rom.addActionListener(controller);
+			}
+		} else {
+			comboBox_rom.setVisible(false);
 		}
-		comboBox_rom.addActionListener(controller);
 		comboBox_rom.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		comboBox_rom.setBounds(94, 428, 71, 29);
+		comboBox_rom.setBounds(232, 428, 83, 29);
 		
 		contentPane.add(comboBox_rom);
 		
@@ -80,12 +86,12 @@ public class ProductDetailUI extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("đ");
 		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1.setBounds(305, 428, 32, 29);
+		lblNewLabel_1.setBounds(204, 428, 18, 29);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Giá: ");
 		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1_1.setBounds(175, 428, 40, 29);
+		lblNewLabel_1_1.setBounds(94, 428, 35, 29);
 		contentPane.add(lblNewLabel_1_1);
 	}
 }
