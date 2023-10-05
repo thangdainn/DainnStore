@@ -1,5 +1,6 @@
 package com.dainn.gui;
 
+import com.dainn.controller.user.UserProductDetailController;
 import com.dainn.dto.RomDTO;
 import com.dainn.dto.ProductDTO;
 import com.dainn.service.IRomService;
@@ -16,8 +17,9 @@ public class ProductDetailUI extends JFrame {
 	private IRomService romservice;
 	private JPanel contentPane;
 	private ProductDTO productDTO;
-	private JComboBox comboBox_rom;
+	public JComboBox comboBox_rom;
 	private List<RomDTO> roms;
+	public JLabel lbl_price;
 
 	public ProductDetailUI(ProductDTO productDTO){
 		setResizable(false);
@@ -35,6 +37,8 @@ public class ProductDetailUI extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
+		UserProductDetailController controller = new UserProductDetailController(this, roms, productDTO);
+
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -43,11 +47,11 @@ public class ProductDetailUI extends JFrame {
 		ImageUtil.scaleImage(productDTO.getImage(), lblNewLabel);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("Giá: " + productDTO.getPrice() + "đ");
-		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
-		lblNewLabel_1_1.setBounds(204, 428, 146, 29);
-		contentPane.add(lblNewLabel_1_1);
+		lbl_price = new JLabel(productDTO.getPrice() + "");
+		lbl_price.setHorizontalAlignment(SwingConstants.RIGHT);
+		lbl_price.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lbl_price.setBounds(214, 428, 89, 29);
+		contentPane.add(lbl_price);
 		
 		JLabel lblNewLabel_2 = new JLabel(productDTO.getName());
 		lblNewLabel_2.setFont(new Font("Times New Roman", Font.BOLD, 18));
@@ -59,16 +63,29 @@ public class ProductDetailUI extends JFrame {
 		for (RomDTO color : this.roms){
 			comboBox_rom.addItem(color.getCapacity());
 		}
-		comboBox_rom.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		comboBox_rom.setBounds(105, 430, 89, 27);
+		comboBox_rom.addActionListener(controller);
+		comboBox_rom.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		comboBox_rom.setBounds(94, 428, 71, 29);
 		
 		contentPane.add(comboBox_rom);
 		
 		JButton btn_addToCart = new JButton("Thêm vào giỏ hàng");
 		btn_addToCart.setBorderPainted(false);
+		btn_addToCart.addMouseListener(controller);
+		btn_addToCart.addActionListener(controller);
 		btn_addToCart.setBackground(new Color(153, 51, 255));
 		btn_addToCart.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		btn_addToCart.setBounds(83, 481, 250, 49);
 		contentPane.add(btn_addToCart);
+		
+		JLabel lblNewLabel_1 = new JLabel("đ");
+		lblNewLabel_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblNewLabel_1.setBounds(305, 428, 32, 29);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Giá: ");
+		lblNewLabel_1_1.setFont(new Font("Times New Roman", Font.PLAIN, 18));
+		lblNewLabel_1_1.setBounds(175, 428, 40, 29);
+		contentPane.add(lblNewLabel_1_1);
 	}
 }
