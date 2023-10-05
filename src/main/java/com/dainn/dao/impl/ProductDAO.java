@@ -30,4 +30,18 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
         String sql = "SELECT * FROM product WHERE status = ? AND price BETWEEN ? AND ?";
         return query(sql, new ProductMapper(), status, fromPrice, toPrice);
     }
+
+    @Override
+    public List<ProductDTO> findByNameContaining(String keyword, Integer categoryId, Integer status) {
+        keyword = "%" + keyword + "%";
+        String sql = "SELECT * FROM product WHERE category_id = ? AND status = ? AND name LIKE ?";
+        return query(sql, new ProductMapper(), categoryId, status, keyword);
+    }
+
+    @Override
+    public List<ProductDTO> findByNameContaining(String keyword, Integer status) {
+        keyword = "%" + keyword + "%";
+        String sql = "SELECT * FROM product WHERE status = ? AND name LIKE ?";
+        return query(sql, new ProductMapper(), status, keyword);
+    }
 }

@@ -23,7 +23,7 @@ public class UserUI extends JFrame {
     private IProductService productService = new ProductService();
     public String currentCategoryName = "all";
     private JPanel contentPane;
-    private JTextField tF_find;
+    public JTextField tF_find;
     public JTextField tF_minPrice;
     public JTextField tF_maxPrice;
     public JPanel panel_3;

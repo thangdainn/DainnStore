@@ -10,4 +10,6 @@ public interface IProductDAO {
     List<ProductDTO> findAll();
     List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer categoryId, Integer status);
     List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer status);
+    List<ProductDTO> findByNameContaining(String keyword, Integer categoryId, Integer status);
+    List<ProductDTO> findByNameContaining(String keyword, Integer status);
 }

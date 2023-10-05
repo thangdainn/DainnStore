@@ -41,4 +41,15 @@ public class ProductService implements IProductService {
     public List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, Integer status) {
         return productDAO.findByInRanges(fromPrice, toPrice, status);
     }
+
+    @Override
+    public List<ProductDTO> findByNameContaining(String keyword, String categoryName, Integer status) {
+        CategoryDTO categoryDTO = categoryDAO.findByName(categoryName);
+        return productDAO.findByNameContaining(keyword, categoryDTO.getId(), status);
+    }
+
+    @Override
+    public List<ProductDTO> findByNameContaining(String keyword, Integer status) {
+        return productDAO.findByNameContaining(keyword, status);
+    }
 }

@@ -29,21 +29,30 @@ public class UserProductController implements ActionListener, MouseListener {
         if (btn.getName().equals("addCart")){
         } else if (btn.getName().equals("filterByPrice")){
             try {
-                Integer minPrice = Integer.valueOf(this.userUI.tF_minPrice.getText());
-                Integer maxPrice = Integer.valueOf(this.userUI.tF_maxPrice.getText());
-                this.userUI.currentPanel.setVisible(false);
+                Integer minPrice = Integer.valueOf(userUI.tF_minPrice.getText());
+                Integer maxPrice = Integer.valueOf(userUI.tF_maxPrice.getText());
+                userUI.currentPanel.setVisible(false);
                 List<ProductDTO> products;
-                if (this.userUI.currentCategoryName.equals("all")){
-                    products = this.productService.findByPriceInRanges(minPrice, maxPrice, 1);
+                if (userUI.currentCategoryName.equals("all")){
+                    products = productService.findByPriceInRanges(minPrice, maxPrice, 1);
                 } else {
-                    products = this.productService.findByPriceInRanges(minPrice, maxPrice,
-                            this.userUI.currentCategoryName, 1);
+                    products = productService.findByPriceInRanges(minPrice, maxPrice,
+                            userUI.currentCategoryName, 1);
                 }
-                this.userUI.currentPanel = this.userUI.addPanelProduct(this.userUI.panel_3, products, this.userUI.userProductController);
+                userUI.currentPanel = userUI.addPanelProduct(userUI.panel_3, products, userUI.userProductController);
             } catch (NumberFormatException numberFormatException) {
-                JOptionPane.showMessageDialog(this.userUI, "Vui lòng nhập giá.");
+                JOptionPane.showMessageDialog(userUI, "Vui lòng nhập giá.");
             }
         } else if (btn.getName().equals("find")){
+            List<ProductDTO> products;
+            userUI.currentPanel.setVisible(false);
+            String keyword = userUI.tF_find.getText().trim();
+            if (userUI.currentCategoryName.equals("all")){
+                products = productService.findByNameContaining(keyword, 1);
+            } else {
+                products = productService.findByNameContaining(keyword, userUI.currentCategoryName, 1);
+            }
+            userUI.currentPanel = userUI.addPanelProduct(userUI.panel_3, products, userUI.userProductController);
         }
     }
 
