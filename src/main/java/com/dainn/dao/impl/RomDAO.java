@@ -18,4 +18,10 @@ public class RomDAO extends AbstractDAO<RomDTO> implements IRomDAO {
         String sql = "SELECT * FROM rom r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ?";
         return query(sql, new RomMapper(), id);
     }
+
+    @Override
+    public RomDTO findTop1ByProduct_Id(Integer id) {
+        String sql = "SELECT * FROM `rom` r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ? ORDER BY r.capacity ASC LIMIT 1";
+        return query(sql, new RomMapper(), id).get(0);
+    }
 }
