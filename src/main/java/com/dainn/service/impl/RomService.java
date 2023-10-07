@@ -26,6 +26,11 @@ public class RomService implements IRomService {
     }
 
     @Override
+    public List<RomDTO> findByProduct_IdAndQuantityGreaterZero(Integer id) {
+        return romDAO.findByProduct_IdAndQuantityGreaterZero(id);
+    }
+
+    @Override
     public RomDTO findTop1ByProduct_Id(Integer id) {
         return romDAO.findTop1ByProduct_Id(id);
     }

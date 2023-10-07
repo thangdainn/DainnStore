@@ -9,6 +9,6 @@ public interface ICartService {
     List<CartDTO> findByAccount_Id(Integer id);
     CartDTO save(CartDTO dto);
     CartDTO update(CartDTO dto);
-    void delete(Integer[] ids);
+    void delete(Integer id);
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(CartDTO dto);
 }

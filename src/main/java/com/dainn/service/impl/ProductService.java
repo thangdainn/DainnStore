@@ -21,14 +21,19 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findByCategoryName(String name) {
+    public List<ProductDTO> findByCategoryName(String name, Integer status) {
         Integer categoryId = categoryDAO.findByName(name).getId();
-        return productDAO.findByCategoryId(categoryId);
+        return productDAO.findByCategoryId(categoryId, status);
     }
 
     @Override
     public List<ProductDTO> findAll() {
         return productDAO.findAll();
+    }
+
+    @Override
+    public List<ProductDTO> findByQuantityGreaterZero(Integer status) {
+        return productDAO.findByQuantityGreaterZero(status);
     }
 
     @Override
@@ -56,5 +61,10 @@ public class ProductService implements IProductService {
     @Override
     public ProductDTO findById(Integer id) {
         return productDAO.findById(id);
+    }
+
+    @Override
+    public void updateQuantityById(Integer id) {
+        productDAO.updateQuantityById(id);
     }
 }

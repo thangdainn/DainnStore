@@ -51,7 +51,7 @@ public class UserUI extends JFrame {
         this.account = account;
         this.userProductController = new UserProductController(this);
         this.init();
-        List<ProductDTO> products = this.productService.findAll();
+        List<ProductDTO> products = this.productService.findByQuantityGreaterZero(1);
         this.currentPanel = this.addPanelProduct(this.panel_3, products, userProductController);
     }
 

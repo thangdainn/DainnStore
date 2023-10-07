@@ -36,7 +36,9 @@ public class UserProductDetailController implements ActionListener {
                 CartDTO dto = new CartDTO();
                 dto.setAccountId(productDetailUI.accountDTO.getId());
                 dto.setProductId(productDetailUI.productDTO.getId());
-                if (roms != null){
+                if (roms.get(0).getCapacity().equals("")){
+                    dto.setRomId(6);
+                } else {
                     for (RomDTO rom : roms) {
                         String romCapacity = (String) productDetailUI.comboBox_rom.getSelectedItem();
                         if (rom.getCapacity().equals(romCapacity)) {
@@ -44,8 +46,6 @@ public class UserProductDetailController implements ActionListener {
                             break;
                         }
                     }
-                } else {
-                    dto.setRomId(6);
                 }
                 dto.setPrice(productDetailUI.price);
                 CartDTO cartDTO = cartService.findByAccount_IdAndProduct_IdAndRom_Id(dto);

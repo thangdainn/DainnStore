@@ -43,10 +43,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public void delete(Integer[] ids) {
-        for (Integer id : ids){
-            cartDAO.delete(id);
-        }
+    public void delete(Integer id) {
+        cartDAO.delete(id);
     }
 
     @Override

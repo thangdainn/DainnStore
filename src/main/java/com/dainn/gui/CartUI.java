@@ -19,10 +19,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -270,7 +267,7 @@ public class CartUI extends JFrame {
         ProductDTO product = productService.findById(cart.getProductId());
         RomDTO romDTO = romService.findById(cart.getRomId());
 
-        JPanel panel_product = new JPanel();
+        final JPanel panel_product = new JPanel();
         panel_product.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
         panel_product.setBounds(341, 386, 477, 119);
 
@@ -329,7 +326,7 @@ public class CartUI extends JFrame {
         romName.setFont(new Font("Times New Roman", Font.PLAIN, 12));
         panel_3.add(romName);
 
-        JPanel panel_3_1 = new JPanel();
+        final JPanel panel_3_1 = new JPanel();
         panel_3_1.setPreferredSize(new Dimension(360, 30));
         panel_2.add(panel_3_1);
 
@@ -338,6 +335,7 @@ public class CartUI extends JFrame {
         btnMinus.setPreferredSize(new Dimension(24, 24));
         btnMinus.setSize(24, 24);
         btnMinus.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-minus-13.png")));
+//        btnMinus.add
         panel_3_1.add(btnMinus);
 
         final JTextField tF_quantity = new JTextField(cart.getQuantity().toString());
@@ -370,6 +368,23 @@ public class CartUI extends JFrame {
         btnDelete.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnDelete.setFont(new Font("Times New Roman", Font.PLAIN, 12));
         btnDelete.setPreferredSize(new Dimension(53, 24));
+        btnDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Container parentContainer = panel_product.getParent();
+                if (parentContainer != null){
+                    cartService.delete(cart.getId());
+                    parentContainer.remove(panel_product);
+                    parentContainer.revalidate();
+                    parentContainer.repaint();
+                    carts = cartService.findByAccount_Id(account.getId());
+                    int totalPriceInt = totalPrice(carts);
+                    int totalPaymentInt = totalPriceInt - totalPriceInt * Integer.parseInt(discount.getText()) / 100;
+                    totalPrice.setText(totalPriceInt + "");
+                    totalPayment.setText(totalPaymentInt + "");
+                }
+            }
+        });
         panel_3_1.add(btnDelete);
 
         return panel_product;
