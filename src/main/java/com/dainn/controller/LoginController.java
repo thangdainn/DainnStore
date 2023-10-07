@@ -78,9 +78,9 @@ public class LoginController implements ActionListener, MouseListener {
                 if (accountDTO.getRoleId().equals("ADMIN")) {
                     loginUI.setVisible(false);
 					new AdminUI(accountDTO);
-                } else if (accountDTO.getRoleId().equals("USER")) {
+                } else if (accountDTO.getRoleId().equals("STAFF")) {
                     loginUI.setVisible(false);
-					new UserUI();
+					new UserUI(accountDTO);
                 }
             } else {
                 JOptionPane.showMessageDialog(loginUI, "Thông tin đăng nhập không chính xác.");

@@ -44,4 +44,11 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
         String sql = "SELECT * FROM product WHERE status = ? AND name LIKE ?";
         return query(sql, new ProductMapper(), status, keyword);
     }
+
+    @Override
+    public ProductDTO findById(Integer id) {
+        String sql = "SELECT * FROM product WHERE id = ?";
+        List<ProductDTO> list = query(sql, new ProductMapper(), id);
+        return list.isEmpty() ? null : list.get(0);
+    }
 }

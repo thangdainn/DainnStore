@@ -52,4 +52,9 @@ public class ProductService implements IProductService {
     public List<ProductDTO> findByNameContaining(String keyword, Integer status) {
         return productDAO.findByNameContaining(keyword, status);
     }
+
+    @Override
+    public ProductDTO findById(Integer id) {
+        return productDAO.findById(id);
+    }
 }

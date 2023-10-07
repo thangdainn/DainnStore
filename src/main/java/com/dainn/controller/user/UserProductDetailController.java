@@ -1,22 +1,20 @@
 package com.dainn.controller.user;
 
+import com.dainn.dto.CartDTO;
 import com.dainn.dto.ProductDTO;
 import com.dainn.dto.RomDTO;
 import com.dainn.gui.ProductDetailUI;
-import com.dainn.gui.UserUI;
-import com.dainn.service.IProductService;
-import com.dainn.service.impl.ProductService;
+import com.dainn.service.ICartService;
+import com.dainn.service.impl.CartService;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
 
-public class UserProductDetailController implements ActionListener, MouseListener {
+public class UserProductDetailController implements ActionListener {
 
+    private ICartService cartService = new CartService();
     private ProductDetailUI productDetailUI;
     private List<RomDTO> roms;
     private ProductDTO product;
@@ -32,41 +30,48 @@ public class UserProductDetailController implements ActionListener, MouseListene
         Object source = e.getSource();
         if (source == productDetailUI.comboBox_rom) {
             setPrice(roms);
+        } else {
+            String action = e.getActionCommand();
+            if (action.equals("Thêm vào giỏ hàng")){
+                CartDTO dto = new CartDTO();
+                dto.setAccountId(productDetailUI.accountDTO.getId());
+                dto.setProductId(productDetailUI.productDTO.getId());
+                if (roms != null){
+                    for (RomDTO rom : roms) {
+                        String romCapacity = (String) productDetailUI.comboBox_rom.getSelectedItem();
+                        if (rom.getCapacity().equals(romCapacity)) {
+                            dto.setRomId(rom.getId());
+                            break;
+                        }
+                    }
+                } else {
+                    dto.setRomId(6);
+                }
+                dto.setPrice(productDetailUI.price);
+                CartDTO cartDTO = cartService.findByAccount_IdAndProduct_IdAndRom_Id(dto);
+                if (cartDTO == null){
+                    dto.setQuantity(1);
+                    dto = cartService.save(dto);
+
+                } else {
+                    dto.setId(cartDTO.getId());
+                    dto.setQuantity(cartDTO.getQuantity() + 1);
+                    dto = cartService.update(dto);
+                }
+                if (dto.getId() != null){
+                    JOptionPane.showMessageDialog(productDetailUI, "Đã thêm vào giỏ hàng!!!");
+                }
+            }
         }
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        JButton btn = (JButton) e.getSource();
-        btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        JButton btn = (JButton) e.getSource();
-        btn.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-    }
 
     public void setPrice(List<RomDTO> roms) {
         for (RomDTO rom : roms) {
             String romCapacity = (String) productDetailUI.comboBox_rom.getSelectedItem();
             if (rom.getCapacity().equals(romCapacity)) {
-                productDetailUI.lbl_price.setText((product.getPrice() + product.getPrice() * rom.getPercent() / 100) + "");
+                productDetailUI.price = (product.getPrice() + product.getPrice() * rom.getPercent() / 100);
+                productDetailUI.lbl_price.setText(productDetailUI.price.toString());
             }
         }
     }

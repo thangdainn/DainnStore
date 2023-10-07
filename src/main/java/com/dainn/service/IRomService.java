@@ -8,4 +8,5 @@ public interface IRomService {
     List<RomDTO> findAll();
     List<RomDTO> findByProduct_Id(Integer id);
     RomDTO findTop1ByProduct_Id(Integer id);
+    RomDTO findById(Integer id);
 }

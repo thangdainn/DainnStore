@@ -2,6 +2,7 @@ package com.dainn.gui;
 
 import com.dainn.controller.user.UserHomeController;
 import com.dainn.controller.user.UserProductController;
+import com.dainn.dto.AccountDTO;
 import com.dainn.dto.ProductDTO;
 import com.dainn.dto.RomDTO;
 import com.dainn.service.IProductService;
@@ -25,6 +26,7 @@ public class UserUI extends JFrame {
 
     private IProductService productService = new ProductService();
     private IRomService romService = new RomService();
+    private AccountDTO account;
     public String currentCategoryName = "all";
     private JPanel contentPane;
     public JTextField tF_find;
@@ -45,7 +47,8 @@ public class UserUI extends JFrame {
     private JButton btn_filterByPrice;
     public JLabel lblNewLabel_8_1;
 
-    public UserUI() {
+    public UserUI(AccountDTO account) {
+        this.account = account;
         this.userProductController = new UserProductController(this);
         this.init();
         List<ProductDTO> products = this.productService.findAll();
@@ -199,8 +202,8 @@ public class UserUI extends JFrame {
         btn_airPods.add(lblNewLabel_1_1_1_1_4);
 
         JPanel btn_logOut = new JPanel();
+        btn_logOut.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_logOut.setName("logOut");
-        btn_logOut.addMouseListener(userHomeController);
         btn_logOut.setBackground(new Color(135, 206, 235));
         btn_logOut.setBounds(10, 563, 45, 45);
         btn_logOut.addMouseListener(new MouseAdapter() {
@@ -214,6 +217,7 @@ public class UserUI extends JFrame {
         btn_logOut.setLayout(null);
 
         JLabel lblLogout = new JLabel("");
+        
         lblLogout.setBounds(0, 0, 45, 45);
         btn_logOut.add(lblLogout);
         lblLogout.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-log-in-42.png")));
@@ -283,7 +287,7 @@ public class UserUI extends JFrame {
         contentPane.add(panel_1);
         panel_1.setLayout(null);
 
-        JLabel lbl_name = new JLabel("Đào Đức Thắng");
+        JLabel lbl_name = new JLabel(account.getFullName());
         lbl_name.setForeground(new Color(72, 61, 139));
         lbl_name.setHorizontalAlignment(SwingConstants.LEFT);
         lbl_name.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -299,13 +303,15 @@ public class UserUI extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 setVisible(false);
-                new CartUI();
+                JFrame currentFrame = (JFrame) SwingUtilities.getRoot((Component) e.getSource());
+                new CartUI(currentFrame, account);
             }
         });
         panel_1.add(btn_cart);
         btn_cart.setLayout(null);
 
         JLabel lbl_cart = new JLabel("");
+        lbl_cart.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         lbl_cart.setBounds(0, 0, 51, 45);
         btn_cart.add(lbl_cart);
         lbl_cart.setHorizontalAlignment(SwingConstants.CENTER);
@@ -330,19 +336,9 @@ public class UserUI extends JFrame {
         tF_find.setColumns(10);
 
         btn_find = new JButton("");
+        btn_find.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_find.setName("find");
         btn_find.addActionListener(userProductController);
-        btn_find.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btn_find.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btn_find.setCursor(Cursor.getDefaultCursor());
-            }
-        });
         btn_find.setBounds(493, 11, 30, 30);
         btn_find.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-search-24.png")));
         panel_1.add(btn_find);
@@ -390,19 +386,9 @@ public class UserUI extends JFrame {
         panel_4.add(lblNewLabel_4);
 
         btn_filterByPrice = new JButton("");
+        btn_filterByPrice.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btn_filterByPrice.setName("filterByPrice");
         btn_filterByPrice.addActionListener(userProductController);
-        btn_filterByPrice.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                btn_filterByPrice.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-            }
-
-            @Override
-            public void mouseExited(MouseEvent e) {
-                btn_filterByPrice.setCursor(Cursor.getDefaultCursor());
-            }
-        });
         btn_filterByPrice.setBounds(820, 6, 26, 26);
         btn_filterByPrice.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-filter-24.png")));
         panel_4.add(btn_filterByPrice);
@@ -638,7 +624,7 @@ public class UserUI extends JFrame {
         panel_3_3.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                new ProductDetailUI(product, priceItem);
+                new ProductDetailUI(product, priceItem, account);
             }
         });
         return panel_3_3;

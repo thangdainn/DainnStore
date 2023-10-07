@@ -11,4 +11,5 @@ public interface IProductService {
     List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, Integer status);
     List<ProductDTO> findByNameContaining(String keyword, String categoryName, Integer status);
     List<ProductDTO> findByNameContaining(String keyword, Integer status);
+    ProductDTO findById(Integer id);
 }
