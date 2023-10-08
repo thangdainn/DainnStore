@@ -45,4 +45,10 @@ public class CartDAO extends AbstractDAO<CartDTO> implements ICartDAO {
         List<CartDTO> list = query(sql, new CartMapper(), accountId, productId, romId);
         return list.isEmpty() ? null : list.get(0);
     }
+
+    @Override
+    public void dropTable() {
+        String sql = "DELETE FROM cart";
+        update(sql);
+    }
 }

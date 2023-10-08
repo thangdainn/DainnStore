@@ -1,7 +1,6 @@
 package com.dainn.service;
 
 import com.dainn.dto.CartDTO;
-import com.dainn.dto.OrderDetailDTO;
 
 import java.util.List;
 
@@ -11,4 +10,5 @@ public interface ICartService {
     CartDTO update(CartDTO dto);
     void delete(Integer id);
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(CartDTO dto);
+    void dropTable();
 }

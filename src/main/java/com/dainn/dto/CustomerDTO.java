@@ -10,6 +10,7 @@ public class CustomerDTO {
     private String name;
     private String address;
     private String phone;
+    private Integer points;
     private Integer status;
 
 }

@@ -40,4 +40,14 @@ public class RomService implements IRomService {
         return romDAO.findById(id);
     }
 
+    @Override
+    public int getQuantityOfPR(Integer prodId, Integer romId) {
+        return romDAO.getQuantityOfPR(prodId,romId);
+    }
+
+    @Override
+    public void updateQuantityOfPR(Integer prodId, Integer romId, Integer quantity) {
+        romDAO.updateQuantityOfPR(prodId, romId, quantity);
+    }
+
 }

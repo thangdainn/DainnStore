@@ -67,7 +67,7 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
                 " GROUP BY product_id" +
                 ") pr ON p.id = pr.product_id" +
                 " SET p.quantity = pr.total_quantity" +
-                "WHERE p.id = ?";
+                " WHERE p.id = ?";
         update(sql, id);
     }
 }

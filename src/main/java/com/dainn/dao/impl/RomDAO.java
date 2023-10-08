@@ -43,4 +43,16 @@ public class RomDAO extends AbstractDAO<RomDTO> implements IRomDAO {
         List<RomDTO> list = query(sql, new RomMapper(), id);
         return list.isEmpty() ? null : list.get(0);
     }
+
+    @Override
+    public int getQuantityOfPR(Integer prodId, Integer romId) {
+        String sql = "SELECT sum(quantity) FROM product_rom WHERE product_id = ? AND rom_id = ?";
+        return count(sql, prodId, romId);
+    }
+
+    @Override
+    public void updateQuantityOfPR(Integer prodId, Integer romId, Integer quantity) {
+        String sql = "UPDATE product_rom SET quantity = ? WHERE product_id = ? AND rom_id = ?";
+        update(sql, quantity, prodId, romId);
+    }
 }

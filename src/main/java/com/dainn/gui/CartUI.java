@@ -1,47 +1,44 @@
 package com.dainn.gui;
 
-import com.dainn.controller.user.UserProductController;
+import com.dainn.controller.user.UserCartController;
 import com.dainn.dto.*;
 import com.dainn.service.ICartService;
-import com.dainn.service.IOrderDetailService;
+import com.dainn.service.ICustomerService;
 import com.dainn.service.IProductService;
 import com.dainn.service.IRomService;
 import com.dainn.service.impl.CartService;
-import com.dainn.service.impl.OrderDetailService;
+import com.dainn.service.impl.CustomerService;
 import com.dainn.service.impl.ProductService;
 import com.dainn.service.impl.RomService;
 import com.dainn.utils.ImageUtil;
 import com.dainn.utils.NumberTextField;
 
 import javax.swing.*;
-import javax.swing.border.EtchedBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartUI extends JFrame {
 
-    private static JFrame frame;
-    private static ICartService cartService = new CartService();
+    private JFrame frame;
+
+    private ICartService cartService = new CartService();
     private IProductService productService = new ProductService();
     private IRomService romService = new RomService();
     public JFrame frameHome;
-    private static AccountDTO account;
-    private JPanel currentPanel;
-    private static List<CartDTO> carts;
+    public AccountDTO account;
+    public List<CartDTO> carts;
     private JPanel contentPane;
-    private JTextField cartCusName;
-    private JTextField cartAddress;
-    private JTextField cartPhone;
-    private JTextField tF_quantity;
+    public JPanel currentPanel;
+    public JTextField cartCusName;
+    public JTextField cartAddress;
+    public JTextField cartPhone;
     private JPanel panel_container;
-    private static JLabel totalPrice;
-    private static JLabel totalPayment;
-    private static JLabel discount;
+    public JLabel totalPrice;
+    public JLabel totalPayment;
+    public JLabel discount;
+    public JButton btnOrder;
 
 
     public CartUI(JFrame frameHome, AccountDTO account) {
@@ -57,9 +54,11 @@ public class CartUI extends JFrame {
     public void init() {
         setSize(1097, 657);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         contentPane = new JPanel();
+
+        UserCartController userCartController = new UserCartController(this);
 
         setContentPane(contentPane);
         contentPane.setLayout(null);
@@ -72,7 +71,7 @@ public class CartUI extends JFrame {
 
         JLabel lblNewLabel = new JLabel("ĐƠN ĐẶT HÀNG");
         lblNewLabel.setForeground(new Color(192, 192, 192));
-        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 24));
+        lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 30));
         lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
         lblNewLabel.setBounds(385, 15, 324, 50);
         panel.add(lblNewLabel);
@@ -98,21 +97,25 @@ public class CartUI extends JFrame {
         lblNewLabel_1_2.setBounds(98, 251, 93, 38);
         panel_1.add(lblNewLabel_1_2);
 
-        JButton btnOrder = new JButton("Đặt hàng");
+        btnOrder = new JButton("Đặt hàng");
+        btnOrder.setEnabled(false);
         btnOrder.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnOrder.setFont(new Font("Times New Roman", Font.BOLD, 18));
         btnOrder.setBorderPainted(false);
         btnOrder.setBackground(new Color(64, 128, 128));
         btnOrder.setBounds(146, 346, 271, 51);
+        btnOrder.addActionListener(userCartController);
         panel_1.add(btnOrder);
 
         cartCusName = new JTextField();
+        cartCusName.setEditable(false);
         cartCusName.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         cartCusName.setBounds(199, 103, 245, 27);
         panel_1.add(cartCusName);
         cartCusName.setColumns(10);
 
         cartAddress = new JTextField();
+        cartAddress.setEditable(false);
         cartAddress.setFont(new Font("Times New Roman", Font.PLAIN, 14));
         cartAddress.setColumns(10);
         cartAddress.setBounds(199, 178, 245, 27);
@@ -129,6 +132,7 @@ public class CartUI extends JFrame {
         cartFind.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         cartFind.setFont(new Font("Times New Roman", Font.PLAIN, 12));
         cartFind.setBounds(199, 302, 85, 21);
+        cartFind.addActionListener(userCartController);
         panel_1.add(cartFind);
 
         JPanel btnBackHome = new JPanel();
@@ -150,6 +154,18 @@ public class CartUI extends JFrame {
         lblBack.setBounds(0, 0, 45, 45);
         lblBack.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-log-in-42.png")));
         btnBackHome.add(lblBack);
+
+        JButton btnAddCus = new JButton("Thêm khách hàng");
+        btnAddCus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnAddCus.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+        btnAddCus.setBounds(309, 302, 135, 21);
+        btnAddCus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new AddCustomer();
+            }
+        });
+        panel_1.add(btnAddCus);
 
         JPanel panel_2 = new JPanel();
         panel_2.setBounds(564, 89, 519, 531);
@@ -259,7 +275,6 @@ public class CartUI extends JFrame {
                 panel_productList.add(createPanelCartItem(cart));
             }
         }
-
         return panel_productList;
     }
 
@@ -326,36 +341,82 @@ public class CartUI extends JFrame {
         romName.setFont(new Font("Times New Roman", Font.PLAIN, 12));
         panel_3.add(romName);
 
-        final JPanel panel_3_1 = new JPanel();
+        JPanel panel_3_1 = new JPanel();
         panel_3_1.setPreferredSize(new Dimension(360, 30));
         panel_2.add(panel_3_1);
-
-        JButton btnMinus = new JButton("");
-        btnMinus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnMinus.setPreferredSize(new Dimension(24, 24));
-        btnMinus.setSize(24, 24);
-        btnMinus.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-minus-13.png")));
-//        btnMinus.add
-        panel_3_1.add(btnMinus);
 
         final JTextField tF_quantity = new JTextField(cart.getQuantity().toString());
         tF_quantity.setPreferredSize(new Dimension(24, 24));
         tF_quantity.setHorizontalAlignment(SwingConstants.CENTER);
         tF_quantity.setFont(new Font("Times New Roman", Font.PLAIN, 12));
         NumberTextField.numberTextFieldStartWithoutZero(tF_quantity);
+        final String[] currentQty = {tF_quantity.getText()};
         tF_quantity.addFocusListener(new FocusAdapter() {
             @Override
             public void focusLost(FocusEvent e) {
-                updateTotal(tF_quantity, cart);
+                try {
+                    int qty = Integer.parseInt(tF_quantity.getText());
+                    int totalQty = romService.getQuantityOfPR(cart.getProductId(), cart.getRomId());
+                    if (qty > totalQty) {
+                        tF_quantity.setText(currentQty[0]);
+                        JOptionPane.showMessageDialog(frame, "Vui lòng nhập nhỏ hơn hoặc bằng " + totalQty + "\n" +
+                                "Số lượng của sản phẩm: " + totalQty);
+                    } else {
+                        currentQty[0] = qty + "";
+                        cart.setQuantity(qty);
+                        cartService.update(cart);
+                        setAllTFTotal();
+                    }
+                } catch (NumberFormatException ex) {
+                    tF_quantity.setText(currentQty[0]);
+                    JOptionPane.showMessageDialog(frame, "Vui lòng nhập số lượng");
+                }
             }
         });
         panel_3_1.add(tF_quantity);
+
+        JButton btnMinus = new JButton("");
+        btnMinus.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+        btnMinus.setPreferredSize(new Dimension(24, 24));
+        btnMinus.setSize(24, 24);
+        btnMinus.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-minus-13.png")));
+        btnMinus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int qty = Integer.parseInt(tF_quantity.getText()) - 1;
+                if (qty > 0) {
+                    cart.setQuantity(qty);
+                    cartService.update(cart);
+                    tF_quantity.setText(qty + "");
+                    setAllTFTotal();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Đã đạt số lượng tối thiểu!!!");
+                }
+            }
+        });
+        panel_3_1.add(btnMinus);
 
         JButton btnAdd = new JButton("");
         btnAdd.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         btnAdd.setPreferredSize(new Dimension(24, 24));
         btnAdd.setSize(24, 24);
         btnAdd.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-add-13.png")));
+        btnAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int qty = Integer.parseInt(tF_quantity.getText()) + 1;
+                int totalQty = romService.getQuantityOfPR(cart.getProductId(), cart.getRomId());
+                if (qty <= totalQty) {
+                    cart.setQuantity(qty);
+                    cartService.update(cart);
+                    tF_quantity.setText(qty + "");
+                    carts = cartService.findByAccount_Id(account.getId());
+                    setAllTFTotal();
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Đã đạt số lượng tối đa!!!");
+                }
+            }
+        });
         panel_3_1.add(btnAdd);
 
         JLabel lblNewLabel_1_1_1_1 = new JLabel("");
@@ -372,16 +433,12 @@ public class CartUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Container parentContainer = panel_product.getParent();
-                if (parentContainer != null){
+                if (parentContainer != null) {
                     cartService.delete(cart.getId());
                     parentContainer.remove(panel_product);
                     parentContainer.revalidate();
                     parentContainer.repaint();
-                    carts = cartService.findByAccount_Id(account.getId());
-                    int totalPriceInt = totalPrice(carts);
-                    int totalPaymentInt = totalPriceInt - totalPriceInt * Integer.parseInt(discount.getText()) / 100;
-                    totalPrice.setText(totalPriceInt + "");
-                    totalPayment.setText(totalPaymentInt + "");
+                    setAllTFTotal();
                 }
             }
         });
@@ -390,22 +447,15 @@ public class CartUI extends JFrame {
         return panel_product;
     }
 
-    private static void updateTotal(JTextField tF_quantity, CartDTO cart) {
-        try {
-            int qty = Integer.parseInt(tF_quantity.getText());
-            cart.setQuantity(qty);
-            cart = cartService.update(cart);
-            carts = cartService.findByAccount_Id(account.getId());
-            int totalPriceInt = totalPrice(carts);
-            int totalPaymentInt = totalPriceInt - totalPriceInt * Integer.parseInt(discount.getText()) / 100;
-            totalPrice.setText(totalPriceInt + "");
-            totalPayment.setText(totalPaymentInt + "");
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(frame, "Vui lòng nhập số lượng");
-        }
+    public void setAllTFTotal() {
+        carts = cartService.findByAccount_Id(account.getId());
+        int totalPriceInt = totalPrice(carts);
+        int totalPaymentInt = totalPriceInt - totalPriceInt * Integer.parseInt(discount.getText()) / 100;
+        totalPrice.setText(totalPriceInt + "");
+        totalPayment.setText(totalPaymentInt + "");
     }
 
-    private static int totalPrice(List<CartDTO> carts) {
+    private int totalPrice(List<CartDTO> carts) {
         int total = 0;
         if (carts == null) {
             return total;
@@ -415,4 +465,6 @@ public class CartUI extends JFrame {
         }
         return total;
     }
+
+
 }

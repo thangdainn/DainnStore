@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface IOrderDetailService {
     List<OrderDetailDTO> findAll();
+    void save(OrderDetailDTO dto);
 }

@@ -15,5 +15,4 @@ public class OrderDetailDTO {
     private Integer romId;
     private Integer quantity;
     private Integer price;
-    private Integer amount;
 }

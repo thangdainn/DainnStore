@@ -15,7 +15,6 @@ public class OrderDetailMapper implements IRowMapper<OrderDetailDTO>{
             dto.setRomId(rs.getInt("rom_id"));
             dto.setQuantity(rs.getInt("quantity"));
             dto.setPrice(rs.getInt("price"));
-            dto.setAmount(rs.getInt("amount"));
             return dto;
         } catch (SQLException e){
             e.printStackTrace();

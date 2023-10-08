@@ -5,8 +5,10 @@ import com.dainn.controller.user.UserProductController;
 import com.dainn.dto.AccountDTO;
 import com.dainn.dto.ProductDTO;
 import com.dainn.dto.RomDTO;
+import com.dainn.service.ICartService;
 import com.dainn.service.IProductService;
 import com.dainn.service.IRomService;
+import com.dainn.service.impl.CartService;
 import com.dainn.service.impl.ProductService;
 import com.dainn.service.impl.RomService;
 import com.dainn.utils.NumberTextField;
@@ -17,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.List;
 import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
@@ -24,6 +28,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class UserUI extends JFrame {
 
+    private JFrame frame;
+    private ICartService cartService = new CartService();
     private IProductService productService = new ProductService();
     private IRomService romService = new RomService();
     private AccountDTO account;
@@ -48,6 +54,7 @@ public class UserUI extends JFrame {
     public JLabel lblNewLabel_8_1;
 
     public UserUI(AccountDTO account) {
+        this.frame = this;
         this.account = account;
         this.userProductController = new UserProductController(this);
         this.init();
@@ -59,8 +66,18 @@ public class UserUI extends JFrame {
         setTitle("Dainn Store");
         setSize(1097, 657);
         setResizable(false);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int result = JOptionPane.showConfirmDialog(frame, "Bạn chắc chắn muốn thoát?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION){
+                    cartService.dropTable();
+                    System.exit(0);
+                }
+            }
+        });
 
         UserHomeController userHomeController = new UserHomeController(this);
 
@@ -209,7 +226,8 @@ public class UserUI extends JFrame {
         btn_logOut.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setVisible(false);
+                cartService.dropTable();
+                frame.dispose();
                 new LoginUI();
             }
         });

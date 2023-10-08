@@ -19,4 +19,9 @@ public class OrderDetailService implements IOrderDetailService {
         List<OrderDetailDTO> list = orderDetailDAO.findAll();
         return list.isEmpty() ? null : list;
     }
+
+    @Override
+    public void save(OrderDetailDTO dto) {
+        orderDetailDAO.save(dto);
+    }
 }

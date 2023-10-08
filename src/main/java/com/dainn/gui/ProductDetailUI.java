@@ -42,7 +42,7 @@ public class ProductDetailUI extends JFrame {
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-        UserProductDetailController controller = new UserProductDetailController(this, roms, productDTO);
+        UserProductDetailController controller = new UserProductDetailController(this, roms, productDTO, accountDTO);
 
         setContentPane(contentPane);
         contentPane.setLayout(null);

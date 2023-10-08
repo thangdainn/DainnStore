@@ -11,4 +11,5 @@ public interface ICartDAO {
     void update(CartDTO dto);
     CartDTO findById(Integer id);
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(Integer accountId, Integer productId, Integer romId);
+    void dropTable();
 }
