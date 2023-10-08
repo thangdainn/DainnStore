@@ -1,9 +1,7 @@
 package com.dainn.dao.impl;
 
 import com.dainn.dao.IRomDAO;
-import com.dainn.dto.ProductDTO;
 import com.dainn.dto.RomDTO;
-import com.dainn.mapper.ProductMapper;
 import com.dainn.mapper.RomMapper;
 
 import java.util.List;
@@ -11,8 +9,15 @@ import java.util.List;
 public class RomDAO extends AbstractDAO<RomDTO> implements IRomDAO {
     @Override
     public List<RomDTO> findAll() {
-        String sql = "SELECT * FROM rom";
+        String sql = "SELECT * FROM rom WHERE capacity != '' ORDER BY percent ASC";
         return query(sql, new RomMapper());
+    }
+
+    @Override
+    public RomDTO findByCapacity(String capacity) {
+        String sql = "SELECT * FROM rom WHERE capacity = ?";
+        List<RomDTO> list = query(sql, new RomMapper(), capacity);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     @Override

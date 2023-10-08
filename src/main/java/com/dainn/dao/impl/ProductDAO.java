@@ -14,9 +14,9 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
     }
 
     @Override
-    public List<ProductDTO> findAll() {
-        String sql = "SELECT * FROM product";
-        return query(sql, new ProductMapper());
+    public List<ProductDTO> findAll(Integer status) {
+        String sql = "SELECT * FROM product WHERE status = ?";
+        return query(sql, new ProductMapper(), status);
     }
 
     @Override

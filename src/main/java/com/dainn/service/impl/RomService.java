@@ -21,6 +21,11 @@ public class RomService implements IRomService {
     }
 
     @Override
+    public RomDTO findByCapacity(String capacity) {
+        return romDAO.findByCapacity(capacity);
+    }
+
+    @Override
     public List<RomDTO> findByProduct_Id(Integer id) {
         return romDAO.findByProduct_Id(id);
     }

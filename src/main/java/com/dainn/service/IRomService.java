@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface IRomService {
     List<RomDTO> findAll();
+    RomDTO findByCapacity(String capacity);
     List<RomDTO> findByProduct_Id(Integer id);
     List<RomDTO> findByProduct_IdAndQuantityGreaterZero(Integer id);
     RomDTO findTop1ByProduct_Id(Integer id);

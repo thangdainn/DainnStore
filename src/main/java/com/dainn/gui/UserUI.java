@@ -5,12 +5,15 @@ import com.dainn.controller.user.UserProductController;
 import com.dainn.dto.AccountDTO;
 import com.dainn.dto.ProductDTO;
 import com.dainn.dto.RomDTO;
+import com.dainn.dto.SupplierDTO;
 import com.dainn.service.ICartService;
 import com.dainn.service.IProductService;
 import com.dainn.service.IRomService;
+import com.dainn.service.ISupplierService;
 import com.dainn.service.impl.CartService;
 import com.dainn.service.impl.ProductService;
 import com.dainn.service.impl.RomService;
+import com.dainn.service.impl.SupplierService;
 import com.dainn.utils.NumberTextField;
 import com.dainn.utils.ImageUtil;
 
@@ -32,7 +35,11 @@ public class UserUI extends JFrame {
     private ICartService cartService = new CartService();
     private IProductService productService = new ProductService();
     private IRomService romService = new RomService();
+    private ISupplierService supplierService = new SupplierService();
     private AccountDTO account;
+    private List<ProductDTO> productList;
+    private List<RomDTO> roms;
+    private List<SupplierDTO> suppliers;
     public String currentCategoryName = "all";
     private JPanel contentPane;
     public JTextField tF_find;
@@ -57,8 +64,11 @@ public class UserUI extends JFrame {
         this.frame = this;
         this.account = account;
         this.userProductController = new UserProductController(this);
+        this.productList = productService.findAll(1);
+        this.roms = romService.findAll();
+        this.suppliers = supplierService.findAll();
         this.init();
-        List<ProductDTO> products = this.productService.findByQuantityGreaterZero(1);
+        List<ProductDTO> products = productService.findByQuantityGreaterZero(1);
         this.currentPanel = this.addPanelProduct(this.panel_3, products, userProductController);
     }
 
@@ -452,49 +462,72 @@ public class UserUI extends JFrame {
         product_infor_1.setBounds(10, 10, 873, 118);
         card_receipt.add(product_infor_1);
 
-        JLabel lblNewLabel_9_4 = new JLabel("Mã nhà cung cấp:");
+        JLabel lblNewLabel_9_4 = new JLabel("Tên nhà cung cấp:");
         lblNewLabel_9_4.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        lblNewLabel_9_4.setBounds(93, 30, 91, 13);
+        lblNewLabel_9_4.setBounds(60, 30, 101, 13);
         product_infor_1.add(lblNewLabel_9_4);
 
         JLabel lblNewLabel_9_1_2 = new JLabel("Mã sản phẩm:");
         lblNewLabel_9_1_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        lblNewLabel_9_1_2.setBounds(93, 73, 91, 13);
+        lblNewLabel_9_1_2.setBounds(60, 73, 91, 13);
         product_infor_1.add(lblNewLabel_9_1_2);
 
         JComboBox comboBox_receiptProdId = new JComboBox();
         comboBox_receiptProdId.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        comboBox_receiptProdId.setBounds(194, 70, 126, 19);
+        comboBox_receiptProdId.setBounds(161, 70, 144, 19);
+        comboBox_receiptProdId.addItem("Chọn mã sản phẩm");
+        for (ProductDTO product : productList){
+            comboBox_receiptProdId.addItem(product.getId());
+        }
         product_infor_1.add(comboBox_receiptProdId);
 
         JLabel lblNewLabel_9_2_2_1 = new JLabel("Số lượng:");
         lblNewLabel_9_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        lblNewLabel_9_2_2_1.setBounds(523, 73, 57, 13);
+        lblNewLabel_9_2_2_1.setBounds(363, 73, 57, 13);
         product_infor_1.add(lblNewLabel_9_2_2_1);
 
-        JComboBox comboBox_receiptSuppId = new JComboBox();
-        comboBox_receiptSuppId.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        comboBox_receiptSuppId.setBounds(194, 27, 126, 19);
-        product_infor_1.add(comboBox_receiptSuppId);
+        JComboBox comboBox_receiptSuppName = new JComboBox();
+        comboBox_receiptSuppName.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        comboBox_receiptSuppName.setBounds(161, 27, 144, 19);
+        comboBox_receiptSuppName.addItem("Chọn tên nhà cung cấp");
+        for (SupplierDTO supplier : suppliers){
+            comboBox_receiptSuppName.addItem(supplier.getName());
+
+        }
+        product_infor_1.add(comboBox_receiptSuppName);
 
         tF_receiptQuantity = new JTextField();
         NumberTextField.numberTextField(tF_receiptQuantity);
         tF_receiptQuantity.setColumns(10);
         tF_receiptQuantity.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-        tF_receiptQuantity.setBounds(590, 70, 126, 19);
+        tF_receiptQuantity.setBounds(453, 70, 120, 19);
         product_infor_1.add(tF_receiptQuantity);
 
         JLabel lblNewLabel_9_2_2_1_1 = new JLabel("Giá nhập:");
         lblNewLabel_9_2_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-        lblNewLabel_9_2_2_1_1.setBounds(523, 30, 57, 13);
+        lblNewLabel_9_2_2_1_1.setBounds(628, 30, 57, 13);
         product_infor_1.add(lblNewLabel_9_2_2_1_1);
 
         tF_receiptImportPrice = new JTextField();
         NumberTextField.numberTextField(tF_receiptImportPrice);
         tF_receiptImportPrice.setColumns(10);
         tF_receiptImportPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-        tF_receiptImportPrice.setBounds(590, 27, 126, 19);
+        tF_receiptImportPrice.setBounds(695, 27, 101, 19);
         product_infor_1.add(tF_receiptImportPrice);
+        
+        JLabel lblNewLabel_9_1_2_1 = new JLabel("Dung lượng:");
+        lblNewLabel_9_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        lblNewLabel_9_1_2_1.setBounds(363, 30, 91, 13);
+        product_infor_1.add(lblNewLabel_9_1_2_1);
+        
+        JComboBox comboBox_receiptRom = new JComboBox();
+        comboBox_receiptRom.setFont(new Font("Tahoma", Font.PLAIN, 11));
+        comboBox_receiptRom.setBounds(453, 27, 120, 19);
+        comboBox_receiptRom.addItem("Chọn dung lượng");
+        for (RomDTO rom : roms){
+            comboBox_receiptRom.addItem(rom.getCapacity());
+        }
+        product_infor_1.add(comboBox_receiptRom);
 
         JPanel product_infor_1_1 = new JPanel();
         product_infor_1_1.setLayout(null);

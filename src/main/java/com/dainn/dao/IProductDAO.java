@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface IProductDAO {
     List<ProductDTO> findByCategoryId(Integer id, Integer status);
-    List<ProductDTO> findAll();
+    List<ProductDTO> findAll(Integer status);
     List<ProductDTO> findByQuantityGreaterZero(Integer status);
     List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer categoryId, Integer status);
     List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer status);

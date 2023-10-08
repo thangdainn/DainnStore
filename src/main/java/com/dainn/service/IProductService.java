@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IProductService {
     List<ProductDTO> findByCategoryName(String name, Integer status);
-    List<ProductDTO> findAll();
+    List<ProductDTO> findAll(Integer status);
     List<ProductDTO> findByQuantityGreaterZero(Integer status);
     List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, String categoryName, Integer status);
     List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, Integer status);
