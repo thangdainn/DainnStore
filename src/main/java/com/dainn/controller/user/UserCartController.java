@@ -11,6 +11,7 @@ import com.dainn.service.impl.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 public class UserCartController implements ActionListener {
 
@@ -54,13 +55,7 @@ public class UserCartController implements ActionListener {
                 order.setAccountId(cartUI.account.getId());
                 order.setCustomerId(customer.getId());
                 order = orderService.save(order);
-                for (CartDTO cart : cartUI.carts){
-                    OrderDetailDTO orderDetail = new OrderDetailDTO(order.getId(), cart.getProductId(), cart.getRomId(),
-                            cart.getQuantity(), cart.getPrice());
-                    orderDetailService.save(orderDetail);
-                    romService.updateQuantityOfPR(cart.getProductId(), cart.getRomId(), cart.getQuantity());
-                    productService.updateQuantityById(cart.getProductId());
-                }
+                handleSaveOrderDetail(cartUI.carts, order);
                 Integer points = customer.getPoints();
                 if (points < 15){
                     customer.setPoints(points + 1);
@@ -87,6 +82,16 @@ public class UserCartController implements ActionListener {
         } else {
             JOptionPane.showMessageDialog(cartUI, "Vui lòng nhập số điện thoại!!!");
             return null;
+        }
+    }
+
+    private void handleSaveOrderDetail(List<CartDTO> carts, OrderDTO order){
+        for (CartDTO cart : cartUI.carts){
+            OrderDetailDTO orderDetail = new OrderDetailDTO(order.getId(), cart.getProductId(), cart.getRomId(),
+                    cart.getQuantity(), cart.getPrice());
+            orderDetailService.save(orderDetail);
+            romService.updateQuantityOfPR(cart.getProductId(), cart.getRomId(), cart.getQuantity());
+            productService.updateQuantityById(cart.getProductId());
         }
     }
 }
