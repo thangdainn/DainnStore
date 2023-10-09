@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 08, 2023 lúc 02:07 PM
+-- Thời gian đã tạo: Th10 09, 2023 lúc 06:58 PM
 -- Phiên bản máy phục vụ: 10.4.28-MariaDB
 -- Phiên bản PHP: 8.2.4
 
@@ -45,7 +45,8 @@ CREATE TABLE `account` (
 INSERT INTO `account` (`id`, `username`, `password`, `fullname`, `phone`, `address`, `status`, `role_id`) VALUES
 (1, 'admin', 'admin', 'Administrator', '123123123', 'Buôn Ma Thuột', 1, 'ADMIN'),
 (2, 'ducthang', '123', 'dao duc thang', '123123123', 'thu duc', 1, 'STAFF'),
-(3, 'hongson', '123', 'Hồng Sơn', '0123456789', 'Vũng Tàu', 1, 'STAFF');
+(3, 'hongson', '123', 'Hồng Sơn', '0123456789', 'Vũng Tàu', 1, 'STAFF'),
+(4, 'hongson', '111', 'Hồng Sơn', '0123456789', 'Vũng Tàu', 1, 'STAFF');
 
 -- --------------------------------------------------------
 
@@ -106,7 +107,7 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`id`, `fullname`, `address`, `phone`, `points`, `status`) VALUES
-(1, 'dao duc thang', 'thu duc', '1231231231', 11, 1),
+(1, 'dao duc thang', 'thu duc', '1231231231', 12, 1),
 (2, 'hong son', 'vung tau', '1231231232', 0, 1);
 
 -- --------------------------------------------------------
@@ -132,7 +133,8 @@ INSERT INTO `order` (`id`, `createddate`, `totalprice`, `account_id`, `customer_
 (7, '2023-10-08 11:49:41', 48284670, 2, 1),
 (8, '2023-10-08 11:56:22', 16090800, 2, 1),
 (9, '2023-10-08 12:04:09', 5642000, 2, 1),
-(10, '2023-10-08 12:04:37', 32957550, 2, 1);
+(10, '2023-10-08 12:04:37', 32957550, 2, 1),
+(11, '2023-10-09 15:06:43', 21360000, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -160,7 +162,8 @@ INSERT INTO `orderdetail` (`order_id`, `product_id`, `rom_id`, `quantity`, `pric
 (8, 4, 1, 1, 17490000),
 (9, 24, 6, 1, 6200000),
 (10, 18, 2, 1, 28129500),
-(10, 21, 6, 1, 8490000);
+(10, 21, 6, 1, 8490000),
+(11, 1, 1, 2, 12000000);
 
 -- --------------------------------------------------------
 
@@ -183,14 +186,14 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`id`, `category_id`, `name`, `price`, `quantity`, `image`, `status`) VALUES
-(1, 1, 'iPhone 11', 11390000, 45, '/iphones/iPhone11.png', 1),
-(2, 1, 'iPhone 11 Pro Max', 13000000, 50, '/iphones/iPhone11_ProMax.png', 1),
+(1, 1, 'iPhone 11', 12000000, 74, '/iphones/iPhone11.png', 1),
+(2, 1, 'iPhone 11 Pro Max', 13000000, 69, '/iphones/iPhone11_ProMax.png', 1),
 (3, 1, 'iPhone 12', 12450000, 67, '/iphones/iPhone12.png', 1),
-(4, 1, 'iPhone 12 Pro Max', 17490000, 55, '/iphones/iPhone12_ProMax.png', 1),
+(4, 1, 'iPhone 12 Pro Max', 17490000, 74, '/iphones/iPhone12_ProMax.png', 1),
 (5, 1, 'iPhone 13 Pro', 18500000, 57, '/iphones/iPhone13_Pro.png', 1),
-(6, 1, 'iPhone 13 Pro Max', 23000000, 60, '/iphones/iPhone13_ProMax.png', 1),
+(6, 1, 'iPhone 13 Pro Max', 23000000, 79, '/iphones/iPhone13_ProMax.png', 1),
 (7, 1, 'iPhone 14 Plus', 21290000, 58, '/iphones/iPhone14_Plus.png', 1),
-(8, 1, 'iPhone 14 Pro Max', 26290000, 31, '/iphones/iPhone14_ProMax.png', 1),
+(8, 1, 'iPhone 14 Pro Max', 26290000, 50, '/iphones/iPhone14_ProMax.png', 1),
 (9, 1, 'iPhone 15 Plus', 24490000, 20, '/iphones/iPhone15_Plus.png', 1),
 (10, 1, 'iPhone 15 Pro Max', 34000000, 38, '/iphones/iPhone15_ProMax.png', 1),
 (11, 2, 'iPad Pro M2', 23990000, 47, '/ipads/iPad_ProM2.png', 1),
@@ -228,28 +231,28 @@ CREATE TABLE `product_rom` (
 --
 
 INSERT INTO `product_rom` (`id`, `product_id`, `rom_id`, `quantity`) VALUES
-(1, 1, 1, 1),
-(2, 1, 2, 20),
+(1, 1, 1, 20),
+(2, 1, 2, 30),
 (3, 1, 3, 24),
-(4, 2, 1, 1),
+(4, 2, 1, 20),
 (5, 2, 2, 22),
 (6, 2, 3, 27),
 (7, 3, 1, 25),
 (8, 3, 2, 19),
 (9, 3, 3, 23),
-(10, 4, 1, 1),
+(10, 4, 1, 20),
 (11, 4, 2, 43),
 (12, 4, 3, 11),
 (13, 5, 1, 22),
 (14, 5, 2, 20),
 (15, 5, 3, 15),
-(16, 6, 1, 1),
+(16, 6, 1, 20),
 (17, 6, 2, 30),
 (18, 6, 3, 29),
 (19, 7, 2, 12),
 (20, 7, 3, 24),
 (21, 7, 4, 22),
-(22, 8, 3, 1),
+(22, 8, 3, 20),
 (23, 8, 4, 14),
 (24, 8, 5, 16),
 (25, 9, 3, 20),
@@ -334,6 +337,14 @@ CREATE TABLE `receipt` (
   `status` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Đang đổ dữ liệu cho bảng `receipt`
+--
+
+INSERT INTO `receipt` (`id`, `supplier_id`, `account_id`, `createddate`, `totalprice`, `status`) VALUES
+(2, 1, 2, '2023-10-09 15:01:53', 24000000, 1),
+(3, 1, 2, '2023-10-09 15:05:53', 24000000, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -343,9 +354,19 @@ CREATE TABLE `receipt` (
 CREATE TABLE `receiptdetail` (
   `receipt_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `rom_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `price` int(11) NOT NULL
+  `importprice` int(11) NOT NULL,
+  `amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `receiptdetail`
+--
+
+INSERT INTO `receiptdetail` (`receipt_id`, `product_id`, `rom_id`, `quantity`, `importprice`, `amount`) VALUES
+(2, 1, 1, 2, 12000000, 24000000),
+(3, 1, 1, 2, 12000000, 24000000);
 
 -- --------------------------------------------------------
 
@@ -403,6 +424,15 @@ CREATE TABLE `supplier` (
   `address` varchar(255) NOT NULL,
   `phone` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Đang đổ dữ liệu cho bảng `supplier`
+--
+
+INSERT INTO `supplier` (`id`, `name`, `address`, `phone`) VALUES
+(1, 'Foxconn', 'Đài Loan', '0123456789'),
+(2, 'Wistron', 'Đài Loan', '0123123123'),
+(3, 'Goertek', 'Trung Quốc', '0123123123');
 
 --
 -- Chỉ mục cho các bảng đã đổ
@@ -479,8 +509,9 @@ ALTER TABLE `receipt`
 -- Chỉ mục cho bảng `receiptdetail`
 --
 ALTER TABLE `receiptdetail`
-  ADD PRIMARY KEY (`receipt_id`,`product_id`),
-  ADD KEY `product_id` (`product_id`);
+  ADD PRIMARY KEY (`receipt_id`,`product_id`,`rom_id`),
+  ADD KEY `product_id` (`product_id`),
+  ADD KEY `rom_id` (`rom_id`);
 
 --
 -- Chỉ mục cho bảng `role`
@@ -508,13 +539,13 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -532,7 +563,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT cho bảng `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
@@ -550,7 +581,7 @@ ALTER TABLE `product_rom`
 -- AUTO_INCREMENT cho bảng `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT cho bảng `rom`
@@ -562,7 +593,7 @@ ALTER TABLE `rom`
 -- AUTO_INCREMENT cho bảng `supplier`
 --
 ALTER TABLE `supplier`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Các ràng buộc cho các bảng đã đổ
@@ -622,7 +653,8 @@ ALTER TABLE `receipt`
 --
 ALTER TABLE `receiptdetail`
   ADD CONSTRAINT `receiptdetail_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
-  ADD CONSTRAINT `receiptdetail_ibfk_2` FOREIGN KEY (`receipt_id`) REFERENCES `receipt` (`id`);
+  ADD CONSTRAINT `receiptdetail_ibfk_2` FOREIGN KEY (`receipt_id`) REFERENCES `receipt` (`id`),
+  ADD CONSTRAINT `receiptdetail_ibfk_3` FOREIGN KEY (`rom_id`) REFERENCES `rom` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
