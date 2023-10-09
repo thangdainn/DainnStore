@@ -15,9 +15,9 @@ public class AccountDAO extends AbstractDAO<AccountDTO> implements IAccountDAO {
     }
 
     @Override
-    public AccountDTO findByUserName(String userName) {
-        String sql = "SELECT * FROM account WHERE username = ?";
-        List<AccountDTO> accounts = query(sql, new AccountMapper(), userName);
+    public AccountDTO findByUserName(String userName, Integer status) {
+        String sql = "SELECT * FROM account WHERE username = ? AND status = ?";
+        List<AccountDTO> accounts = query(sql, new AccountMapper(), userName, status);
         return accounts.isEmpty() ? null : accounts.get(0);
     }
 
@@ -29,9 +29,9 @@ public class AccountDAO extends AbstractDAO<AccountDTO> implements IAccountDAO {
     }
 
     @Override
-    public AccountDTO findOne(Integer id) {
-        String sql = "SELECT * FROM account WHERE id = ?";
-        List<AccountDTO> accounts = query(sql, new AccountMapper(), id);
+    public AccountDTO findById(Integer id, Integer status) {
+        String sql = "SELECT * FROM account WHERE id = ? AND status = ?";
+        List<AccountDTO> accounts = query(sql, new AccountMapper(), id, status);
         return accounts.isEmpty() ? null : accounts.get(0);
     }
 

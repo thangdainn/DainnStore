@@ -19,19 +19,21 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public AccountDTO findByUserName(String userName) {
-        return accountDAO.findByUserName(userName);
+    public AccountDTO findByUserName(String userName, Integer status) {
+        return accountDAO.findByUserName(userName, status);
     }
 
     @Override
     public AccountDTO save(AccountDTO accountDTO) {
         Integer id = accountDAO.save(accountDTO);
-        return accountDAO.findOne(id);
+        return accountDAO.findById(id, 1);
     }
 
     @Override
     public AccountDTO update(AccountDTO accountUpdate) {
-        return null;
+        Integer id = accountUpdate.getId();
+        accountDAO.update(accountUpdate);
+        return accountDAO.findById(id, 1);
     }
 
 }

@@ -92,7 +92,7 @@ public class LoginController implements ActionListener, MouseListener {
     }
 
     public void checkAccount(String userName){
-        AccountDTO accountDTO = accountService.findByUserName(userName);
+        AccountDTO accountDTO = accountService.findByUserName(userName, 1);
         if (accountDTO != null){
             this.account = accountDTO;
             JOptionPane.showMessageDialog(loginUI, "Tài khoản tồn tại.");
@@ -113,7 +113,7 @@ public class LoginController implements ActionListener, MouseListener {
             JOptionPane.showMessageDialog(loginUI, "Vui lòng điền đầy đủ thông tin!");
         } else if (rePassword.equals(password)) {
             accountDTO.setPassword(password);
-            accountService.save(accountDTO);
+            accountService.update(accountDTO);
             JOptionPane.showMessageDialog(loginUI, "Đổi mật khẩu thành công.");
             loginUI.tFSignUp_username.setEditable(true);
             loginUI.tFSignUp_password.setEditable(false);
