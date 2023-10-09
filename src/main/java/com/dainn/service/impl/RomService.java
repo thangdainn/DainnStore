@@ -3,6 +3,7 @@ package com.dainn.service.impl;
 import com.dainn.dao.IRomDAO;
 import com.dainn.dao.impl.RomDAO;
 import com.dainn.dto.RomDTO;
+import com.dainn.mapper.RomMapper;
 import com.dainn.service.IRomService;
 
 import java.util.List;
@@ -27,12 +28,14 @@ public class RomService implements IRomService {
 
     @Override
     public List<RomDTO> findByProduct_Id(Integer id) {
-        return romDAO.findByProduct_Id(id);
+        List<RomDTO> roms = romDAO.findByProduct_Id(id);
+        return roms.isEmpty() ? null : roms;
     }
 
     @Override
     public List<RomDTO> findByProduct_IdAndQuantityGreaterZero(Integer id) {
-        return romDAO.findByProduct_IdAndQuantityGreaterZero(id);
+        List<RomDTO> roms = romDAO.findByProduct_IdAndQuantityGreaterZero(id);
+        return roms.isEmpty() ? null : roms;
     }
 
     @Override

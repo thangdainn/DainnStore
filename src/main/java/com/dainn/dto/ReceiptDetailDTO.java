@@ -12,7 +12,8 @@ import lombok.Setter;
 public class ReceiptDetailDTO {
     private Integer receiptId;
     private Integer productId;
+    private Integer romId;
     private Integer quantity;
-    private Integer price;
-
+    private Integer importPrice;
+    private Integer amount;
 }

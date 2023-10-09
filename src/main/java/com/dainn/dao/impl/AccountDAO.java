@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AccountDAO extends AbstractDAO<AccountDTO> implements IAccountDAO {
     @Override
-    public AccountDTO findByUserNameAndPasswordAndStatus(String userName, String password, Integer status) {
+    public AccountDTO findByUserNameAndPassword(String userName, String password, Integer status) {
         String sql = "SELECT * FROM account WHERE username = ? AND password = ? AND status = ?";
         List<AccountDTO> accounts = query(sql, new AccountMapper(), userName, password, status);
         return accounts.isEmpty() ? null : accounts.get(0);

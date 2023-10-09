@@ -18,6 +18,7 @@ import com.dainn.gui.UserUI;
 public class LoginController implements ActionListener, MouseListener {
     private LoginUI loginUI;
     private IAccountService accountService;
+    private AccountDTO account = null;
 
     public LoginController(LoginUI loginUI) {
         this.loginUI = loginUI;
@@ -29,9 +30,11 @@ public class LoginController implements ActionListener, MouseListener {
         String btn = e.getActionCommand();
         if (btn.equals("Đăng nhập")) {
             handleLogin();
-        } else if (btn.equals("Đăng ký")) {
-            handleSignUp();
-        } else if (btn.equals("Tạo tài khoản")) {
+        } else if (btn.equals("Kiểm tra")) {
+            checkAccount(loginUI.tFSignUp_username.getText());
+        } else if (btn.equals("Xác nhận")) {
+            handleChangePassword(account);
+        } else if (btn.equals("Quên mật khẩu")) {
             loginUI.showCard("panel_signup");
         } else if (btn.equals("Đăng nhập ngay")) {
             loginUI.showCard("panel_login");
@@ -73,14 +76,14 @@ public class LoginController implements ActionListener, MouseListener {
         if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(loginUI, "Vui lòng điền đầy đủ thông tin!");
         } else {
-            AccountDTO accountDTO = accountService.findByUserNameAndPasswordAndStatus(username, password, 1);
+            AccountDTO accountDTO = accountService.findByUserNameAndPassword(username, password, 1);
             if (accountDTO != null) {
                 if (accountDTO.getRoleId().equals("ADMIN")) {
                     loginUI.setVisible(false);
-					new AdminUI(accountDTO);
+                    new AdminUI(accountDTO);
                 } else if (accountDTO.getRoleId().equals("STAFF")) {
                     loginUI.setVisible(false);
-					new UserUI(accountDTO);
+                    new UserUI(accountDTO);
                 }
             } else {
                 JOptionPane.showMessageDialog(loginUI, "Thông tin đăng nhập không chính xác.");
@@ -88,39 +91,38 @@ public class LoginController implements ActionListener, MouseListener {
         }
     }
 
-    public void handleSignUp() {
+    public void checkAccount(String userName){
+        AccountDTO accountDTO = accountService.findByUserName(userName);
+        if (accountDTO != null){
+            this.account = accountDTO;
+            JOptionPane.showMessageDialog(loginUI, "Tài khoản tồn tại.");
+            loginUI.tFSignUp_username.setEditable(false);
+            loginUI.tFSignUp_password.setEditable(true);
+            loginUI.tFSignUp_repassword.setEditable(true);
+            loginUI.btn_signup.setEnabled(true);
+        } else {
+            JOptionPane.showMessageDialog(loginUI, "Tài khoản không tồn tại.");
+        }
+    }
+
+    public void handleChangePassword(AccountDTO accountDTO) {
         String username = loginUI.tFSignUp_username.getText().trim();
-        String fullName = loginUI.tFSignUp_fullName.getText().trim();
-        String phone = loginUI.tFSignUp_phone.getText().trim();
-        String address = loginUI.tFSignUp_address.getText().trim();
         String password = loginUI.tFSignUp_password.getText().trim();
         String rePassword = loginUI.tFSignUp_repassword.getText().trim();
-        String regex = "^[0-9]\\d*$";
-        if (username.isEmpty() || password.isEmpty() || fullName.isEmpty() || phone.isEmpty() || address.isEmpty()) {
+        if (username.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(loginUI, "Vui lòng điền đầy đủ thông tin!");
-        } else if (!phone.matches(regex) || phone.length() > 10){
-            JOptionPane.showMessageDialog(loginUI, "Số điện thoại không hợp lệ.");
         } else if (rePassword.equals(password)) {
-            AccountDTO accountDTO = accountService.findByUserName(username);
-            if (accountDTO == null) {
-                accountDTO = new AccountDTO();
-                accountDTO.setUsername(username);
-                accountDTO.setFullName(fullName);
-                accountDTO.setPhone(phone);
-                accountDTO.setAddress(address);
-                accountDTO.setPassword(password);
-                accountDTO.setStatus(1);
-                accountDTO.setRoleId("USER");
-                accountService.save(accountDTO);
-                JOptionPane.showMessageDialog(loginUI, "Tạo tài khoản thành công.");
-                loginUI.showCard("panel_login");
-            } else {
-                JOptionPane.showMessageDialog(loginUI, "Tên đăng nhập đẫ tồn tại.");
-            }
+            accountDTO.setPassword(password);
+            accountService.save(accountDTO);
+            JOptionPane.showMessageDialog(loginUI, "Đổi mật khẩu thành công.");
+            loginUI.tFSignUp_username.setEditable(true);
+            loginUI.tFSignUp_password.setEditable(false);
+            loginUI.tFSignUp_repassword.setEditable(false);
+            loginUI.btn_signup.setEnabled(false);
+            loginUI.showCard("panel_login");
         } else {
             JOptionPane.showMessageDialog(loginUI, "Mật khẩu không khớp.");
         }
-
     }
 }
 

@@ -20,4 +20,9 @@ public class SupplierService implements ISupplierService {
         return list.isEmpty() ? null : list;
     }
 
+    @Override
+    public SupplierDTO findByName(String name) {
+        return supplierDAO.findByName(name);
+    }
+
 }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ISupplierDAO {
     List<SupplierDTO> findAll();
+    SupplierDTO findByName(String name);
 }

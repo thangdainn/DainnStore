@@ -14,8 +14,8 @@ public class AccountService implements IAccountService {
     }
 
     @Override
-    public AccountDTO findByUserNameAndPasswordAndStatus(String userName, String password, Integer status) {
-        return accountDAO.findByUserNameAndPasswordAndStatus(userName, password, status);
+    public AccountDTO findByUserNameAndPassword(String userName, String password, Integer status) {
+        return accountDAO.findByUserNameAndPassword(userName, password, status);
     }
 
     @Override

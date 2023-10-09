@@ -23,16 +23,14 @@ public class RomDAO extends AbstractDAO<RomDTO> implements IRomDAO {
     @Override
     public List<RomDTO> findByProduct_Id(Integer id) {
         String sql = "SELECT * FROM rom r JOIN product_rom pr ON r.id = pr.rom_id WHERE pr.product_id = ? ORDER BY r.percent ASC";
-        List<RomDTO> roms = query(sql, new RomMapper(), id);
-        return roms.isEmpty() ? null : roms;
+        return query(sql, new RomMapper(), id);
     }
 
     @Override
     public List<RomDTO> findByProduct_IdAndQuantityGreaterZero(Integer id) {
         String sql = "SELECT * FROM rom r JOIN product_rom pr ON r.id = pr.rom_id" +
                 " WHERE pr.product_id = ? AND pr.quantity > 0 ORDER BY r.percent ASC";
-        List<RomDTO> roms = query(sql, new RomMapper(), id);
-        return roms.isEmpty() ? null : roms;
+        return query(sql, new RomMapper(), id);
     }
 
     @Override
@@ -57,7 +55,13 @@ public class RomDAO extends AbstractDAO<RomDTO> implements IRomDAO {
 
     @Override
     public void updateQuantityOfPR(Integer prodId, Integer romId, Integer quantity) {
-        String sql = "UPDATE product_rom SET quantity = ? WHERE product_id = ? AND rom_id = ?";
-        update(sql, quantity, prodId, romId);
+        String sql = "UPDATE product_rom pr" +
+                " JOIN (SELECT product_id, rom_id, SUM(quantity) AS total_quantity" +
+                " FROM product_rom" +
+                " WHERE product_id = ? AND rom_id = ?" +
+                " GROUP BY product_id, rom_id) qty" +
+                " ON pr.product_id = qty.product_id AND pr.rom_id = qty.rom_id" +
+                " SET pr.quantity = qty.total_quantity + ?";
+        update(sql, prodId, romId, quantity);
     }
 }

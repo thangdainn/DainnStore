@@ -70,4 +70,11 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
                 " WHERE p.id = ?";
         update(sql, id);
     }
+
+    @Override
+    public void update(ProductDTO dto) {
+        String sql = "UPDATE product SET category_id =?, name=?, price=?, quantity=?, image=?, status=? WHERE id =?";
+        update(sql, dto.getCategoryId(), dto.getName(), dto.getPrice(), dto.getQuantity(), dto.getImage(),
+                dto.getStatus(), dto.getId());
+    }
 }

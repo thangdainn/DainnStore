@@ -14,4 +14,5 @@ public interface IProductService {
     List<ProductDTO> findByNameContaining(String keyword, Integer status);
     ProductDTO findById(Integer id);
     void updateQuantityById(Integer id);
+    ProductDTO update(ProductDTO dto);
 }

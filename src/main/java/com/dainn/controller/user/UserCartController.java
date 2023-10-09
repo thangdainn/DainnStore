@@ -1,9 +1,6 @@
 package com.dainn.controller.user;
 
-import com.dainn.dto.CartDTO;
-import com.dainn.dto.CustomerDTO;
-import com.dainn.dto.OrderDTO;
-import com.dainn.dto.OrderDetailDTO;
+import com.dainn.dto.*;
 import com.dainn.gui.CartUI;
 import com.dainn.service.*;
 import com.dainn.service.impl.*;
@@ -90,8 +87,10 @@ public class UserCartController implements ActionListener {
             OrderDetailDTO orderDetail = new OrderDetailDTO(order.getId(), cart.getProductId(), cart.getRomId(),
                     cart.getQuantity(), cart.getPrice());
             orderDetailService.save(orderDetail);
-            romService.updateQuantityOfPR(cart.getProductId(), cart.getRomId(), cart.getQuantity());
-            productService.updateQuantityById(cart.getProductId());
+            romService.updateQuantityOfPR(cart.getProductId(), cart.getRomId(), - cart.getQuantity());
+            ProductDTO product = productService.findById(cart.getProductId());
+            product.setQuantity(product.getQuantity() - cart.getQuantity());
+            productService.update(product);
         }
     }
 }

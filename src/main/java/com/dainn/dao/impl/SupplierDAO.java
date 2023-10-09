@@ -15,4 +15,11 @@ public class SupplierDAO extends AbstractDAO<SupplierDTO> implements ISupplierDA
         return query(sql, new SupplierMapper());
     }
 
+    @Override
+    public SupplierDTO findByName(String name) {
+        String sql = "SELECT * FROM supplier WHERE name = ?";
+        List<SupplierDTO> list = query(sql, new SupplierMapper(), name);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
 }

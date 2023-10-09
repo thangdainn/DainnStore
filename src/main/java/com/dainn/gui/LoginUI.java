@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class LoginUI extends JFrame {
 
@@ -16,9 +17,7 @@ public class LoginUI extends JFrame {
 	public JTextField tFSignUp_password;
 	public JTextField tFSignUp_repassword;
 	public JPanel panel_cards;
-	public JTextField tFSignUp_address;
-	public JTextField tFSignUp_phone;
-	public JTextField tFSignUp_fullName;
+	public JButton btn_signup;
 
 	public LoginUI() {
 		this.init();
@@ -103,10 +102,10 @@ public class LoginUI extends JFrame {
 
 		JLabel lblNewLabel_2_1 = new JLabel("Hoặc:");
 		lblNewLabel_2_1.setFont(new Font("Segoe UI", Font.PLAIN, 8));
-		lblNewLabel_2_1.setBounds(124, 362, 31, 13);
+		lblNewLabel_2_1.setBounds(112, 362, 31, 13);
 		panel_login.add(lblNewLabel_2_1);
 
-		JButton btnSub_signup = new JButton("Tạo tài khoản");
+		JButton btnSub_signup = new JButton("Quên mật khẩu");
 		btnSub_signup.setBorderPainted(false);
 		btnSub_signup.setBackground(new Color(149, 92, 211));
 		btnSub_signup.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -115,7 +114,7 @@ public class LoginUI extends JFrame {
 		btnSub_signup.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSub_signup.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSub_signup.setFont(new Font("Tahoma", Font.PLAIN, 8));
-		btnSub_signup.setBounds(155, 362, 83, 16);
+		btnSub_signup.setBounds(140, 362, 98, 16);
 		panel_login.add(btnSub_signup);
 
 		JPanel panel_signup = new JPanel();
@@ -125,60 +124,59 @@ public class LoginUI extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Tên đăng nhập");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel.setBounds(86, 84, 152, 21);
+		lblNewLabel.setBounds(86, 167, 152, 21);
 		panel_signup.add(lblNewLabel);
 
-		JLabel lblMtKhu = new JLabel("Mật khẩu");
+		JLabel lblMtKhu = new JLabel("Mật khẩu mới");
 		lblMtKhu.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblMtKhu.setBounds(86, 306, 152, 21);
+		lblMtKhu.setBounds(86, 237, 152, 21);
 		panel_signup.add(lblMtKhu);
 
 		tFSignUp_username = new JTextField();
 		tFSignUp_username.setColumns(10);
 		tFSignUp_username.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
 		tFSignUp_username.setBackground(new Color(234, 234, 234));
-		tFSignUp_username.setBounds(86, 105, 152, 27);
+		tFSignUp_username.setBounds(86, 186, 152, 27);
 		panel_signup.add(tFSignUp_username);
 
 		tFSignUp_password = new JTextField();
+		tFSignUp_password.setEditable(false);
 		tFSignUp_password.setColumns(10);
 		tFSignUp_password.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
 		tFSignUp_password.setBackground(new Color(234, 234, 234));
-		tFSignUp_password.setBounds(86, 323, 152, 27);
+		tFSignUp_password.setBounds(86, 259, 152, 27);
 		panel_signup.add(tFSignUp_password);
 
-		JButton btn_signup = new JButton("Đăng ký");
-		btn_signup.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btn_signup = new JButton("Xác nhận");
+		btn_signup.setEnabled(false);
+		btn_signup.setForeground(new Color(0, 0, 0));
 		btn_signup.addActionListener(controller);
 		btn_signup.addMouseListener(controller);
+		btn_signup.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btn_signup.setFont(new Font("Segoe UI", Font.BOLD, 10));
 		btn_signup.setBorderPainted(false);
 		btn_signup.setBackground(new Color(149, 92, 211));
-		btn_signup.setBounds(86, 418, 152, 27);
+		btn_signup.setBounds(86, 365, 152, 27);
 		panel_signup.add(btn_signup);
 
-		JLabel lblNewLabel_1 = new JLabel("ĐĂNG KÝ");
+		JLabel lblNewLabel_1 = new JLabel("QUÊN MẬT KHẨU");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setForeground(new Color(123, 54, 199));
 		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblNewLabel_1.setBounds(78, 27, 167, 35);
+		lblNewLabel_1.setBounds(70, 76, 183, 35);
 		panel_signup.add(lblNewLabel_1);
 
-		JLabel lblNewLabel_2 = new JLabel("Đã có tài khoản:");
-		lblNewLabel_2.setFont(new Font("Segoe UI", Font.PLAIN, 8));
-		lblNewLabel_2.setBounds(86, 455, 62, 13);
-		panel_signup.add(lblNewLabel_2);
-
 		tFSignUp_repassword = new JTextField();
+		tFSignUp_repassword.setEditable(false);
 		tFSignUp_repassword.setColumns(10);
 		tFSignUp_repassword.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
 		tFSignUp_repassword.setBackground(new Color(234, 234, 234));
-		tFSignUp_repassword.setBounds(86, 381, 152, 27);
+		tFSignUp_repassword.setBounds(86, 328, 152, 27);
 		panel_signup.add(tFSignUp_repassword);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Nhập lại mật khẩu");
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel_4_1.setBounds(86, 360, 152, 21);
+		lblNewLabel_4_1.setBounds(86, 310, 152, 21);
 		panel_signup.add(lblNewLabel_4_1);
 
 		JButton btnSub_login = new JButton("Đăng nhập ngay");
@@ -190,44 +188,24 @@ public class LoginUI extends JFrame {
 		btnSub_login.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSub_login.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSub_login.setFont(new Font("Tahoma", Font.PLAIN, 8));
-		btnSub_login.setBounds(145, 454, 93, 16);
+		btnSub_login.setBounds(145, 402, 93, 16);
 		panel_signup.add(btnSub_login);
 		
-		tFSignUp_address = new JTextField();
-		tFSignUp_address.setColumns(10);
-		tFSignUp_address.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
-		tFSignUp_address.setBackground(new Color(234, 234, 234));
-		tFSignUp_address.setBounds(86, 269, 152, 27);
-		panel_signup.add(tFSignUp_address);
+		JButton btn_signupCheck = new JButton("Kiểm tra");
+		btn_signupCheck.addActionListener(controller);
+		btn_signupCheck.addMouseListener(controller);
+		btn_signupCheck.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		btn_signupCheck.setHorizontalTextPosition(SwingConstants.CENTER);
+		btn_signupCheck.setFont(new Font("Tahoma", Font.PLAIN, 8));
+		btn_signupCheck.setBorderPainted(false);
+		btn_signupCheck.setBackground(new Color(149, 92, 211));
+		btn_signupCheck.setBounds(171, 223, 67, 16);
+		panel_signup.add(btn_signupCheck);
 		
-		tFSignUp_phone = new JTextField();
-		tFSignUp_phone.setColumns(10);
-		tFSignUp_phone.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
-		tFSignUp_phone.setBackground(new Color(234, 234, 234));
-		tFSignUp_phone.setBounds(86, 212, 152, 27);
-		panel_signup.add(tFSignUp_phone);
-		
-		JLabel lblSinThoi = new JLabel("Địa chỉ");
-		lblSinThoi.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblSinThoi.setBounds(86, 249, 152, 21);
-		panel_signup.add(lblSinThoi);
-		
-		JLabel lblHVTn = new JLabel("Số điện thoại");
-		lblHVTn.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblHVTn.setBounds(86, 193, 152, 21);
-		panel_signup.add(lblHVTn);
-		
-		tFSignUp_fullName = new JTextField();
-		tFSignUp_fullName.setColumns(10);
-		tFSignUp_fullName.setBorder(new MatteBorder(0, 0, 2, 0, (Color) new Color(123, 54, 199)));
-		tFSignUp_fullName.setBackground(new Color(234, 234, 234));
-		tFSignUp_fullName.setBounds(86, 156, 152, 27);
-		panel_signup.add(tFSignUp_fullName);
-		
-		JLabel lblHVTn_1 = new JLabel("Họ và tên");
-		lblHVTn_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblHVTn_1.setBounds(86, 135, 152, 21);
-		panel_signup.add(lblHVTn_1);
+		JLabel lblNewLabel_2_1_1 = new JLabel("Hoặc:");
+		lblNewLabel_2_1_1.setFont(new Font("Segoe UI", Font.PLAIN, 8));
+		lblNewLabel_2_1_1.setBounds(115, 402, 31, 16);
+		panel_signup.add(lblNewLabel_2_1_1);
 
 		this.setVisible(true);
 		

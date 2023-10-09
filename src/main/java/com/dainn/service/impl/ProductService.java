@@ -67,4 +67,11 @@ public class ProductService implements IProductService {
     public void updateQuantityById(Integer id) {
         productDAO.updateQuantityById(id);
     }
+
+    @Override
+    public ProductDTO update(ProductDTO dto) {
+        Integer id = dto.getId();
+        productDAO.update(dto);
+        return productDAO.findById(id);
+    }
 }
