@@ -26,7 +26,6 @@ public class CartUI extends JFrame {
     private ICartService cartService = new CartService();
     private IProductService productService = new ProductService();
     private IRomService romService = new RomService();
-    public JFrame frameHome;
     public AccountDTO account;
     public List<CartDTO> carts;
     private JPanel contentPane;
@@ -43,7 +42,6 @@ public class CartUI extends JFrame {
 
     public CartUI(JFrame frameHome, AccountDTO account) {
         this.frame = this;
-        this.frameHome = frameHome;
         this.account = account;
         this.carts = cartService.findByAccount_Id(account.getId());
         this.init();
@@ -143,8 +141,8 @@ public class CartUI extends JFrame {
         btnBackHome.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setVisible(false);
-                frameHome.setVisible(true);
+                frame.dispose();
+                new UserUI(account);
             }
         });
         panel_1.add(btnBackHome);
