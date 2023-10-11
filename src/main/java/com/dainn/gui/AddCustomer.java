@@ -115,15 +115,20 @@ public class AddCustomer extends JFrame {
 		String address = tF_address.getText().trim();
 		String phone = tF_phone.getText().trim();
 		if (!fullName.equals("") && !address.equals("") && !phone.equals("")){
-			CustomerDTO customer = customerService.findByPhone(phone, 1);
-			if (customer == null){
-				customer = new CustomerDTO();
-				customer.setName(fullName);
-				customer.setAddress(address);
-				customer.setPhone(phone);
-				return customer;
+			String phoneNumberRegex = "^(0[0-9]{9})$";
+			if (phone.matches(phoneNumberRegex)){
+				CustomerDTO customer = customerService.findByPhone(phone, 1);
+				if (customer == null){
+					customer = new CustomerDTO();
+					customer.setName(fullName);
+					customer.setAddress(address);
+					customer.setPhone(phone);
+					return customer;
+				}
+				JOptionPane.showMessageDialog(frame, "Số điện thoại đã tồn tại!!!");
+				return null;
 			}
-			JOptionPane.showMessageDialog(frame, "Số điện thoại đã tồn tại!!!");
+			JOptionPane.showMessageDialog(frame, "Nhập đúng định dạng:\n" + "0xx...(10 số)");
 			return null;
 		} else {
 			JOptionPane.showMessageDialog(frame, "Vui lòng điền đủ thông tin!!!");

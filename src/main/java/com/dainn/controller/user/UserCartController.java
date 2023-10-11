@@ -83,7 +83,7 @@ public class UserCartController implements ActionListener {
     }
 
     private void handleSaveOrderDetail(List<CartDTO> carts, OrderDTO order){
-        for (CartDTO cart : cartUI.carts){
+        for (CartDTO cart : carts){
             OrderDetailDTO orderDetail = new OrderDetailDTO(order.getId(), cart.getProductId(), cart.getRomId(),
                     cart.getQuantity(), cart.getPrice());
             orderDetailService.save(orderDetail);
