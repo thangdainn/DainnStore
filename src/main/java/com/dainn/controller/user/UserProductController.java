@@ -35,10 +35,10 @@ public class UserProductController implements ActionListener, MouseListener {
                 userUI.currentPanel.setVisible(false);
                 List<ProductDTO> products;
                 if (userUI.currentCategoryName.equals("all")){
-                    products = productService.findByPriceInRanges(minPrice, maxPrice, 1);
+                    products = productService.findByPriceInRanges(minPrice, maxPrice, 1, userUI.tF_find.getText().trim());
                 } else {
                     products = productService.findByPriceInRanges(minPrice, maxPrice,
-                            userUI.currentCategoryName, 1);
+                            userUI.currentCategoryName, 1, userUI.tF_find.getText().trim());
                 }
                 userUI.currentPanel = userUI.addPanelProduct(userUI.panel_3, products, userUI.userProductController);
             } catch (NumberFormatException numberFormatException) {

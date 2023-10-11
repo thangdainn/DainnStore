@@ -26,15 +26,17 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
     }
 
     @Override
-    public List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer categoryId, Integer status) {
-        String sql = "SELECT * FROM product WHERE category_id = ? AND status = ? AND price BETWEEN ? AND ?";
-        return query(sql, new ProductMapper(), categoryId, status, fromPrice, toPrice);
+    public List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer categoryId, Integer status, String keyword) {
+        keyword = "%" + keyword + "%";
+        String sql = "SELECT * FROM product WHERE category_id = ? AND name LIKE ? AND status = ? AND price BETWEEN ? AND ?";
+        return query(sql, new ProductMapper(), categoryId, keyword, status, fromPrice, toPrice);
     }
 
     @Override
-    public List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer status) {
-        String sql = "SELECT * FROM product WHERE status = ? AND price BETWEEN ? AND ?";
-        return query(sql, new ProductMapper(), status, fromPrice, toPrice);
+    public List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer status, String keyword) {
+        keyword = "%" + keyword + "%";
+        String sql = "SELECT * FROM product WHERE name LIKE ? AND status = ? AND price BETWEEN ? AND ?";
+        return query(sql, new ProductMapper(), keyword, status, fromPrice, toPrice);
     }
 
     @Override

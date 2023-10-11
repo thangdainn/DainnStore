@@ -40,11 +40,13 @@ public class UserHomeController implements ActionListener, MouseListener {
     	String result = this.userUI.handleShowCard(panel);
     	if (result.equals("all")) {
     		List<ProductDTO> products = this.productService.findByQuantityGreaterZero(1);
+    		userUI.tF_find.setText("");
     		this.userUI.currentPanel = this.userUI.addPanelProduct(this.userUI.panel_3, products, this.userUI.userProductController);
     	} else if (result.equals("receipt")) {
     		
     	} else {
     		List<ProductDTO> products = this.productService.findByCategoryName(result, 1);
+            userUI.tF_find.setText("");
             this.userUI.currentPanel = this.userUI.addPanelProduct(this.userUI.panel_3, products, this.userUI.userProductController);
     	}
     }

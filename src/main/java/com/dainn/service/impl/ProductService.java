@@ -37,14 +37,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, String categoryName, Integer status) {
+    public List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, String categoryName, Integer status, String keyword) {
         CategoryDTO categoryDTO = categoryDAO.findByName(categoryName);
-        return productDAO.findByInRanges(fromPrice, toPrice, categoryDTO.getId(), status);
+        return productDAO.findByInRanges(fromPrice, toPrice, categoryDTO.getId(), status, keyword);
     }
 
     @Override
-    public List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, Integer status) {
-        return productDAO.findByInRanges(fromPrice, toPrice, status);
+    public List<ProductDTO> findByPriceInRanges(Integer fromPrice, Integer toPrice, Integer status, String keyword) {
+        return productDAO.findByInRanges(fromPrice, toPrice, status, keyword);
     }
 
     @Override
