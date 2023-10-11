@@ -54,6 +54,17 @@ public class CartUI extends JFrame {
         setResizable(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int result = JOptionPane.showConfirmDialog(frame, "Bạn chắc chắn muốn thoát?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION);
+                if (result == JOptionPane.YES_OPTION) {
+                    cartService.dropTable();
+                    System.exit(0);
+                }
+            }
+        });
+
         contentPane = new JPanel();
 
         UserCartController userCartController = new UserCartController(this);
