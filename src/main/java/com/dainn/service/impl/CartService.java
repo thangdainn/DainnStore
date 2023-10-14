@@ -5,6 +5,7 @@ import com.dainn.dao.impl.CartDAO;
 import com.dainn.dto.CartDTO;
 import com.dainn.service.ICartService;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class CartService implements ICartService {
@@ -51,5 +52,10 @@ public class CartService implements ICartService {
     @Override
     public void dropTable() {
         cartDAO.dropTable();
+    }
+
+    @Override
+    public Connection getConnection() {
+        return cartDAO.getConnection();
     }
 }

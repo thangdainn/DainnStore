@@ -2,6 +2,7 @@ package com.dainn.dao;
 
 import com.dainn.dto.CartDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface ICartDAO {
@@ -12,4 +13,5 @@ public interface ICartDAO {
     CartDTO findById(Integer id);
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(Integer accountId, Integer productId, Integer romId);
     void dropTable();
+    Connection getConnection();
 }

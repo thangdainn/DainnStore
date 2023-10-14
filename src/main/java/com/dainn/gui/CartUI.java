@@ -38,6 +38,7 @@ public class CartUI extends JFrame {
     public JLabel totalPayment;
     public JLabel discount;
     public JButton btnOrder;
+    public JButton btnExportBill;
 
 
     public CartUI(JFrame frameHome, AccountDTO account) {
@@ -175,6 +176,13 @@ public class CartUI extends JFrame {
             }
         });
         panel_1.add(btnAddCus);
+        
+        btnExportBill = new JButton("In hóa đơn");
+        btnExportBill.addActionListener(userCartController);
+        btnExportBill.setEnabled(false);
+        btnExportBill.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+        btnExportBill.setBounds(223, 407, 117, 21);
+        panel_1.add(btnExportBill);
 
         JPanel panel_2 = new JPanel();
         panel_2.setBounds(564, 89, 519, 531);
@@ -272,19 +280,19 @@ public class CartUI extends JFrame {
         scrollPane_1.setBounds(0, 0, 497, 352);
         panel.add(scrollPane_1);
 
-        JPanel panel_productList = new JPanel();
-        panel_productList.setBounds(10, 10, 477, 342);
-        panel.add(panel_productList);
-        panel_productList.setLayout(new GridLayout(length, 1));
+        JPanel pane_products = new JPanel();
+        pane_products.setBounds(10, 10, 477, 342);
+        panel.add(pane_products);
+        pane_products.setLayout(new GridLayout(length, 1));
 
-        scrollPane_1.setViewportView(panel_productList);
+        scrollPane_1.setViewportView(pane_products);
 
         if (carts != null) {
             for (CartDTO cart : carts) {
-                panel_productList.add(createPanelCartItem(cart));
+                pane_products.add(createPanelCartItem(cart));
             }
         }
-        return panel_productList;
+        return pane_products;
     }
 
     public JPanel createPanelCartItem(final CartDTO cart) {
@@ -474,6 +482,4 @@ public class CartUI extends JFrame {
         }
         return total;
     }
-
-
 }

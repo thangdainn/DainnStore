@@ -1,14 +1,23 @@
 package com.dainn.controller.user;
 
+import com.dainn.dao.impl.AbstractDAO;
 import com.dainn.dto.*;
 import com.dainn.gui.CartUI;
 import com.dainn.service.*;
 import com.dainn.service.impl.*;
+import net.sf.jasperreports.engine.*;
+import net.sf.jasperreports.view.JasperViewer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class UserCartController implements ActionListener {
 
@@ -20,6 +29,7 @@ public class UserCartController implements ActionListener {
     private IProductService productService = new ProductService();
     private ICustomerService customerService = new CustomerService();
     private CustomerDTO customer;
+    private Integer orderId = null;
 
     public UserCartController(CartUI cartUI) {
         this.cartUI = cartUI;
@@ -52,6 +62,7 @@ public class UserCartController implements ActionListener {
                 order.setAccountId(cartUI.account.getId());
                 order.setCustomerId(customer.getId());
                 order = orderService.save(order);
+                orderId = order.getId();
                 handleSaveOrderDetail(cartUI.carts, order);
                 Integer points = customer.getPoints();
                 if (points < 15){
@@ -62,9 +73,12 @@ public class UserCartController implements ActionListener {
                 cartUI.currentPanel.setVisible(false);
                 cartUI.setAllTFTotal();
                 JOptionPane.showMessageDialog(cartUI, "Đặt hàng thành công!!!");
+                cartUI.btnExportBill.setEnabled(true);
             } else {
                 JOptionPane.showMessageDialog(cartUI, "Giỏ hàng đang trống!!!");
             }
+        } else if (action.equals("In hóa đơn")){
+            exportBill();
         }
     }
 
@@ -91,6 +105,19 @@ public class UserCartController implements ActionListener {
             ProductDTO product = productService.findById(cart.getProductId());
             product.setQuantity(product.getQuantity() - cart.getQuantity());
             productService.update(product);
+        }
+    }
+
+    private void exportBill(){
+        try {
+            Hashtable map = new Hashtable();
+            JasperReport rpt = JasperCompileManager.compileReport("src/main/java/com/dainn/report/ReportOrder.jrxml");
+            map.put("orderId", orderId);
+            Connection conn = cartService.getConnection();
+            JasperPrint p = JasperFillManager.fillReport(rpt, map, conn);
+            JasperViewer.viewReport(p, false);
+        } catch (JRException ex){
+            Logger.getLogger(cartUI.getClass().getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

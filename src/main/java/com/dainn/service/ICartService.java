@@ -2,6 +2,7 @@ package com.dainn.service;
 
 import com.dainn.dto.CartDTO;
 
+import java.sql.Connection;
 import java.util.List;
 
 public interface ICartService {
@@ -11,4 +12,5 @@ public interface ICartService {
     void delete(Integer id);
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(CartDTO dto);
     void dropTable();
+    Connection getConnection();
 }
