@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.dainn.AppTest" time="0.04" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="com.dainn.AppTest" time="0.037" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="17"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,7 +15,7 @@
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="user.country" value="US"/>
     <property name="sun.boot.library.path" value="C:\Java\bin"/>
-    <property name="sun.java.command" value="C:\Users\thann\AppData\Local\Temp\surefire5686599859982284998\surefirebooter1111033450614880465.jar C:\Users\thann\AppData\Local\Temp\surefire5686599859982284998 2023-10-14T16-50-23_810-jvmRun1 surefire9801750111878537045tmp surefire_05913362825386808785tmp"/>
+    <property name="sun.java.command" value="C:\Users\thann\AppData\Local\Temp\surefire13029578157586049493\surefirebooter4880391769484530377.jar C:\Users\thann\AppData\Local\Temp\surefire13029578157586049493 2023-10-17T15-48-45_663-jvmRun1 surefire4927537801532789386tmp surefire_01130306978460601175tmp"/>
     <property name="jdk.debug" value="release"/>
     <property name="surefire.test.class.path" value="F:\eclipse-workspace\DainnStore\target\test-classes;F:\eclipse-workspace\DainnStore\target\classes;C:\Users\thann\.m2\repository\junit\junit\4.11\junit-4.11.jar;C:\Users\thann\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\thann\.m2\repository\com\mysql\mysql-connector-j\8.0.33\mysql-connector-j-8.0.33.jar;C:\Users\thann\.m2\repository\com\google\protobuf\protobuf-java\3.21.9\protobuf-java-3.21.9.jar;C:\Users\thann\.m2\repository\org\projectlombok\lombok\1.18.28\lombok-1.18.28.jar;C:\Users\thann\.m2\repository\net\sf\jasperreports\jasperreports\6.20.6\jasperreports-6.20.6.jar;C:\Users\thann\.m2\repository\commons-beanutils\commons-beanutils\1.9.4\commons-beanutils-1.9.4.jar;C:\Users\thann\.m2\repository\commons-collections\commons-collections\3.2.2\commons-collections-3.2.2.jar;C:\Users\thann\.m2\repository\commons-digester\commons-digester\2.1\commons-digester-2.1.jar;C:\Users\thann\.m2\repository\commons-logging\commons-logging\1.1.1\commons-logging-1.1.1.jar;C:\Users\thann\.m2\repository\org\apache\commons\commons-collections4\4.2\commons-collections4-4.2.jar;C:\Users\thann\.m2\repository\com\github\librepdf\openpdf\1.3.30.jaspersoft.3\openpdf-1.3.30.jaspersoft.3.jar;C:\Users\thann\.m2\repository\org\jfree\jcommon\1.0.23\jcommon-1.0.23.jar;C:\Users\thann\.m2\repository\org\jfree\jfreechart\1.0.19\jfreechart-1.0.19.jar;C:\Users\thann\.m2\repository\org\eclipse\jdt\ecj\3.21.0\ecj-3.21.0.jar;C:\Users\thann\.m2\repository\com\fasterxml\jackson\core\jackson-core\2.14.1\jackson-core-2.14.1.jar;C:\Users\thann\.m2\repository\com\fasterxml\jackson\core\jackson-databind\2.14.1\jackson-databind-2.14.1.jar;C:\Users\thann\.m2\repository\com\fasterxml\jackson\core\jackson-annotations\2.14.1\jackson-annotations-2.14.1.jar;C:\Users\thann\.m2\repository\com\fasterxml\jackson\dataformat\jackson-dataformat-xml\2.14.1\jackson-dataformat-xml-2.14.1.jar;C:\Users\thann\.m2\repository\org\codehaus\woodstox\stax2-api\4.2.1\stax2-api-4.2.1.jar;C:\Users\thann\.m2\repository\com\fasterxml\woodstox\woodstox-core\6.4.0\woodstox-core-6.4.0.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
@@ -30,7 +30,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\thann\AppData\Local\Temp\surefire5686599859982284998\surefirebooter1111033450614880465.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\thann\AppData\Local\Temp\surefire13029578157586049493\surefirebooter4880391769484530377.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="17.0.7+7"/>
@@ -57,5 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="61.0"/>
   </properties>
-  <testcase name="shouldAnswerWithTrue" classname="com.dainn.AppTest" time="0.009"/>
+  <testcase name="shouldAnswerWithTrue" classname="com.dainn.AppTest" time="0.016"/>
 </testsuite>
