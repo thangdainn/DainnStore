@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 
@@ -24,7 +25,6 @@ public class AdminHomeController implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseClicked(java.awt.event.MouseEvent e) {
-		
 	}
 
 	@Override
@@ -44,7 +44,6 @@ public class AdminHomeController implements MouseListener, ActionListener {
 		JPanel panel = (JPanel) e.getSource();
 		panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		this.adminUI.setColor(panel);
-
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.dainn.gui;
 
+import com.dainn.controller.AccountController_QT;
 import com.dainn.controller.admin.AdminHomeController;
 import com.dainn.dto.AccountDTO;
 import com.dainn.utils.NumberTextField;
@@ -1335,8 +1336,11 @@ public class AdminUI extends JFrame {
 		panel_header.add(separator_3_1);
 
 		this.setVisible(true);
-		
-		// Quoc Tuan test push
+
+		// Quoc Tuan
+		AccountController_QT.loadAccount(table_account);
+		JOptionPane.showMessageDialog(null, "Success!");
+		// End
 	}
 
 	public void setColor(JPanel jPanel) {
