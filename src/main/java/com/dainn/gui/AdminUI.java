@@ -1335,6 +1335,8 @@ public class AdminUI extends JFrame {
 		panel_header.add(separator_3_1);
 
 		this.setVisible(true);
+		
+		// Quoc Tuan test push
 	}
 
 	public void setColor(JPanel jPanel) {
