@@ -7,19 +7,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.dto.AccountDTO;
-import com.dainn.service.AccountService_QT;
+import com.dainn.dto.CustomerDTO;
+import com.dainn.service.CustomerService_QT;
 
-public class AccountController_QT {
+public class CustomerController_QT {
 
-	public static void loadAccount(JTable table) {
+	public static void loadCustomer(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 		try {
-			List<AccountDTO> accounts = AccountService_QT.getAccount_QT();
+			List<CustomerDTO> customers = CustomerService_QT.getCustomer_QT();
 			tableModel.setRowCount(0);
-			for (AccountDTO account : accounts) {
-				Object[] rowData = { account.getId(), account.getUsername(), account.getPassword(), account.getRoleId(),
-						account.getFullName() };
+			for (CustomerDTO customer : customers) {
+				Object[] rowData = { customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(),
+						customer.getPoints() };
 				tableModel.addRow(rowData);
 			}
 		} catch (SQLException ex) {

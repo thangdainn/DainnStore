@@ -1,6 +1,7 @@
 package com.dainn.gui;
 
 import com.dainn.controller.AccountController_QT;
+import com.dainn.controller.CustomerController_QT;
 import com.dainn.controller.admin.AdminHomeController;
 import com.dainn.dto.AccountDTO;
 import com.dainn.utils.NumberTextField;
@@ -15,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.border.LineBorder;
 
 public class AdminUI extends JFrame {
 
@@ -682,14 +684,12 @@ public class AdminUI extends JFrame {
 
 		JPanel panel_3_2 = new JPanel();
 		panel_3_2.setLayout(null);
-		panel_3_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-				"Danh s\u00E1ch kh\u00E1ch h\u00E0ng", TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
+		panel_3_2.setBorder(null);
 		panel_3_2.setBounds(0, 172, 842, 328);
 		panel_cusList.add(panel_3_2);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 21, 822, 297);
+		scrollPane_2.setBounds(10, 23, 822, 295);
 		panel_3_2.add(scrollPane_2);
 
 		table_customer = new JTable();
@@ -738,8 +738,7 @@ public class AdminUI extends JFrame {
 
 		JPanel panel_5_2 = new JPanel();
 		panel_5_2.setLayout(null);
-		panel_5_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-				"T\u00ECm ki\u1EBFm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_5_2.setBorder(null);
 		panel_5_2.setBounds(0, 0, 842, 51);
 		panel_cusList.add(panel_5_2);
 
@@ -748,17 +747,17 @@ public class AdminUI extends JFrame {
 		textField_cusFind.setColumns(10);
 		textField_cusFind.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_cusFind.setBackground(Color.WHITE);
-		textField_cusFind.setBounds(98, 16, 347, 19);
+		textField_cusFind.setBounds(217, 16, 347, 19);
 		panel_5_2.add(textField_cusFind);
 
 		JLabel lblNewLabel_8_2 = new JLabel("Tìm kiếm");
-		lblNewLabel_8_2.setBounds(43, 19, 45, 13);
+		lblNewLabel_8_2.setBounds(142, 19, 45, 13);
 		panel_5_2.add(lblNewLabel_8_2);
 
 		JButton btn_cusFind = new JButton("Tìm");
 //		btn_cusFind.addActionListener(adminCusController);
 		btn_cusFind.setBackground(new Color(149, 92, 211));
-		btn_cusFind.setBounds(455, 15, 85, 21);
+		btn_cusFind.setBounds(619, 15, 85, 21);
 		panel_5_2.add(btn_cusFind);
 
 		JPanel panel_accList = new JPanel();
@@ -768,14 +767,12 @@ public class AdminUI extends JFrame {
 
 		JPanel panel_3_3 = new JPanel();
 		panel_3_3.setLayout(null);
-		panel_3_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-				"Danh s\u00E1ch t\u00E0i kho\u1EA3n", TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
+		panel_3_3.setBorder(new LineBorder(new Color(0, 0, 0)));
 		panel_3_3.setBounds(0, 172, 842, 328);
 		panel_accList.add(panel_3_3);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 21, 822, 297);
+		scrollPane_3.setBounds(10, 22, 822, 296);
 		panel_3_3.add(scrollPane_3);
 
 		table_account = new JTable();
@@ -784,7 +781,7 @@ public class AdminUI extends JFrame {
 		table_account.setRowHeight(24);
 		table_account.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "M\u00E3 t\u00E0i kho\u1EA3n", "T\u00EAn \u0111\u0103ng nh\u1EADp", "M\u1EADt kh\u1EA9u",
-						"M\u00E3 quy\u1EC1n truy c\u1EADp", "M\u00E3 kh\u00E1ch h\u00E0ng" }) {
+						 "M\u00E3 quy\u1EC1n truy c\u1EADp", "Tên"}) {
 			boolean[] columnEditables = new boolean[] { false, false, false, false, false };
 
 			public boolean isCellEditable(int row, int column) {
@@ -835,8 +832,7 @@ public class AdminUI extends JFrame {
 
 		JPanel panel_5_3 = new JPanel();
 		panel_5_3.setLayout(null);
-		panel_5_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-				"T\u00ECm ki\u1EBFm", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_5_3.setBorder(null);
 		panel_5_3.setBounds(0, 0, 842, 51);
 		panel_accList.add(panel_5_3);
 
@@ -845,19 +841,19 @@ public class AdminUI extends JFrame {
 		textField_accFind.setColumns(10);
 		textField_accFind.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_accFind.setBackground(Color.WHITE);
-		textField_accFind.setBounds(98, 16, 347, 19);
+		textField_accFind.setBounds(232, 16, 347, 19);
 		panel_5_3.add(textField_accFind);
 
 		JLabel lblNewLabel_8_3 = new JLabel("Tìm kiếm");
 		lblNewLabel_8_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_8_3.setBounds(43, 19, 45, 13);
+		lblNewLabel_8_3.setBounds(155, 19, 45, 13);
 		panel_5_3.add(lblNewLabel_8_3);
 
 		JButton btn_accFind = new JButton("Tìm");
 		btn_accFind.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //		btn_accFind.addActionListener(adminAccController);
 		btn_accFind.setBackground(new Color(149, 92, 211));
-		btn_accFind.setBounds(455, 15, 85, 21);
+		btn_accFind.setBounds(619, 15, 85, 21);
 		panel_5_3.add(btn_accFind);
 
 		JPanel acc_infor = new JPanel();
@@ -907,13 +903,12 @@ public class AdminUI extends JFrame {
 		textField_accUsername.setBounds(418, 30, 124, 19);
 		acc_infor.add(textField_accUsername);
 
-		JLabel lblNewLabel_9_3_3_1_1 = new JLabel("Mã khách hàng:");
+		JLabel lblNewLabel_9_3_3_1_1 = new JLabel("Tên");
 		lblNewLabel_9_3_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3_3_1_1.setBounds(579, 32, 91, 13);
+		lblNewLabel_9_3_3_1_1.setBounds(641, 31, 18, 14);
 		acc_infor.add(lblNewLabel_9_3_3_1_1);
 
 		textField_accCusId = new JTextField();
-		textField_accCusId.setEditable(false);
 		textField_accCusId.setColumns(10);
 		textField_accCusId.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		textField_accCusId.setBounds(680, 30, 124, 19);
@@ -1339,7 +1334,7 @@ public class AdminUI extends JFrame {
 
 		// Quoc Tuan
 		AccountController_QT.loadAccount(table_account);
-		JOptionPane.showMessageDialog(null, "Success!");
+		CustomerController_QT.loadCustomer(table_customer);
 		// End
 	}
 

@@ -22,7 +22,6 @@ public class DBService_QT {
 			if (connection != null) {
 				connection.close();
 			}
-			JOptionPane.showMessageDialog(null, "Success!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error!");
 		}
@@ -39,7 +38,6 @@ public class DBService_QT {
 			if (connection != null) {
 				connection.close();
 			}
-			JOptionPane.showMessageDialog(null, "Success!");
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error!");
 		}
