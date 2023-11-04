@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.dainn.dto.CustomerDTO;
@@ -18,7 +19,7 @@ public class CustomerController_QT {
 			List<CustomerDTO> customers = CustomerService_QT.getCustomer_QT();
 			tableModel.setRowCount(0);
 			for (CustomerDTO customer : customers) {
-				Object[] rowData = { customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone(),
+				Object[] rowData = { customer.getId(), customer.getName(), customer.getPhone(), customer.getAddress(),
 						customer.getPoints() };
 				tableModel.addRow(rowData);
 			}
@@ -27,4 +28,18 @@ public class CustomerController_QT {
 		}
 	}
 
+	public static void loadFormCustomer(JTable table_customer, int selectedRow, JTextField txtidCustomer,
+			JTextField txtnameCustomer, JTextField txtphoneCustomer, JTextField txtaddressCustomer) {
+		if (selectedRow >= 0) {
+			int id = (int) table_customer.getValueAt(selectedRow, 0);
+			String name = (String) table_customer.getValueAt(selectedRow, 1);
+			String phone = (String) table_customer.getValueAt(selectedRow, 2);
+			String address = (String) table_customer.getValueAt(selectedRow, 3);
+
+			txtidCustomer.setText(String.valueOf(id));
+			txtnameCustomer.setText(name);
+			txtphoneCustomer.setText(phone);
+			txtaddressCustomer.setText(address);
+		}
+	}
 }

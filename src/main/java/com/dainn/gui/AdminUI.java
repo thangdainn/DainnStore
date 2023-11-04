@@ -10,6 +10,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -36,24 +38,23 @@ public class AdminUI extends JFrame {
 	public JTextField textField_proPrice;
 	public JTable table_product;
 	public JTextField textField_orderFind;
-	public JTextField textField_cusId;
-	public JTextField textField_cusName;
-	public JTextField textField_cusPhone;
-	public JTextField textField_cusAddress;
+	public JTextField txtidCustomer;
+	public JTextField txtnameCustomer;
+	public JTextField txtphoneCustomer;
+	public JTextField txtaddressCustomer;
 	public JTextField textField_cusFind;
 	public JTextField textField_accFind;
 	public JTable table_order;
 	public JTable table_customer;
-	public JTextField textField_accId;
-	public JTextField textField_accPassword;
-	public JTextField textField_accUsername;
+	public JTextField txtIdAcc;
+	public JTextField txtPasswordAcc;
+	public JTextField txtUsernameAcc;
 	public JTable table_account;
-	public JTextField textField_accCusId;
+	public JTextField txtFullNameAcc;
 	public JLabel lbl_header;
-	public JComboBox comboBox_accAccessId;
+	public JComboBox cbbRoleAcc;
 	public JLabel lbl_image;
 	public JComboBox comboBox_prodCateId;
-	public JComboBox comboBox_cusSex;
 	public JButton btn_orderFind;
 	public JComboBox comboBox_orderMonth;
 	public JComboBox comboBox_orderStatus;
@@ -99,7 +100,7 @@ public class AdminUI extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(84, 40, 132));
+		panel.setBackground(new Color(128, 0, 255));
 		panel.setBounds(0, 0, 242, 620);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -624,63 +625,54 @@ public class AdminUI extends JFrame {
 		panel_cusList.add(cus_infor);
 
 		JLabel lblNewLabel_9_5 = new JLabel("Mã khách hàng:");
-		lblNewLabel_9_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_5.setBounds(66, 32, 91, 13);
+		lblNewLabel_9_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_5.setBounds(92, 28, 101, 17);
 		cus_infor.add(lblNewLabel_9_5);
 
 		JLabel lblNewLabel_9_1_3 = new JLabel("Tên khách hàng:");
-		lblNewLabel_9_1_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_1_3.setBounds(66, 77, 91, 13);
+		lblNewLabel_9_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_3.setBounds(92, 73, 106, 17);
 		cus_infor.add(lblNewLabel_9_1_3);
 
-		textField_cusId = new JTextField();
-		textField_cusId.setEditable(false);
-		textField_cusId.setColumns(10);
-		textField_cusId.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_cusId.setBounds(167, 30, 124, 19);
-		cus_infor.add(textField_cusId);
+		txtidCustomer = new JTextField();
+		txtidCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtidCustomer.setEditable(false);
+		txtidCustomer.setColumns(10);
+		txtidCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtidCustomer.setBounds(222, 29, 124, 19);
+		cus_infor.add(txtidCustomer);
 
-		textField_cusName = new JTextField();
-		textField_cusName.setColumns(10);
-		textField_cusName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_cusName.setBounds(167, 75, 124, 19);
-		cus_infor.add(textField_cusName);
+		txtnameCustomer = new JTextField();
+		txtnameCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtnameCustomer.setColumns(10);
+		txtnameCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtnameCustomer.setBounds(222, 74, 124, 19);
+		cus_infor.add(txtnameCustomer);
 
 		JLabel lblNewLabel_9_1_1_2 = new JLabel("Địa chỉ:");
-		lblNewLabel_9_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_1_1_2.setBounds(347, 77, 66, 13);
+		lblNewLabel_9_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_1_2.setBounds(416, 73, 48, 17);
 		cus_infor.add(lblNewLabel_9_1_1_2);
 
 		JLabel lblNewLabel_9_3_3 = new JLabel("Số điện thoại:");
-		lblNewLabel_9_3_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3_3.setBounds(347, 32, 84, 13);
+		lblNewLabel_9_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_3_3.setBounds(416, 31, 88, 17);
 		cus_infor.add(lblNewLabel_9_3_3);
 
-		textField_cusPhone = new JTextField();
-		NumberTextField.numberTextField(textField_cusPhone);
-		textField_cusPhone.setColumns(10);
-		textField_cusPhone.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_cusPhone.setBounds(439, 30, 124, 19);
-		cus_infor.add(textField_cusPhone);
+		txtphoneCustomer = new JTextField();
+		txtphoneCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		NumberTextField.numberTextField(txtphoneCustomer);
+		txtphoneCustomer.setColumns(10);
+		txtphoneCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtphoneCustomer.setBounds(528, 29, 124, 19);
+		cus_infor.add(txtphoneCustomer);
 
-		textField_cusAddress = new JTextField();
-		textField_cusAddress.setColumns(10);
-		textField_cusAddress.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_cusAddress.setBounds(439, 75, 124, 19);
-		cus_infor.add(textField_cusAddress);
-
-		JLabel lblNewLabel_9_3_3_1 = new JLabel("Giới tính:");
-		lblNewLabel_9_3_3_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3_3_1.setBounds(620, 32, 55, 13);
-		cus_infor.add(lblNewLabel_9_3_3_1);
-
-		comboBox_cusSex = new JComboBox();
-		comboBox_cusSex.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_cusSex.addItem("Chọn giới tính");
-		comboBox_cusSex.addItem("Nam");
-		comboBox_cusSex.addItem("Nữ");
-		comboBox_cusSex.setBounds(669, 29, 100, 21);
-		cus_infor.add(comboBox_cusSex);
+		txtaddressCustomer = new JTextField();
+		txtaddressCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtaddressCustomer.setColumns(10);
+		txtaddressCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtaddressCustomer.setBounds(528, 74, 124, 19);
+		cus_infor.add(txtaddressCustomer);
 
 		JPanel panel_3_2 = new JPanel();
 		panel_3_2.setLayout(null);
@@ -689,10 +681,11 @@ public class AdminUI extends JFrame {
 		panel_cusList.add(panel_3_2);
 
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setBounds(10, 23, 822, 295);
+		scrollPane_2.setBounds(10, 23, 822, 305);
 		panel_3_2.add(scrollPane_2);
 
 		table_customer = new JTable();
+		table_customer.setFont(new Font("Tahoma", Font.PLAIN, 14));
 //		table_customer.addMouseListener(adminCusController);
 //		table_customer.addKeyListener(adminCusController);
 		table_customer.setRowHeight(24);
@@ -700,7 +693,7 @@ public class AdminUI extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"M\u00E3 kh\u00E1ch h\u00E0ng", "T\u00EAn kh\u00E1ch h\u00E0ng", "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i", "\u0110\u1ECBa ch\u1EC9", "Gi\u1EDBi t\u00EDnh"
+				"M\u00E3 kh\u00E1ch h\u00E0ng", "T\u00EAn kh\u00E1ch h\u00E0ng", "S\u1ED1 \u0111i\u1EC7n tho\u1EA1i", "\u0110\u1ECBa ch\u1EC9", "Tích điểm"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
@@ -725,15 +718,17 @@ public class AdminUI extends JFrame {
 		panel_cusList.add(panel_4_2);
 
 		JButton btn_updateCus = new JButton("Lưu");
+		btn_updateCus.setFont(new Font("Tahoma", Font.PLAIN, 12));
 //		btn_updateCus.addActionListener(adminCusController);
 		btn_updateCus.setBackground(new Color(149, 92, 211));
-		btn_updateCus.setBounds(327, 15, 85, 21);
+		btn_updateCus.setBounds(327, 12, 85, 26);
 		panel_4_2.add(btn_updateCus);
 
 		JButton btn_resetCus = new JButton("Làm mới");
+		btn_resetCus.setFont(new Font("Tahoma", Font.PLAIN, 12));
 //		btn_resetCus.addActionListener(adminCusController);
 		btn_resetCus.setBackground(new Color(149, 92, 211));
-		btn_resetCus.setBounds(422, 15, 85, 21);
+		btn_resetCus.setBounds(422, 12, 85, 26);
 		panel_4_2.add(btn_resetCus);
 
 		JPanel panel_5_2 = new JPanel();
@@ -743,6 +738,7 @@ public class AdminUI extends JFrame {
 		panel_cusList.add(panel_5_2);
 
 		textField_cusFind = new JTextField();
+		textField_cusFind.setFont(new Font("Tahoma", Font.PLAIN, 12));
 //		textField_cusFind.addFocusListener(adminCusController);
 		textField_cusFind.setColumns(10);
 		textField_cusFind.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -751,10 +747,12 @@ public class AdminUI extends JFrame {
 		panel_5_2.add(textField_cusFind);
 
 		JLabel lblNewLabel_8_2 = new JLabel("Tìm kiếm");
-		lblNewLabel_8_2.setBounds(142, 19, 45, 13);
+		lblNewLabel_8_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_8_2.setBounds(142, 19, 58, 17);
 		panel_5_2.add(lblNewLabel_8_2);
 
 		JButton btn_cusFind = new JButton("Tìm");
+		btn_cusFind.setFont(new Font("Tahoma", Font.PLAIN, 12));
 //		btn_cusFind.addActionListener(adminCusController);
 		btn_cusFind.setBackground(new Color(149, 92, 211));
 		btn_cusFind.setBounds(619, 15, 85, 21);
@@ -772,10 +770,11 @@ public class AdminUI extends JFrame {
 		panel_accList.add(panel_3_3);
 
 		JScrollPane scrollPane_3 = new JScrollPane();
-		scrollPane_3.setBounds(10, 22, 822, 296);
+		scrollPane_3.setBounds(10, 22, 822, 306);
 		panel_3_3.add(scrollPane_3);
 
 		table_account = new JTable();
+		table_account.setFont(new Font("Tahoma", Font.PLAIN, 14));
 //		table_account.addMouseListener(adminAccController);
 //		table_account.addKeyListener(adminAccController);
 		table_account.setRowHeight(24);
@@ -801,33 +800,31 @@ public class AdminUI extends JFrame {
 		panel_accList.add(panel_4_3);
 
 		JButton btn_addAcc = new JButton("Thêm");
+		btn_addAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_addAcc.addActionListener(adminAccController);
 		btn_addAcc.setBackground(new Color(149, 92, 211));
-		btn_addAcc.setBounds(188, 15, 85, 21);
+		btn_addAcc.setBounds(226, 12, 85, 26);
 		panel_4_3.add(btn_addAcc);
 
 		JButton btn_updateAcc = new JButton("Lưu");
+		btn_updateAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_updateAcc.addActionListener(adminAccController);
 		btn_updateAcc.setBackground(new Color(149, 92, 211));
-		btn_updateAcc.setBounds(283, 15, 85, 21);
+		btn_updateAcc.setBounds(321, 12, 85, 26);
 		panel_4_3.add(btn_updateAcc);
 
 		JButton btn_deleteAcc = new JButton("Xóa");
+		btn_deleteAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_deleteAcc.addActionListener(adminAccController);
 		btn_deleteAcc.setBackground(new Color(149, 92, 211));
-		btn_deleteAcc.setBounds(378, 15, 85, 21);
+		btn_deleteAcc.setBounds(416, 12, 85, 26);
 		panel_4_3.add(btn_deleteAcc);
 
-		JButton btn_deleteAllAcc = new JButton("Xóa tất cả");
-//		btn_deleteAllAcc.addActionListener(adminAccController);
-		btn_deleteAllAcc.setBackground(new Color(149, 92, 211));
-		btn_deleteAllAcc.setBounds(473, 15, 85, 21);
-		panel_4_3.add(btn_deleteAllAcc);
-
 		JButton btn_resetAcc = new JButton("Làm mới");
+		btn_resetAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_resetAcc.addActionListener(adminAccController);
 		btn_resetAcc.setBackground(new Color(149, 92, 211));
-		btn_resetAcc.setBounds(568, 15, 85, 21);
+		btn_resetAcc.setBounds(511, 12, 85, 26);
 		panel_4_3.add(btn_resetAcc);
 
 		JPanel panel_5_3 = new JPanel();
@@ -845,12 +842,12 @@ public class AdminUI extends JFrame {
 		panel_5_3.add(textField_accFind);
 
 		JLabel lblNewLabel_8_3 = new JLabel("Tìm kiếm");
-		lblNewLabel_8_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_8_3.setBounds(155, 19, 45, 13);
+		lblNewLabel_8_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_8_3.setBounds(155, 19, 58, 17);
 		panel_5_3.add(lblNewLabel_8_3);
 
 		JButton btn_accFind = new JButton("Tìm");
-		btn_accFind.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		btn_accFind.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_accFind.addActionListener(adminAccController);
 		btn_accFind.setBackground(new Color(149, 92, 211));
 		btn_accFind.setBounds(619, 15, 85, 21);
@@ -865,62 +862,66 @@ public class AdminUI extends JFrame {
 		panel_accList.add(acc_infor);
 
 		JLabel lblNewLabel_9_5_1 = new JLabel("Mã tài khoản:");
-		lblNewLabel_9_5_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_5_1.setBounds(66, 32, 91, 13);
+		lblNewLabel_9_5_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_5_1.setBounds(66, 32, 86, 17);
 		acc_infor.add(lblNewLabel_9_5_1);
 
 		JLabel lblNewLabel_9_1_3_1 = new JLabel("Mật khẩu:");
-		lblNewLabel_9_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_1_3_1.setBounds(66, 77, 91, 13);
+		lblNewLabel_9_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_3_1.setBounds(66, 77, 63, 17);
 		acc_infor.add(lblNewLabel_9_1_3_1);
 
-		textField_accId = new JTextField();
-		textField_accId.setEditable(false);
-		textField_accId.setColumns(10);
-		textField_accId.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_accId.setBounds(148, 30, 124, 19);
-		acc_infor.add(textField_accId);
+		txtIdAcc = new JTextField();
+		txtIdAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtIdAcc.setEditable(false);
+		txtIdAcc.setColumns(10);
+		txtIdAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtIdAcc.setBounds(159, 30, 124, 19);
+		acc_infor.add(txtIdAcc);
 
-		textField_accPassword = new JTextField();
-		textField_accPassword.setColumns(10);
-		textField_accPassword.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_accPassword.setBounds(148, 75, 124, 19);
-		acc_infor.add(textField_accPassword);
+		txtPasswordAcc = new JTextField();
+		txtPasswordAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtPasswordAcc.setColumns(10);
+		txtPasswordAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtPasswordAcc.setBounds(159, 78, 124, 19);
+		acc_infor.add(txtPasswordAcc);
 
 		JLabel lblNewLabel_9_1_1_2_1 = new JLabel("Quyền truy cập:");
-		lblNewLabel_9_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_1_1_2_1.setBounds(316, 77, 92, 13);
+		lblNewLabel_9_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_1_2_1.setBounds(316, 77, 102, 17);
 		acc_infor.add(lblNewLabel_9_1_1_2_1);
 
 		JLabel lblNewLabel_9_3_3_2 = new JLabel("Tên đăng nhập:");
-		lblNewLabel_9_3_3_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3_3_2.setBounds(316, 32, 92, 13);
+		lblNewLabel_9_3_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_3_3_2.setBounds(316, 32, 101, 17);
 		acc_infor.add(lblNewLabel_9_3_3_2);
 
-		textField_accUsername = new JTextField();
-		textField_accUsername.setColumns(10);
-		textField_accUsername.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_accUsername.setBounds(418, 30, 124, 19);
-		acc_infor.add(textField_accUsername);
+		txtUsernameAcc = new JTextField();
+		txtUsernameAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtUsernameAcc.setColumns(10);
+		txtUsernameAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtUsernameAcc.setBounds(433, 31, 124, 19);
+		acc_infor.add(txtUsernameAcc);
 
-		JLabel lblNewLabel_9_3_3_1_1 = new JLabel("Tên");
-		lblNewLabel_9_3_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_3_3_1_1.setBounds(641, 31, 18, 14);
+		JLabel lblNewLabel_9_3_3_1_1 = new JLabel("Tên:");
+		lblNewLabel_9_3_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_3_3_1_1.setBounds(625, 32, 29, 17);
 		acc_infor.add(lblNewLabel_9_3_3_1_1);
 
-		textField_accCusId = new JTextField();
-		textField_accCusId.setColumns(10);
-		textField_accCusId.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_accCusId.setBounds(680, 30, 124, 19);
-		acc_infor.add(textField_accCusId);
+		txtFullNameAcc = new JTextField();
+		txtFullNameAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtFullNameAcc.setColumns(10);
+		txtFullNameAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtFullNameAcc.setBounds(659, 31, 124, 19);
+		acc_infor.add(txtFullNameAcc);
 
-		comboBox_accAccessId = new JComboBox();
-		comboBox_accAccessId.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		comboBox_accAccessId.addItem("Chọn quyền");
-		comboBox_accAccessId.addItem("Administrator");
-		comboBox_accAccessId.addItem("User");
-		comboBox_accAccessId.setBounds(418, 74, 124, 19);
-		acc_infor.add(comboBox_accAccessId);
+		cbbRoleAcc = new JComboBox();
+		cbbRoleAcc.setFont(new Font("Dialog", Font.PLAIN, 14));
+		cbbRoleAcc.addItem("Chọn quyền");
+		cbbRoleAcc.addItem("Admin");
+		cbbRoleAcc.addItem("User");
+		cbbRoleAcc.setBounds(433, 73, 124, 25);
+		acc_infor.add(cbbRoleAcc);
 		
 		JPanel panel_receipt = new JPanel();
 		panel_receipt.setName("");
@@ -1127,7 +1128,7 @@ public class AdminUI extends JFrame {
 		lblNewLabel_9_2_2_1_1.setBounds(487, 175, 77, 13);
 		panel_receipt.add(lblNewLabel_9_2_2_1_1);
 		
-		JComboBox comboBox_receiptProdId = new JComboBox();
+		final JComboBox comboBox_receiptProdId = new JComboBox();
 		comboBox_receiptProdId.addItem("Chọn mã");
 		comboBox_receiptProdId.setBounds(563, 172, 77, 19);
 		panel_receipt.add(comboBox_receiptProdId);
@@ -1307,35 +1308,57 @@ public class AdminUI extends JFrame {
 		panel_cards.add(panel_analytics, "panel_analytics");
 
 		JPanel panel_header = new JPanel();
-		panel_header.setBackground(new Color(100, 98, 179));
+		panel_header.setBackground(new Color(128, 128, 255));
 		panel_header.setBounds(241, 0, 842, 71);
 		contentPane.add(panel_header);
 		panel_header.setLayout(null);
 
 		lbl_header = new JLabel("Quản lý sản phẩm");
-		lbl_header.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		lbl_header.setBounds(53, 22, 209, 35);
+		lbl_header.setFont(new Font("Times New Roman", Font.BOLD, 28));
+		lbl_header.setBounds(303, 22, 228, 33);
 		panel_header.add(lbl_header);
 
-		JLabel lblNewLabel_7 = new JLabel("Adminstrations");
-		lblNewLabel_7.setFont(new Font("Times New Roman", Font.BOLD, 12));
-		lblNewLabel_7.setBounds(70, 0, 148, 24);
+		JLabel lblNewLabel_7 = new JLabel("ADMIN");
+		lblNewLabel_7.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lblNewLabel_7.setBounds(55, 0, 91, 21);
 		panel_header.add(lblNewLabel_7);
 
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(69, 22, 176, 2);
+		separator_1.setBounds(10, 22, 176, 2);
 		panel_header.add(separator_1);
 
 		JSeparator separator_3_1 = new JSeparator();
-		separator_3_1.setBounds(53, 55, 300, 2);
+		separator_3_1.setBounds(261, 55, 300, 2);
 		panel_header.add(separator_3_1);
 
 		this.setVisible(true);
 
-		// Quoc Tuan
+		
+		
+		// Quoc Tuan Start
 		AccountController_QT.loadAccount(table_account);
+		table_account.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table_account.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = table_account.getSelectedRow();
+                AccountController_QT.loadFormAccount(table_account, selectedRow, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, comboBox_receiptProdId);
+            }
+        });
+		// Quoc Tuan
 		CustomerController_QT.loadCustomer(table_customer);
-		// End
+		table_customer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table_customer.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                int selectedRow = table_customer.getSelectedRow();
+                CustomerController_QT.loadFormCustomer(table_customer, selectedRow, txtidCustomer, txtnameCustomer, txtphoneCustomer, txtaddressCustomer);
+            }
+        });
+		// Quoc Tuan End
+		
+		
+		
 	}
 
 	public void setColor(JPanel jPanel) {
@@ -1392,11 +1415,11 @@ public class AdminUI extends JFrame {
 // Card Account
 	public void formClearAccount() {
 		this.textField_accFind.setText("");
-		this.textField_accId.setText("");
-		this.textField_accUsername.setText("");
-		this.textField_accPassword.setText("");
-		this.comboBox_accAccessId.setSelectedIndex(0);
-		this.textField_accCusId.setText("");
+		this.txtIdAcc.setText("");
+		this.txtUsernameAcc.setText("");
+		this.txtPasswordAcc.setText("");
+		this.cbbRoleAcc.setSelectedIndex(0);
+		this.txtFullNameAcc.setText("");
 	}
 
 	public void handleFormClearAcc() {
@@ -1418,10 +1441,10 @@ public class AdminUI extends JFrame {
 		}
 		String cusId = tableAccModel.getValueAt(row, 4) + "";
 
-		this.textField_accId.setText(id);
-		this.textField_accUsername.setText(username);
-		this.textField_accPassword.setText(password);
-		this.comboBox_accAccessId.setSelectedItem(accsId);
-		this.textField_accCusId.setText(cusId);
+		this.txtIdAcc.setText(id);
+		this.txtUsernameAcc.setText(username);
+		this.txtPasswordAcc.setText(password);
+		this.cbbRoleAcc.setSelectedItem(accsId);
+		this.txtFullNameAcc.setText(cusId);
 	}
 }

@@ -24,8 +24,8 @@ public class CustomerService_QT {
 				CustomerDTO customer = new CustomerDTO();
 				customer.setId(rs.getInt("id"));
 				customer.setName(rs.getString("fullname"));
-				customer.setAddress(rs.getString("address"));
 				customer.setPhone(rs.getString("phone"));
+				customer.setAddress(rs.getString("address"));
 				customer.setPoints(rs.getInt("points"));
 				customer.setStatus(rs.getInt("status"));
 				customers.add(customer);
