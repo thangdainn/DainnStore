@@ -14,20 +14,7 @@ public class DBService_QT {
 		return DriverManager.getConnection(url, username, password);
 	}
 
-	public static void closeResourcesPreparedStatement(PreparedStatement stmt, Connection connection) {
-		try {
-			if (stmt != null) {
-				stmt.close();
-			}
-			if (connection != null) {
-				connection.close();
-			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Error!");
-		}
-	}
-
-	public static void closeResourcesStatement(ResultSet rs, Statement stmt, Connection connection) {
+	public static void closeResourcesPreparedStatement(PreparedStatement stmt, Connection connection, ResultSet rs) {
 		try {
 			if (rs != null) {
 				rs.close();
@@ -38,8 +25,8 @@ public class DBService_QT {
 			if (connection != null) {
 				connection.close();
 			}
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null, "Error!");
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }

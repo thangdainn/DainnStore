@@ -25,7 +25,7 @@ public class AccountController_QT {
 				tableModel.addRow(rowData);
 			}
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error!");
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -43,11 +43,63 @@ public class AccountController_QT {
 			txtUsernameAcc.setText(username);
 			txtPasswordAcc.setText(password);
 			if (role.equals("ADMIN")) {
-				cbbRoleAcc.setSelectedItem("Admin");
+				cbbRoleAcc.setSelectedItem("ADMIN");
 			} else {
-				cbbRoleAcc.setSelectedItem("User");
+				cbbRoleAcc.setSelectedItem("STAFF");
 			}
 			txtFullNameAcc.setText(fullname);
 		}
+	}
+
+	public static void updateAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
+			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
+		int id = Integer.parseInt(txtIdAcc.getText());
+		String username = txtUsernameAcc.getText();
+		String password = txtPasswordAcc.getText();
+		String fullname = txtFullNameAcc.getText();
+		String role = (String) cbbRoleAcc.getSelectedItem();
+
+		AccountDTO account = new AccountDTO();
+		account.setId(id);
+		account.setUsername(username);
+		account.setPassword(password);
+		account.setFullName(fullname);
+		account.setRoleId(role);
+
+		try {
+			AccountService_QT.updateAccount(account);
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+		resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+	}
+
+	public static void deleteAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
+			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
+		int id = Integer.parseInt(txtIdAcc.getText());
+		int status = 0;
+
+		AccountDTO account = new AccountDTO();
+		account.setId(id);
+		account.setStatus(status);
+
+		try {
+			AccountService_QT.deleteAccount(account);
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+		resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+	}
+
+	public static void resetForm(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
+			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
+		txtIdAcc.setText("");
+		txtUsernameAcc.setText("");
+		txtPasswordAcc.setText("");
+		txtFullNameAcc.setText("");
+		cbbRoleAcc.setSelectedIndex(0);
+		loadAccount(table_account);
 	}
 }

@@ -5,20 +5,23 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.dainn.dto.AccountDTO;
 
 public class AccountService_QT {
 
 	public static List<AccountDTO> getAccount_QT() throws SQLException {
 		Connection connection = null;
-		Statement stmt = null;
+		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
-		
+
 		try {
 			connection = DBService_QT.getConnection();
-			stmt = connection.createStatement();
-			String query = "SELECT * FROM account";
+			String query = "SELECT * FROM account WHERE status = 1";
+			stmt = connection.prepareStatement(query);
+
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				AccountDTO account = new AccountDTO();
@@ -30,10 +33,60 @@ public class AccountService_QT {
 				account.setRoleId(rs.getString("role_id"));
 				accounts.add(account);
 			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesStatement(rs, stmt, connection);
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return accounts;
 	}
-	
+
+	public static void updateAccount(AccountDTO account) throws SQLException {
+		Connection connection = null;
+		PreparedStatement stmt = null;
+
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "UPDATE account SET username = ?, password = ?, fullname = ?, role_id = ? WHERE id = ?";
+
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, account.getUsername());
+			stmt.setString(2, account.getPassword());
+			stmt.setString(3, account.getFullName());
+			stmt.setString(4, account.getRoleId());
+			stmt.setInt(5, account.getId());
+
+			int rowsAffected = stmt.executeUpdate();
+			if (rowsAffected > 0) {
+				JOptionPane.showMessageDialog(null, "Đã cập nhật!");
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+		}
+	}
+
+	public static void deleteAccount(AccountDTO account) throws SQLException {
+		Connection connection = null;
+		PreparedStatement stmt = null;
+
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "UPDATE account SET status = ? WHERE id = ?";
+
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, account.getStatus());
+			stmt.setInt(2, account.getId());
+
+			int rowsAffected = stmt.executeUpdate();
+			if (rowsAffected > 0) {
+				JOptionPane.showMessageDialog(null, "Đã xóa!");
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+		}
+	}
 }

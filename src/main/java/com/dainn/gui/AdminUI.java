@@ -52,7 +52,7 @@ public class AdminUI extends JFrame {
 	public JTable table_account;
 	public JTextField txtFullNameAcc;
 	public JLabel lbl_header;
-	public JComboBox cbbRoleAcc;
+	public JComboBox<String> cbbRoleAcc;
 	public JLabel lbl_image;
 	public JComboBox comboBox_prodCateId;
 	public JButton btn_orderFind;
@@ -72,6 +72,7 @@ public class AdminUI extends JFrame {
 	private JTextField textField_4;
 	private JTextField textField_2;
 	private JTable table_category;
+	private JTextField txtpointCustomer;
 
 	public AdminUI(AccountDTO account) {
 		this.init();
@@ -626,12 +627,12 @@ public class AdminUI extends JFrame {
 
 		JLabel lblNewLabel_9_5 = new JLabel("Mã khách hàng:");
 		lblNewLabel_9_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_9_5.setBounds(92, 28, 101, 17);
+		lblNewLabel_9_5.setBounds(92, 29, 101, 17);
 		cus_infor.add(lblNewLabel_9_5);
 
 		JLabel lblNewLabel_9_1_3 = new JLabel("Tên khách hàng:");
 		lblNewLabel_9_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_9_1_3.setBounds(92, 73, 106, 17);
+		lblNewLabel_9_1_3.setBounds(92, 75, 106, 17);
 		cus_infor.add(lblNewLabel_9_1_3);
 
 		txtidCustomer = new JTextField();
@@ -639,24 +640,24 @@ public class AdminUI extends JFrame {
 		txtidCustomer.setEditable(false);
 		txtidCustomer.setColumns(10);
 		txtidCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		txtidCustomer.setBounds(222, 29, 124, 19);
+		txtidCustomer.setBounds(203, 28, 124, 19);
 		cus_infor.add(txtidCustomer);
 
 		txtnameCustomer = new JTextField();
 		txtnameCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtnameCustomer.setColumns(10);
 		txtnameCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		txtnameCustomer.setBounds(222, 74, 124, 19);
+		txtnameCustomer.setBounds(203, 75, 124, 19);
 		cus_infor.add(txtnameCustomer);
 
 		JLabel lblNewLabel_9_1_1_2 = new JLabel("Địa chỉ:");
 		lblNewLabel_9_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_9_1_1_2.setBounds(416, 73, 48, 17);
+		lblNewLabel_9_1_1_2.setBounds(363, 75, 48, 17);
 		cus_infor.add(lblNewLabel_9_1_1_2);
 
 		JLabel lblNewLabel_9_3_3 = new JLabel("Số điện thoại:");
 		lblNewLabel_9_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblNewLabel_9_3_3.setBounds(416, 31, 88, 17);
+		lblNewLabel_9_3_3.setBounds(363, 29, 88, 17);
 		cus_infor.add(lblNewLabel_9_3_3);
 
 		txtphoneCustomer = new JTextField();
@@ -664,15 +665,27 @@ public class AdminUI extends JFrame {
 		NumberTextField.numberTextField(txtphoneCustomer);
 		txtphoneCustomer.setColumns(10);
 		txtphoneCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		txtphoneCustomer.setBounds(528, 29, 124, 19);
+		txtphoneCustomer.setBounds(461, 28, 124, 19);
 		cus_infor.add(txtphoneCustomer);
 
 		txtaddressCustomer = new JTextField();
 		txtaddressCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		txtaddressCustomer.setColumns(10);
 		txtaddressCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		txtaddressCustomer.setBounds(528, 74, 124, 19);
+		txtaddressCustomer.setBounds(461, 75, 124, 19);
 		cus_infor.add(txtaddressCustomer);
+		
+		JLabel lblNewLabel_10 = new JLabel("Điểm:");
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_10.setBounds(628, 20, 45, 34);
+		cus_infor.add(lblNewLabel_10);
+		
+		txtpointCustomer = new JTextField();
+		txtpointCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtpointCustomer.setColumns(10);
+		txtpointCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+		txtpointCustomer.setBounds(683, 29, 124, 19);
+		cus_infor.add(txtpointCustomer);
 
 		JPanel panel_3_2 = new JPanel();
 		panel_3_2.setLayout(null);
@@ -718,18 +731,28 @@ public class AdminUI extends JFrame {
 		panel_cusList.add(panel_4_2);
 
 		JButton btn_updateCus = new JButton("Lưu");
+		btn_updateCus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerController_QT.updateCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer, txtphoneCustomer,txtpointCustomer);
+			}
+		});
 		btn_updateCus.setFont(new Font("Tahoma", Font.PLAIN, 12));
 //		btn_updateCus.addActionListener(adminCusController);
 		btn_updateCus.setBackground(new Color(149, 92, 211));
 		btn_updateCus.setBounds(327, 12, 85, 26);
 		panel_4_2.add(btn_updateCus);
 
-		JButton btn_resetCus = new JButton("Làm mới");
-		btn_resetCus.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		JButton btn_deleteCus = new JButton("Xóa");
+		btn_deleteCus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerController_QT.deleteCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer, txtphoneCustomer,txtpointCustomer);
+			}
+		});
+		btn_deleteCus.setFont(new Font("Tahoma", Font.PLAIN, 12));
 //		btn_resetCus.addActionListener(adminCusController);
-		btn_resetCus.setBackground(new Color(149, 92, 211));
-		btn_resetCus.setBounds(422, 12, 85, 26);
-		panel_4_2.add(btn_resetCus);
+		btn_deleteCus.setBackground(new Color(149, 92, 211));
+		btn_deleteCus.setBounds(422, 12, 85, 26);
+		panel_4_2.add(btn_deleteCus);
 
 		JPanel panel_5_2 = new JPanel();
 		panel_5_2.setLayout(null);
@@ -807,6 +830,11 @@ public class AdminUI extends JFrame {
 		panel_4_3.add(btn_addAcc);
 
 		JButton btn_updateAcc = new JButton("Lưu");
+		btn_updateAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AccountController_QT.updateAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
 		btn_updateAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_updateAcc.addActionListener(adminAccController);
 		btn_updateAcc.setBackground(new Color(149, 92, 211));
@@ -814,6 +842,11 @@ public class AdminUI extends JFrame {
 		panel_4_3.add(btn_updateAcc);
 
 		JButton btn_deleteAcc = new JButton("Xóa");
+		btn_deleteAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AccountController_QT.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
 		btn_deleteAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_deleteAcc.addActionListener(adminAccController);
 		btn_deleteAcc.setBackground(new Color(149, 92, 211));
@@ -821,6 +854,11 @@ public class AdminUI extends JFrame {
 		panel_4_3.add(btn_deleteAcc);
 
 		JButton btn_resetAcc = new JButton("Làm mới");
+		btn_resetAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AccountController_QT.resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
 		btn_resetAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_resetAcc.addActionListener(adminAccController);
 		btn_resetAcc.setBackground(new Color(149, 92, 211));
@@ -918,8 +956,8 @@ public class AdminUI extends JFrame {
 		cbbRoleAcc = new JComboBox();
 		cbbRoleAcc.setFont(new Font("Dialog", Font.PLAIN, 14));
 		cbbRoleAcc.addItem("Chọn quyền");
-		cbbRoleAcc.addItem("Admin");
-		cbbRoleAcc.addItem("User");
+		cbbRoleAcc.addItem("ADMIN");
+		cbbRoleAcc.addItem("STAFF");
 		cbbRoleAcc.setBounds(433, 73, 124, 25);
 		acc_infor.add(cbbRoleAcc);
 		
@@ -1315,7 +1353,7 @@ public class AdminUI extends JFrame {
 
 		lbl_header = new JLabel("Quản lý sản phẩm");
 		lbl_header.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		lbl_header.setBounds(303, 22, 228, 33);
+		lbl_header.setBounds(290, 22, 271, 33);
 		panel_header.add(lbl_header);
 
 		JLabel lblNewLabel_7 = new JLabel("ADMIN");
@@ -1335,27 +1373,27 @@ public class AdminUI extends JFrame {
 
 		
 		
-		// Quoc Tuan Start
+		// ADMIN - Customer
+		CustomerController_QT.loadCustomer(table_customer);
+		table_customer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		table_customer.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				int selectedRow = table_customer.getSelectedRow();
+				CustomerController_QT.loadFormCustomer(table_customer, selectedRow, txtidCustomer, txtnameCustomer, txtphoneCustomer, txtaddressCustomer,txtpointCustomer);
+			}
+		});
+		// ADMIN - Account
 		AccountController_QT.loadAccount(table_account);
 		table_account.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_account.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 int selectedRow = table_account.getSelectedRow();
-                AccountController_QT.loadFormAccount(table_account, selectedRow, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, comboBox_receiptProdId);
+                AccountController_QT.loadFormAccount(table_account, selectedRow, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
             }
         });
-		// Quoc Tuan
-		CustomerController_QT.loadCustomer(table_customer);
-		table_customer.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		table_customer.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                int selectedRow = table_customer.getSelectedRow();
-                CustomerController_QT.loadFormCustomer(table_customer, selectedRow, txtidCustomer, txtnameCustomer, txtphoneCustomer, txtaddressCustomer);
-            }
-        });
-		// Quoc Tuan End
+		// End
 		
 		
 		
