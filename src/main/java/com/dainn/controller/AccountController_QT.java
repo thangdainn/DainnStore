@@ -51,46 +51,97 @@ public class AccountController_QT {
 		}
 	}
 
-	public static void updateAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
+	public static void insertAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
 			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
-		int id = Integer.parseInt(txtIdAcc.getText());
 		String username = txtUsernameAcc.getText();
 		String password = txtPasswordAcc.getText();
 		String fullname = txtFullNameAcc.getText();
 		String role = (String) cbbRoleAcc.getSelectedItem();
 
-		AccountDTO account = new AccountDTO();
-		account.setId(id);
-		account.setUsername(username);
-		account.setPassword(password);
-		account.setFullName(fullname);
-		account.setRoleId(role);
+		if (txtIdAcc.getText().isEmpty()) {
+			if (!username.isEmpty() && !password.isEmpty() && !fullname.isEmpty()) {
+				if (!AccountService_QT.isNameExistsInsert(username)) {
+					AccountDTO account = new AccountDTO();
+					account.setUsername(username);
+					account.setPassword(password);
+					account.setFullName(fullname);
+					account.setRoleId(role);
 
-		try {
-			AccountService_QT.updateAccount(account);
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+					try {
+						AccountService_QT.insertAccount(account);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+
+					resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+				} else {
+					JOptionPane.showMessageDialog(null, "Username đã tồn tại !");
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Djt Me M Click Sai Chuc nang r");
 		}
+	}
 
-		resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+	public static void updateAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
+			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
+
+		if (!txtIdAcc.getText().isEmpty() && !txtUsernameAcc.getText().isEmpty() && !txtPasswordAcc.getText().isEmpty()
+				&& !txtFullNameAcc.getText().isEmpty()) {
+			int id = Integer.parseInt(txtIdAcc.getText());
+			String username = txtUsernameAcc.getText();
+			String password = txtPasswordAcc.getText();
+			String fullname = txtFullNameAcc.getText();
+			String role = (String) cbbRoleAcc.getSelectedItem();
+
+			if (!AccountService_QT.isNameExistsUpdate(username, id)) {
+				AccountDTO account = new AccountDTO();
+				account.setId(id);
+				account.setUsername(username);
+				account.setPassword(password);
+				account.setFullName(fullname);
+				account.setRoleId(role);
+
+				try {
+					AccountService_QT.updateAccount(account);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			} else {
+				JOptionPane.showMessageDialog(null, "Username đã tồn tại !");
+			}
+		} else {
+			JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
+		}
 	}
 
 	public static void deleteAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
 			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
-		int id = Integer.parseInt(txtIdAcc.getText());
-		int status = 0;
 
-		AccountDTO account = new AccountDTO();
-		account.setId(id);
-		account.setStatus(status);
+		if (!txtIdAcc.getText().isEmpty()) {
+			int id = Integer.parseInt(txtIdAcc.getText());
+			int status = 0;
 
-		try {
-			AccountService_QT.deleteAccount(account);
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			AccountDTO account = new AccountDTO();
+			account.setId(id);
+			account.setStatus(status);
+
+			try {
+				AccountService_QT.deleteAccount(account);
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			}
+
+			resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+		} else {
+			JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
 		}
-
-		resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
 	}
 
 	public static void resetForm(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,

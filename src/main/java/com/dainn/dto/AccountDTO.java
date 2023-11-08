@@ -15,5 +15,4 @@ public class AccountDTO {
 	private String address;
 	private Integer status;
 	private String roleId;
-	
 }

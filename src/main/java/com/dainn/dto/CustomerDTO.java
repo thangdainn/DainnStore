@@ -13,5 +13,4 @@ public class CustomerDTO {
     private String phone;
     private Integer points;
     private Integer status;
-    
 }

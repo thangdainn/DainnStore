@@ -11,9 +11,10 @@ import com.dainn.dto.CustomerDTO;
 
 public class CustomerService_QT {
 
+	private static Connection connection = null;
+	private static PreparedStatement stmt = null;
+	
 	public static List<CustomerDTO> getCustomer_QT() throws SQLException {
-		Connection connection = null;
-		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
 
@@ -40,9 +41,6 @@ public class CustomerService_QT {
 	}
 
 	public static void updateCustomer(CustomerDTO customer) throws SQLException {
-		Connection connection = null;
-		PreparedStatement stmt = null;
-
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "UPDATE customer SET fullname = ?, address = ?, phone= ?, points = ? WHERE id = ?";
@@ -56,7 +54,7 @@ public class CustomerService_QT {
 
 			int rowsAffected = stmt.executeUpdate();
 			if (rowsAffected > 0) {
-				JOptionPane.showMessageDialog(null, "Đã cập nhật!");
+				JOptionPane.showMessageDialog(null, "Cập nhật thành công !");
 			}
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -66,8 +64,6 @@ public class CustomerService_QT {
 	}
 
 	public static void deleteCustomer(CustomerDTO customer) throws SQLException {
-		Connection connection = null;
-		PreparedStatement stmt = null;
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "UPDATE customer SET status = ? WHERE id = ?";

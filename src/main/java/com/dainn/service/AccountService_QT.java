@@ -11,10 +11,11 @@ import com.dainn.dto.AccountDTO;
 
 public class AccountService_QT {
 
+	private static Connection connection = null;
+	private static PreparedStatement stmt = null;
+	private static ResultSet rs = null;
+
 	public static List<AccountDTO> getAccount_QT() throws SQLException {
-		Connection connection = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
 		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
 
 		try {
@@ -22,7 +23,7 @@ public class AccountService_QT {
 			String query = "SELECT * FROM account WHERE status = 1";
 			stmt = connection.prepareStatement(query);
 
-			rs = stmt.executeQuery(query);
+			rs = stmt.executeQuery();
 			while (rs.next()) {
 				AccountDTO account = new AccountDTO();
 				account.setId(rs.getInt("id"));
@@ -41,10 +42,29 @@ public class AccountService_QT {
 		return accounts;
 	}
 
-	public static void updateAccount(AccountDTO account) throws SQLException {
-		Connection connection = null;
-		PreparedStatement stmt = null;
+	public static void insertAccount(AccountDTO account) throws SQLException {
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "INSERT INTO account (username, password, fullname, role_id) VALUES (?, ?, ?, ?)";
 
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, account.getUsername());
+			stmt.setString(2, account.getPassword());
+			stmt.setString(3, account.getFullName());
+			stmt.setString(4, account.getRoleId());
+
+			int rowsAffected = stmt.executeUpdate();
+			if (rowsAffected > 0) {
+				JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công !");
+			}
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+		}
+	}
+
+	public static void updateAccount(AccountDTO account) throws SQLException {
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "UPDATE account SET username = ?, password = ?, fullname = ?, role_id = ? WHERE id = ?";
@@ -58,7 +78,7 @@ public class AccountService_QT {
 
 			int rowsAffected = stmt.executeUpdate();
 			if (rowsAffected > 0) {
-				JOptionPane.showMessageDialog(null, "Đã cập nhật!");
+				JOptionPane.showMessageDialog(null, "Cập nhật thành công !");
 			}
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -68,9 +88,6 @@ public class AccountService_QT {
 	}
 
 	public static void deleteAccount(AccountDTO account) throws SQLException {
-		Connection connection = null;
-		PreparedStatement stmt = null;
-
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "UPDATE account SET status = ? WHERE id = ?";
@@ -87,6 +104,43 @@ public class AccountService_QT {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+		}
+	}
+
+	public static boolean isNameExistsInsert(String username) {
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "SELECT username FROM account WHERE username = ? AND status = 1";
+
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, username);
+
+			rs = stmt.executeQuery();
+			return rs.next();
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+		}
+	}
+
+	public static boolean isNameExistsUpdate(String username, int id) {
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "SELECT username FROM account WHERE username = ? AND id != ? AND status = 1";
+
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, username);
+			stmt.setInt(2, id);
+
+			rs = stmt.executeQuery();
+			return rs.next();
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 	}
 }

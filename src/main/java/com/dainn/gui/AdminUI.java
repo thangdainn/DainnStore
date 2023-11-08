@@ -822,43 +822,25 @@ public class AdminUI extends JFrame {
 		panel_4_3.setBounds(0, 499, 842, 51);
 		panel_accList.add(panel_4_3);
 
-		JButton btn_addAcc = new JButton("Thêm");
+		final JButton btn_addAcc = new JButton("Thêm");
 		btn_addAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
-//		btn_addAcc.addActionListener(adminAccController);
 		btn_addAcc.setBackground(new Color(149, 92, 211));
 		btn_addAcc.setBounds(226, 12, 85, 26);
 		panel_4_3.add(btn_addAcc);
 
-		JButton btn_updateAcc = new JButton("Lưu");
-		btn_updateAcc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AccountController_QT.updateAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
-			}
-		});
+		final JButton btn_updateAcc = new JButton("Lưu");
 		btn_updateAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
-//		btn_updateAcc.addActionListener(adminAccController);
 		btn_updateAcc.setBackground(new Color(149, 92, 211));
 		btn_updateAcc.setBounds(321, 12, 85, 26);
 		panel_4_3.add(btn_updateAcc);
 
-		JButton btn_deleteAcc = new JButton("Xóa");
-		btn_deleteAcc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				AccountController_QT.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
-			}
-		});
+		final JButton btn_deleteAcc = new JButton("Xóa");
 		btn_deleteAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
-//		btn_deleteAcc.addActionListener(adminAccController);
 		btn_deleteAcc.setBackground(new Color(149, 92, 211));
 		btn_deleteAcc.setBounds(416, 12, 85, 26);
 		panel_4_3.add(btn_deleteAcc);
 
-		JButton btn_resetAcc = new JButton("Làm mới");
-		btn_resetAcc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				AccountController_QT.resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
-			}
-		});
+		final JButton btn_resetAcc = new JButton("Làm mới");
 		btn_resetAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_resetAcc.addActionListener(adminAccController);
 		btn_resetAcc.setBackground(new Color(149, 92, 211));
@@ -953,11 +935,10 @@ public class AdminUI extends JFrame {
 		txtFullNameAcc.setBounds(659, 31, 124, 19);
 		acc_infor.add(txtFullNameAcc);
 
-		cbbRoleAcc = new JComboBox();
+		cbbRoleAcc = new JComboBox<String>();
 		cbbRoleAcc.setFont(new Font("Dialog", Font.PLAIN, 14));
-		cbbRoleAcc.addItem("Chọn quyền");
-		cbbRoleAcc.addItem("ADMIN");
 		cbbRoleAcc.addItem("STAFF");
+		cbbRoleAcc.addItem("ADMIN");
 		cbbRoleAcc.setBounds(433, 73, 124, 25);
 		acc_infor.add(cbbRoleAcc);
 		
@@ -1384,6 +1365,26 @@ public class AdminUI extends JFrame {
 			}
 		});
 		// ADMIN - Account
+		btn_addAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AccountController_QT.insertAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
+		btn_updateAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AccountController_QT.updateAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
+		btn_deleteAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AccountController_QT.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
+		btn_resetAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AccountController_QT.resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+			}
+		});
 		AccountController_QT.loadAccount(table_account);
 		table_account.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_account.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -1393,10 +1394,7 @@ public class AdminUI extends JFrame {
                 AccountController_QT.loadFormAccount(table_account, selectedRow, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
             }
         });
-		// End
-		
-		
-		
+		// QT - End
 	}
 
 	public void setColor(JPanel jPanel) {
