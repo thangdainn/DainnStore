@@ -13,12 +13,13 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.border.LineBorder;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.border.LineBorder;
 
 public class AdminUI extends JFrame {
 
@@ -77,8 +78,6 @@ public class AdminUI extends JFrame {
 	public AdminUI(AccountDTO account) {
 		this.init();
 		this.accountDTO = account;
-//		this.showListProductToTable(this.products);
-//		this.showListAccToTable(this.access.getAccounts());
 	}
 
 	public void init() {
@@ -840,7 +839,7 @@ public class AdminUI extends JFrame {
 		btn_deleteAcc.setBounds(416, 12, 85, 26);
 		panel_4_3.add(btn_deleteAcc);
 
-		final JButton btn_resetAcc = new JButton("Làm mới");
+		final JButton btn_resetAcc = new JButton("Reload");
 		btn_resetAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
 //		btn_resetAcc.addActionListener(adminAccController);
 		btn_resetAcc.setBackground(new Color(149, 92, 211));
@@ -1352,7 +1351,6 @@ public class AdminUI extends JFrame {
 
 		this.setVisible(true);
 
-		
 		
 		// ADMIN - Customer
 		CustomerController_QT.loadCustomer(table_customer);

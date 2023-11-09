@@ -59,18 +59,69 @@ public class AccountController_QT {
 		String role = (String) cbbRoleAcc.getSelectedItem();
 
 		if (txtIdAcc.getText().isEmpty()) {
+
 			if (!username.isEmpty() && !password.isEmpty() && !fullname.isEmpty()) {
-				if (!AccountService_QT.isNameExistsInsert(username)) {
+
+				if (username.length() > 5 && password.length() > 5) {
+
+					if (!AccountService_QT.isNameExistsInsert(username)) {
+						AccountDTO account = new AccountDTO();
+						account.setUsername(username);
+						account.setPassword(password);
+						account.setFullName(fullname);
+						account.setRoleId(role);
+
+						try {
+							AccountService_QT.insertAccount(account);
+						} catch (Exception ex) {
+							JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error",
+									JOptionPane.ERROR_MESSAGE);
+						}
+
+						resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
+					} else {
+						JOptionPane.showMessageDialog(null, "Username đã tồn tại !");
+					}
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Độ dài username và password phải trên 5 ký tự!");
+				}
+
+			} else {
+				JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
+			}
+			
+		} else {
+			JOptionPane.showMessageDialog(null, "Không thể thực hiện chức năng này. Vui lòng Reload!");
+		}
+	}
+
+	public static void updateAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
+			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
+		String username = txtUsernameAcc.getText();
+		String password = txtPasswordAcc.getText();
+		String fullname = txtFullNameAcc.getText();
+		String role = (String) cbbRoleAcc.getSelectedItem();
+		String idd = txtIdAcc.getText();
+
+		if (!txtIdAcc.getText().isEmpty() && !txtUsernameAcc.getText().isEmpty() && !txtPasswordAcc.getText().isEmpty()
+				&& !txtFullNameAcc.getText().isEmpty()) {
+			
+			if (username.length() > 5 && password.length() > 5) {
+				int id = Integer.parseInt(idd);
+
+				if (!AccountService_QT.isNameExistsUpdate(username, id)) {
 					AccountDTO account = new AccountDTO();
+					account.setId(id);
 					account.setUsername(username);
 					account.setPassword(password);
 					account.setFullName(fullname);
 					account.setRoleId(role);
 
 					try {
-						AccountService_QT.insertAccount(account);
+						AccountService_QT.updateAccount(account);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error",
+						JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
 								JOptionPane.ERROR_MESSAGE);
 					}
 
@@ -78,44 +129,11 @@ public class AccountController_QT {
 				} else {
 					JOptionPane.showMessageDialog(null, "Username đã tồn tại !");
 				}
+				
 			} else {
-				JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
+				JOptionPane.showMessageDialog(null, "Độ dài username và password phải trên 6 ký tự!");
 			}
-		} else {
-			JOptionPane.showMessageDialog(null, "Djt Me M Click Sai Chuc nang r");
-		}
-	}
-
-	public static void updateAccount(JTable table_account, JTextField txtIdAcc, JTextField txtUsernameAcc,
-			JTextField txtPasswordAcc, JTextField txtFullNameAcc, JComboBox<String> cbbRoleAcc) {
-
-		if (!txtIdAcc.getText().isEmpty() && !txtUsernameAcc.getText().isEmpty() && !txtPasswordAcc.getText().isEmpty()
-				&& !txtFullNameAcc.getText().isEmpty()) {
-			int id = Integer.parseInt(txtIdAcc.getText());
-			String username = txtUsernameAcc.getText();
-			String password = txtPasswordAcc.getText();
-			String fullname = txtFullNameAcc.getText();
-			String role = (String) cbbRoleAcc.getSelectedItem();
-
-			if (!AccountService_QT.isNameExistsUpdate(username, id)) {
-				AccountDTO account = new AccountDTO();
-				account.setId(id);
-				account.setUsername(username);
-				account.setPassword(password);
-				account.setFullName(fullname);
-				account.setRoleId(role);
-
-				try {
-					AccountService_QT.updateAccount(account);
-				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
-							JOptionPane.ERROR_MESSAGE);
-				}
-
-				resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc);
-			} else {
-				JOptionPane.showMessageDialog(null, "Username đã tồn tại !");
-			}
+			
 		} else {
 			JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
 		}
