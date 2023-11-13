@@ -1623,7 +1623,6 @@ public class AdminUI extends JFrame {
 			this.lbl_header.setText("Quản lý loại hàng");
 			cardLayout.show(panel_cards, "panel_category");
 
-
 		} else if (panel.getName().equals("analytics")) {
 			this.lbl_header.setText("Thống kê");
 			cardLayout.show(panel_cards, "panel_analytics");
