@@ -239,13 +239,13 @@ public class AdminUI extends JFrame {
                 new LoginUI();
             }
 		});
-		panel_logOut.setBackground(new Color(84, 40, 132));
+		panel_logOut.setBackground(new Color(128, 0, 255));
 		panel_logOut.setBounds(10, 565, 45, 45);
 		panel.add(panel_logOut);
 		panel_logOut.setLayout(null);
 		
 		JLabel lbl_logOut = new JLabel("");
-		lbl_logOut.setBackground(new Color(84, 40, 132));
+		lbl_logOut.setBackground(new Color(128, 0, 255));
 		lbl_logOut.setBounds(0, 0, 45, 45);
 		panel_logOut.add(lbl_logOut);
 		lbl_logOut.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-log-out-43.png")));
