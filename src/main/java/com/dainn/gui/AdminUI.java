@@ -2,6 +2,7 @@ package com.dainn.gui;
 
 import com.dainn.controller.AccountController_QT;
 import com.dainn.controller.CustomerController_QT;
+import com.dainn.controller.admin.AdminAnalyticsController;
 import com.dainn.controller.admin.AdminHomeController;
 import com.dainn.dto.AccountDTO;
 import com.dainn.utils.NumberTextField;
@@ -20,6 +21,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class AdminUI extends JFrame {
 
@@ -74,6 +76,10 @@ public class AdminUI extends JFrame {
 	private JTextField textField_2;
 	private JTable table_category;
 	private JTextField txtpointCustomer;
+	private JTable table_analyticCate;
+	private JTable table_analyticProduct;
+	private JTable table_analyticEmployee;
+	private JPanel panel_analytic;
 
 	public AdminUI(AccountDTO account) {
 		this.init();
@@ -91,6 +97,7 @@ public class AdminUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		AdminHomeController adminHomeController = new AdminHomeController(this);
+		AdminAnalyticsController adminAnalyticsController = new AdminAnalyticsController(this);
 //		AdminProductController adminProductController = new AdminProductController(this);
 //		AdminOrderController adminOrderController = new AdminOrderController(this);
 //		AdminCusController adminCusController = new AdminCusController(this);
@@ -625,17 +632,17 @@ public class AdminUI extends JFrame {
 		panel_cusList.add(cus_infor);
 
 		JLabel lblNewLabel_9_5 = new JLabel("Mã khách hàng:");
-		lblNewLabel_9_5.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_5.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_5.setBounds(92, 29, 101, 17);
 		cus_infor.add(lblNewLabel_9_5);
 
 		JLabel lblNewLabel_9_1_3 = new JLabel("Tên khách hàng:");
-		lblNewLabel_9_1_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_1_3.setBounds(92, 75, 106, 17);
 		cus_infor.add(lblNewLabel_9_1_3);
 
 		txtidCustomer = new JTextField();
-		txtidCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtidCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtidCustomer.setEditable(false);
 		txtidCustomer.setColumns(10);
 		txtidCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -643,24 +650,24 @@ public class AdminUI extends JFrame {
 		cus_infor.add(txtidCustomer);
 
 		txtnameCustomer = new JTextField();
-		txtnameCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtnameCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtnameCustomer.setColumns(10);
 		txtnameCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtnameCustomer.setBounds(203, 75, 124, 19);
 		cus_infor.add(txtnameCustomer);
 
 		JLabel lblNewLabel_9_1_1_2 = new JLabel("Địa chỉ:");
-		lblNewLabel_9_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_1_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_1_1_2.setBounds(363, 75, 48, 17);
 		cus_infor.add(lblNewLabel_9_1_1_2);
 
 		JLabel lblNewLabel_9_3_3 = new JLabel("Số điện thoại:");
-		lblNewLabel_9_3_3.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_3_3.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_3_3.setBounds(363, 29, 88, 17);
 		cus_infor.add(lblNewLabel_9_3_3);
 
 		txtphoneCustomer = new JTextField();
-		txtphoneCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtphoneCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		NumberTextField.numberTextField(txtphoneCustomer);
 		txtphoneCustomer.setColumns(10);
 		txtphoneCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -668,19 +675,19 @@ public class AdminUI extends JFrame {
 		cus_infor.add(txtphoneCustomer);
 
 		txtaddressCustomer = new JTextField();
-		txtaddressCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtaddressCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtaddressCustomer.setColumns(10);
 		txtaddressCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtaddressCustomer.setBounds(461, 75, 124, 19);
 		cus_infor.add(txtaddressCustomer);
 		
 		JLabel lblNewLabel_10 = new JLabel("Điểm:");
-		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_10.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_10.setBounds(628, 20, 45, 34);
 		cus_infor.add(lblNewLabel_10);
 		
 		txtpointCustomer = new JTextField();
-		txtpointCustomer.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		txtpointCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtpointCustomer.setColumns(10);
 		txtpointCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtpointCustomer.setBounds(683, 29, 124, 19);
@@ -697,7 +704,7 @@ public class AdminUI extends JFrame {
 		panel_3_2.add(scrollPane_2);
 
 		table_customer = new JTable();
-		table_customer.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table_customer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //		table_customer.addMouseListener(adminCusController);
 //		table_customer.addKeyListener(adminCusController);
 		table_customer.setRowHeight(24);
@@ -796,7 +803,7 @@ public class AdminUI extends JFrame {
 		panel_3_3.add(scrollPane_3);
 
 		table_account = new JTable();
-		table_account.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		table_account.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //		table_account.addMouseListener(adminAccController);
 //		table_account.addKeyListener(adminAccController);
 		table_account.setRowHeight(24);
@@ -881,17 +888,17 @@ public class AdminUI extends JFrame {
 		panel_accList.add(acc_infor);
 
 		JLabel lblNewLabel_9_5_1 = new JLabel("Mã tài khoản:");
-		lblNewLabel_9_5_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_5_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_5_1.setBounds(66, 32, 86, 17);
 		acc_infor.add(lblNewLabel_9_5_1);
 
 		JLabel lblNewLabel_9_1_3_1 = new JLabel("Mật khẩu:");
-		lblNewLabel_9_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_3_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_1_3_1.setBounds(66, 77, 63, 17);
 		acc_infor.add(lblNewLabel_9_1_3_1);
 
 		txtIdAcc = new JTextField();
-		txtIdAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtIdAcc.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtIdAcc.setEditable(false);
 		txtIdAcc.setColumns(10);
 		txtIdAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -899,43 +906,43 @@ public class AdminUI extends JFrame {
 		acc_infor.add(txtIdAcc);
 
 		txtPasswordAcc = new JTextField();
-		txtPasswordAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtPasswordAcc.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtPasswordAcc.setColumns(10);
 		txtPasswordAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtPasswordAcc.setBounds(159, 78, 124, 19);
 		acc_infor.add(txtPasswordAcc);
 
 		JLabel lblNewLabel_9_1_1_2_1 = new JLabel("Quyền truy cập:");
-		lblNewLabel_9_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_1_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_1_1_2_1.setBounds(316, 77, 102, 17);
 		acc_infor.add(lblNewLabel_9_1_1_2_1);
 
 		JLabel lblNewLabel_9_3_3_2 = new JLabel("Tên đăng nhập:");
-		lblNewLabel_9_3_3_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_3_3_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_3_3_2.setBounds(316, 32, 101, 17);
 		acc_infor.add(lblNewLabel_9_3_3_2);
 
 		txtUsernameAcc = new JTextField();
-		txtUsernameAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtUsernameAcc.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtUsernameAcc.setColumns(10);
 		txtUsernameAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtUsernameAcc.setBounds(433, 31, 124, 19);
 		acc_infor.add(txtUsernameAcc);
 
 		JLabel lblNewLabel_9_3_3_1_1 = new JLabel("Tên:");
-		lblNewLabel_9_3_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblNewLabel_9_3_3_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		lblNewLabel_9_3_3_1_1.setBounds(625, 32, 29, 17);
 		acc_infor.add(lblNewLabel_9_3_3_1_1);
 
 		txtFullNameAcc = new JTextField();
-		txtFullNameAcc.setFont(new Font("Dialog", Font.PLAIN, 12));
+		txtFullNameAcc.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtFullNameAcc.setColumns(10);
 		txtFullNameAcc.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtFullNameAcc.setBounds(659, 31, 124, 19);
 		acc_infor.add(txtFullNameAcc);
 
 		cbbRoleAcc = new JComboBox<String>();
-		cbbRoleAcc.setFont(new Font("Dialog", Font.PLAIN, 14));
+		cbbRoleAcc.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		cbbRoleAcc.addItem("STAFF");
 		cbbRoleAcc.addItem("ADMIN");
 		cbbRoleAcc.setBounds(433, 73, 124, 25);
@@ -1324,6 +1331,184 @@ public class AdminUI extends JFrame {
 		
 		JPanel panel_analytics = new JPanel();
 		panel_cards.add(panel_analytics, "panel_analytics");
+		panel_analytics.setLayout(null);
+		
+		JPanel panel_5_4_1_1 = new JPanel();
+		panel_5_4_1_1.setLayout(null);
+		panel_5_4_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Ti\u00EAu ch\u00ED th\u1ED1ng k\u00EA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_5_4_1_1.setBounds(0, 10, 842, 122);
+		panel_analytics.add(panel_5_4_1_1);
+		
+		JButton btn_analyticCate = new JButton("Thống kê theo loại");
+		btn_analyticCate.addMouseListener(adminAnalyticsController);
+		btn_analyticCate.setName("analyticCate");
+		btn_analyticCate.setBackground(new Color(149, 92, 211));
+		btn_analyticCate.setBounds(10, 91, 162, 21);
+		panel_5_4_1_1.add(btn_analyticCate);
+		
+		JDateChooser toDateChooser = new JDateChooser();
+		toDateChooser.setBounds(455, 23, 105, 21);
+		panel_5_4_1_1.add(toDateChooser);
+		
+		JLabel lblNewLabel_9_4_1_1 = new JLabel("Từ ngày: ");
+		lblNewLabel_9_4_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_4_1_1.setBounds(162, 23, 56, 13);
+		panel_5_4_1_1.add(lblNewLabel_9_4_1_1);
+		
+		JLabel lblNewLabel_9_4_1_1_1 = new JLabel("Đến ngày: ");
+		lblNewLabel_9_4_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		lblNewLabel_9_4_1_1_1.setBounds(389, 23, 56, 13);
+		panel_5_4_1_1.add(lblNewLabel_9_4_1_1_1);
+		
+		JDateChooser fromDateChooser = new JDateChooser();
+		fromDateChooser.setBounds(231, 23, 105, 21);
+		panel_5_4_1_1.add(fromDateChooser);
+		
+		JButton btn_analyticProduct = new JButton("Thống kê theo sản phẩm");
+		btn_analyticProduct.addMouseListener(adminAnalyticsController);
+
+		btn_analyticProduct.setName("analyticProduct");
+		btn_analyticProduct.setBackground(new Color(149, 92, 211));
+		btn_analyticProduct.setBounds(182, 91, 162, 21);
+		panel_5_4_1_1.add(btn_analyticProduct);
+		
+		JButton btn_analyticEmployee = new JButton("Thống kê theo nhân viên");
+		btn_analyticEmployee.addMouseListener(adminAnalyticsController);
+		btn_analyticEmployee.setName("analyticEmployee");
+		btn_analyticEmployee.setBackground(new Color(149, 92, 211));
+		btn_analyticEmployee.setBounds(354, 91, 162, 21);
+		panel_5_4_1_1.add(btn_analyticEmployee);
+		
+		panel_analytic = new JPanel();
+		panel_analytic.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Danh s\u00E1ch", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_analytic.setBounds(0, 142, 842, 408);
+		panel_analytics.add(panel_analytic);
+		panel_analytic.setLayout(new CardLayout(0, 0));
+		
+		JPanel analyticCate = new JPanel();
+		panel_analytic.add(analyticCate, "analyticCate");
+		analyticCate.setLayout(null);
+		
+		JScrollPane scrollPane_7 = new JScrollPane();
+		scrollPane_7.setBounds(10, 10, 810, 318);
+		analyticCate.add(scrollPane_7);
+		
+		table_analyticCate = new JTable();
+		table_analyticCate.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"STT", "T\u00EAn lo\u1EA1i", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_analyticCate.getColumnModel().getColumn(0).setResizable(false);
+		table_analyticCate.getColumnModel().getColumn(0).setPreferredWidth(51);
+		table_analyticCate.getColumnModel().getColumn(1).setResizable(false);
+		table_analyticCate.getColumnModel().getColumn(1).setPreferredWidth(151);
+		table_analyticCate.getColumnModel().getColumn(2).setResizable(false);
+		table_analyticCate.getColumnModel().getColumn(2).setPreferredWidth(110);
+		table_analyticCate.getColumnModel().getColumn(3).setResizable(false);
+		table_analyticCate.getColumnModel().getColumn(3).setPreferredWidth(155);
+		scrollPane_7.setViewportView(table_analyticCate);
+		
+		JButton btnViewCate = new JButton("Xuất thống kê");
+		btnViewCate.setBounds(685, 344, 135, 21);
+		analyticCate.add(btnViewCate);
+		
+		JButton btnReportCate = new JButton("Xem biểu đồ");
+		btnReportCate.setBounds(540, 344, 135, 21);
+		analyticCate.add(btnReportCate);
+		
+		JPanel analyticProduct = new JPanel();
+		panel_analytic.add(analyticProduct, "analyticProduct");
+		analyticProduct.setLayout(null);
+		
+		JScrollPane scrollPane_8 = new JScrollPane();
+		scrollPane_8.setBounds(10, 10, 810, 322);
+		analyticProduct.add(scrollPane_8);
+		
+		table_analyticProduct = new JTable();
+		table_analyticProduct.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"STT", "T\u00EAn s\u1EA3n ph\u1EA9m", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_analyticProduct.getColumnModel().getColumn(0).setResizable(false);
+		table_analyticProduct.getColumnModel().getColumn(0).setPreferredWidth(45);
+		table_analyticProduct.getColumnModel().getColumn(1).setResizable(false);
+		table_analyticProduct.getColumnModel().getColumn(1).setPreferredWidth(216);
+		table_analyticProduct.getColumnModel().getColumn(2).setResizable(false);
+		table_analyticProduct.getColumnModel().getColumn(2).setPreferredWidth(100);
+		table_analyticProduct.getColumnModel().getColumn(3).setResizable(false);
+		table_analyticProduct.getColumnModel().getColumn(3).setPreferredWidth(113);
+		scrollPane_8.setViewportView(table_analyticProduct);
+		
+		JButton btnViewProduct = new JButton("Xuất thống kê");
+		btnViewProduct.setBounds(685, 342, 135, 21);
+		analyticProduct.add(btnViewProduct);
+		
+		JButton btnReportProduct = new JButton("Xem biểu đồ");
+		btnReportProduct.setBounds(540, 342, 135, 21);
+		analyticProduct.add(btnReportProduct);
+		
+		JPanel analyticEmployee = new JPanel();
+		analyticEmployee.setLayout(null);
+		panel_analytic.add(analyticEmployee, "analyticEmployee");
+		
+		JButton btnViewProduct_1 = new JButton("Xuất thống kê");
+		btnViewProduct_1.setBounds(685, 342, 135, 21);
+		analyticEmployee.add(btnViewProduct_1);
+		
+		JButton btnReportProduct_1 = new JButton("Xem biểu đồ");
+		btnReportProduct_1.setBounds(540, 342, 135, 21);
+		analyticEmployee.add(btnReportProduct_1);
+		
+		JScrollPane scrollPane_9 = new JScrollPane();
+		scrollPane_9.setBounds(10, 10, 810, 317);
+		analyticEmployee.add(scrollPane_9);
+		
+		table_analyticEmployee = new JTable();
+		table_analyticEmployee.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"STT", "T\u00EAn \u0111\u0103ng nh\u1EADp", "T\u00EAn nh\u00E2n vi\u00EAn", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
+			}
+		) {
+			boolean[] columnEditables = new boolean[] {
+				false, false, false, false, false
+			};
+			public boolean isCellEditable(int row, int column) {
+				return columnEditables[column];
+			}
+		});
+		table_analyticEmployee.getColumnModel().getColumn(0).setResizable(false);
+		table_analyticEmployee.getColumnModel().getColumn(0).setPreferredWidth(42);
+		table_analyticEmployee.getColumnModel().getColumn(1).setResizable(false);
+		table_analyticEmployee.getColumnModel().getColumn(1).setPreferredWidth(101);
+		table_analyticEmployee.getColumnModel().getColumn(2).setResizable(false);
+		table_analyticEmployee.getColumnModel().getColumn(2).setPreferredWidth(145);
+		table_analyticEmployee.getColumnModel().getColumn(3).setResizable(false);
+		table_analyticEmployee.getColumnModel().getColumn(3).setPreferredWidth(110);
+		table_analyticEmployee.getColumnModel().getColumn(4).setResizable(false);
+		table_analyticEmployee.getColumnModel().getColumn(4).setPreferredWidth(134);
+		scrollPane_9.setViewportView(table_analyticEmployee);
 
 		JPanel panel_header = new JPanel();
 		panel_header.setBackground(new Color(128, 128, 255));
@@ -1420,11 +1605,9 @@ public class AdminUI extends JFrame {
 			
 		} else if (panel.getName().equals("orderList")) {
 			this.lbl_header.setText("Quản lý đơn hàng");
-//			this.showListOrderToTable(this.customerOrders);
 			cardLayout.show(panel_cards, "panel_orderList");
 			
 		} else if (panel.getName().equals("cusList")) {
-//			this.showListCusToTable(this.customers);
 			this.lbl_header.setText("Quản lý khách hàng");
 			cardLayout.show(panel_cards, "panel_cusList");
 			
@@ -1445,40 +1628,17 @@ public class AdminUI extends JFrame {
 			cardLayout.show(panel_cards, "panel_analytics");
 		}
 	}
+	public void handleShowCartAnalytics(JButton panel) {
+		CardLayout cardLayout = (CardLayout) this.panel_analytic.getLayout();
+		if (panel.getName().equals("analyticCate")) {
+			cardLayout.show(panel_analytic, "analyticCate");
 
-// Card Account
-	public void formClearAccount() {
-		this.textField_accFind.setText("");
-		this.txtIdAcc.setText("");
-		this.txtUsernameAcc.setText("");
-		this.txtPasswordAcc.setText("");
-		this.cbbRoleAcc.setSelectedIndex(0);
-		this.txtFullNameAcc.setText("");
-	}
+		} else if (panel.getName().equals("analyticProduct")) {
+			cardLayout.show(panel_analytic, "analyticProduct");
 
-	public void handleFormClearAcc() {
-		this.formClearAccount();
-//		this.showListAccToTable(this.access.getAccounts());
-	}
-
-	
-	public void showAccDataToComponents(int row) {
-		DefaultTableModel tableAccModel = (DefaultTableModel) this.table_account.getModel();
-		String id = tableAccModel.getValueAt(row, 0) + "";
-		String username = tableAccModel.getValueAt(row, 1) + "";
-		String password = tableAccModel.getValueAt(row, 2) + "";
-		String accsId = tableAccModel.getValueAt(row, 3) + "";
-		if (accsId.equals("ADMIN")) {
-			accsId = "Administrator";
-		} else {
-			accsId = "User";
+		} else if (panel.getName().equals("analyticEmployee")) {
+			cardLayout.show(panel_analytic, "analyticEmployee");
 		}
-		String cusId = tableAccModel.getValueAt(row, 4) + "";
-
-		this.txtIdAcc.setText(id);
-		this.txtUsernameAcc.setText(username);
-		this.txtPasswordAcc.setText(password);
-		this.cbbRoleAcc.setSelectedItem(accsId);
-		this.txtFullNameAcc.setText(cusId);
 	}
+
 }

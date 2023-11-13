@@ -9,10 +9,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 
 
-public class AdminHomeController implements MouseListener, ActionListener {
+public class AdminAnalyticsController implements MouseListener, ActionListener {
 	private AdminUI adminUI;
 
-	public AdminHomeController(AdminUI adminUI) {
+	public AdminAnalyticsController(AdminUI adminUI) {
 		this.adminUI = adminUI;
 	}
 
@@ -27,9 +27,8 @@ public class AdminHomeController implements MouseListener, ActionListener {
 
 	@Override
 	public void mousePressed(java.awt.event.MouseEvent e) {
-		JPanel panel = (JPanel) e.getSource();
-		this.adminUI.handleSetColor(panel);
-		this.adminUI.handleShowCart(panel);
+		JButton button = (JButton) e.getSource();
+		this.adminUI.handleShowCartAnalytics(button);
 	}
 
 	@Override
@@ -39,17 +38,9 @@ public class AdminHomeController implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseEntered(java.awt.event.MouseEvent e) {
-		JPanel panel = (JPanel) e.getSource();
-		panel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		this.adminUI.setColor(panel);
 	}
 
 	@Override
 	public void mouseExited(java.awt.event.MouseEvent e) {
-		JPanel panel = (JPanel) e.getSource();
-		panel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		if(!this.adminUI.currentJPanel.equals(panel)) {
-			this.adminUI.resetColor(panel);
-		}
 	}
 }

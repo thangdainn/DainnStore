@@ -43,8 +43,13 @@
 			<artifactId>jasperreports</artifactId>
 			<version>6.20.6</version>
 		</dependency>
+        <dependency>
+            <groupId>com.toedter</groupId>
+            <artifactId>jcalendar</artifactId>
+            <version>1.4</version>
+        </dependency>
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<pluginManagement><!-- lock down plugins versions to avoid using Maven
