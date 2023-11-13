@@ -642,7 +642,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_9_1_3);
 
 		txtidCustomer = new JTextField();
-		txtidCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtidCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		txtidCustomer.setEditable(false);
 		txtidCustomer.setColumns(10);
 		txtidCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -650,7 +650,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(txtidCustomer);
 
 		txtnameCustomer = new JTextField();
-		txtnameCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtnameCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		txtnameCustomer.setColumns(10);
 		txtnameCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtnameCustomer.setBounds(203, 75, 124, 19);
@@ -667,7 +667,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_9_3_3);
 
 		txtphoneCustomer = new JTextField();
-		txtphoneCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtphoneCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		NumberTextField.numberTextField(txtphoneCustomer);
 		txtphoneCustomer.setColumns(10);
 		txtphoneCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -675,7 +675,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(txtphoneCustomer);
 
 		txtaddressCustomer = new JTextField();
-		txtaddressCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtaddressCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		txtaddressCustomer.setColumns(10);
 		txtaddressCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtaddressCustomer.setBounds(461, 75, 124, 19);
@@ -687,7 +687,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_10);
 		
 		txtpointCustomer = new JTextField();
-		txtpointCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		txtpointCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 		txtpointCustomer.setColumns(10);
 		txtpointCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtpointCustomer.setBounds(683, 29, 124, 19);
@@ -704,7 +704,7 @@ public class AdminUI extends JFrame {
 		panel_3_2.add(scrollPane_2);
 
 		table_customer = new JTable();
-		table_customer.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		table_customer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
 //		table_customer.addMouseListener(adminCusController);
 //		table_customer.addKeyListener(adminCusController);
 		table_customer.setRowHeight(24);
@@ -1347,6 +1347,7 @@ public class AdminUI extends JFrame {
 		panel_5_4_1_1.add(btn_analyticCate);
 		
 		JDateChooser toDateChooser = new JDateChooser();
+		toDateChooser.setDateFormatString("yyyy-MM-dd");
 		toDateChooser.setBounds(455, 23, 105, 21);
 		panel_5_4_1_1.add(toDateChooser);
 		
@@ -1361,6 +1362,7 @@ public class AdminUI extends JFrame {
 		panel_5_4_1_1.add(lblNewLabel_9_4_1_1_1);
 		
 		JDateChooser fromDateChooser = new JDateChooser();
+		fromDateChooser.setDateFormatString("yyyy-MM-dd");
 		fromDateChooser.setBounds(231, 23, 105, 21);
 		panel_5_4_1_1.add(fromDateChooser);
 		
