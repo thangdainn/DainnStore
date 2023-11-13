@@ -349,6 +349,13 @@ public class UserUI extends JFrame {
         btn_cart.add(lbl_cart);
         lbl_cart.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_cart.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-cart-42.png")));
+        
+        JLabel lblQtyInCart = new JLabel("0");
+        lblQtyInCart.setBounds(30, 27, 21, 18);
+        btn_cart.add(lblQtyInCart);
+        lblQtyInCart.setFont(new Font("Tahoma", Font.PLAIN, 12));
+        lblQtyInCart.setForeground(new Color(255, 0, 0));
+        lblQtyInCart.setHorizontalAlignment(SwingConstants.RIGHT);
 
 
         lbl_header = new JLabel("Tất cả");
