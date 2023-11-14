@@ -1,6 +1,7 @@
 package com.dainn.controller.admin;
 
 import com.dainn.gui.AdminUI;
+import lombok.SneakyThrows;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,6 +26,7 @@ public class AdminHomeController implements MouseListener, ActionListener {
 	public void mouseClicked(java.awt.event.MouseEvent e) {
 	}
 
+	@SneakyThrows
 	@Override
 	public void mousePressed(java.awt.event.MouseEvent e) {
 		JPanel panel = (JPanel) e.getSource();

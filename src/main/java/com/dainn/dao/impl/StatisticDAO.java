@@ -47,7 +47,7 @@ public class StatisticDAO extends AbstractDAO<StatisticDTO> implements IStatisti
     public List<StatisticDTO> findByAccount(Integer status) {
         String sql = "SELECT a.username AS name, SUM(od.quantity) AS totalQty, SUM(od.price) AS totalPrice" +
                 " FROM orderdetail od INNER JOIN `order` o ON o.id = od.order_id INNER JOIN account a ON a.id = o.account_id" +
-                " WHERE a.status = ? GROUP BY a.fullname";
+                " WHERE a.status = ? GROUP BY a.username";
         return query(sql, new StatisticMapper(), status);
     }
 

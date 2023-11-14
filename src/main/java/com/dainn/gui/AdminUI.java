@@ -24,7 +24,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.toedter.calendar.JDateChooser;
@@ -1348,18 +1351,14 @@ public class AdminUI extends JFrame {
 		JPanel panel_5_4_1_1 = new JPanel();
 		panel_5_4_1_1.setLayout(null);
 		panel_5_4_1_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Ti\u00EAu ch\u00ED th\u1ED1ng k\u00EA", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_5_4_1_1.setBounds(0, 10, 842, 122);
+		panel_5_4_1_1.setBounds(0, 41, 842, 63);
 		panel_analytics.add(panel_5_4_1_1);
 		
-		JButton btn_analyticCate = new JButton("Thống kê theo loại");
-		btn_analyticCate.addMouseListener(adminAnalyticsController);
-		btn_analyticCate.setName("analyticCate");
-		btn_analyticCate.setBackground(new Color(149, 92, 211));
-		btn_analyticCate.setBounds(10, 91, 162, 21);
-		panel_5_4_1_1.add(btn_analyticCate);
-		
 		toDateChooser = new JDateChooser();
+		toDateChooser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		toDateChooser.addPropertyChangeListener("date", adminAnalyticsController);
 		toDateChooser.setDateFormatString("yyyy-MM-dd");
+		toDateChooser.getDateEditor().setEnabled(false);
 		toDateChooser.setBounds(455, 23, 105, 21);
 		panel_5_4_1_1.add(toDateChooser);
 		
@@ -1374,28 +1373,16 @@ public class AdminUI extends JFrame {
 		panel_5_4_1_1.add(lblNewLabel_9_4_1_1_1);
 		
 		fromDateChooser = new JDateChooser();
+		fromDateChooser.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		fromDateChooser.addPropertyChangeListener("date", adminAnalyticsController);
 		fromDateChooser.setDateFormatString("yyyy-MM-dd");
+		fromDateChooser.getDateEditor().setEnabled(false);
 		fromDateChooser.setBounds(231, 23, 105, 21);
 		panel_5_4_1_1.add(fromDateChooser);
 		
-		JButton btn_analyticProduct = new JButton("Thống kê theo sản phẩm");
-		btn_analyticProduct.addMouseListener(adminAnalyticsController);
-
-		btn_analyticProduct.setName("analyticProduct");
-		btn_analyticProduct.setBackground(new Color(149, 92, 211));
-		btn_analyticProduct.setBounds(182, 91, 162, 21);
-		panel_5_4_1_1.add(btn_analyticProduct);
-		
-		JButton btn_analyticEmployee = new JButton("Thống kê theo nhân viên");
-		btn_analyticEmployee.addMouseListener(adminAnalyticsController);
-		btn_analyticEmployee.setName("analyticEmployee");
-		btn_analyticEmployee.setBackground(new Color(149, 92, 211));
-		btn_analyticEmployee.setBounds(354, 91, 162, 21);
-		panel_5_4_1_1.add(btn_analyticEmployee);
-		
 		panel_analytic = new JPanel();
 		panel_analytic.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Danh s\u00E1ch", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_analytic.setBounds(0, 142, 842, 408);
+		panel_analytic.setBounds(0, 114, 842, 436);
 		panel_analytics.add(panel_analytic);
 		panel_analytic.setLayout(new CardLayout(0, 0));
 		
@@ -1404,7 +1391,7 @@ public class AdminUI extends JFrame {
 		analyticCate.setLayout(null);
 		
 		JScrollPane scrollPane_7 = new JScrollPane();
-		scrollPane_7.setBounds(10, 10, 810, 318);
+		scrollPane_7.setBounds(10, 10, 810, 347);
 		analyticCate.add(scrollPane_7);
 		
 		table_analyticCate = new JTable();
@@ -1433,11 +1420,13 @@ public class AdminUI extends JFrame {
 		scrollPane_7.setViewportView(table_analyticCate);
 		
 		JButton btnViewCate = new JButton("Xuất thống kê");
-		btnViewCate.setBounds(685, 344, 135, 21);
+		btnViewCate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnViewCate.setBounds(685, 367, 135, 27);
 		analyticCate.add(btnViewCate);
 		
 		JButton btnReportCate = new JButton("Xem biểu đồ");
-		btnReportCate.setBounds(540, 344, 135, 21);
+		btnReportCate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnReportCate.setBounds(540, 367, 135, 27);
 		analyticCate.add(btnReportCate);
 		
 		JPanel analyticProduct = new JPanel();
@@ -1521,6 +1510,31 @@ public class AdminUI extends JFrame {
 		table_analyticEmployee.getColumnModel().getColumn(3).setResizable(false);
 		table_analyticEmployee.getColumnModel().getColumn(3).setPreferredWidth(134);
 		scrollPane_9.setViewportView(table_analyticEmployee);
+		
+		JButton btn_analyticCate = new JButton("Thống kê theo loại");
+		btn_analyticCate.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_analyticCate.setBounds(10, 10, 162, 21);
+		panel_analytics.add(btn_analyticCate);
+		btn_analyticCate.addMouseListener(adminAnalyticsController);
+		btn_analyticCate.setName("analyticCate");
+		btn_analyticCate.setBackground(new Color(149, 92, 211));
+		
+		JButton btn_analyticProduct = new JButton("Thống kê theo sản phẩm");
+		btn_analyticProduct.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btn_analyticProduct.setBounds(182, 10, 162, 21);
+		panel_analytics.add(btn_analyticProduct);
+		btn_analyticProduct.addMouseListener(adminAnalyticsController);
+		
+				btn_analyticProduct.setName("analyticProduct");
+				btn_analyticProduct.setBackground(new Color(149, 92, 211));
+				
+				JButton btn_analyticEmployee = new JButton("Thống kê theo nhân viên");
+				btn_analyticEmployee.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btn_analyticEmployee.setBounds(354, 10, 162, 21);
+				panel_analytics.add(btn_analyticEmployee);
+				btn_analyticEmployee.addMouseListener(adminAnalyticsController);
+				btn_analyticEmployee.setName("analyticEmployee");
+				btn_analyticEmployee.setBackground(new Color(149, 92, 211));
 
 		JPanel panel_header = new JPanel();
 		panel_header.setBackground(new Color(100, 98, 179));
@@ -1609,7 +1623,7 @@ public class AdminUI extends JFrame {
 		}
 	}
 
-	public void handleShowCart(JPanel panel) {
+	public void handleShowCart(JPanel panel) throws ParseException {
 		CardLayout cardLayout = (CardLayout) this.panel_cards.getLayout();
 		if (panel.getName().equals("productList")) {
 			this.lbl_header.setText("Quản lý sản phẩm");
@@ -1641,9 +1655,10 @@ public class AdminUI extends JFrame {
 			DefaultTableModel tableModel = (DefaultTableModel) table_analyticCate.getModel();
 			showAnalyticCToTable(statistics, tableModel);
 			cardLayout.show(panel_cards, "panel_analytics");
+			setDateIsNull();
 		}
 	}
-	public void handleShowCartAnalytics(JButton panel) {
+	public void handleShowCartAnalytics(JButton panel) throws ParseException {
 		CardLayout cardLayout = (CardLayout) this.panel_analytic.getLayout();
 		DefaultTableModel tableModel;
 		if (panel.getName().equals("analyticCate")) {
@@ -1666,21 +1681,30 @@ public class AdminUI extends JFrame {
 			tableModel = (DefaultTableModel) table_analyticEmployee.getModel();
 			showAnalyticCToTable(statistics, tableModel);
 			this.currentStatistic = 2;
-
 		}
+		setDateIsNull();
+	}
+
+	private void setDateIsNull() throws ParseException {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date nullDate = dateFormat.parse("0000-01-01");
+		fromDateChooser.setDate(nullDate);
+		toDateChooser.setDate(new Date());
 	}
 
 	public void showAnalyticCToTable(List<StatisticDTO> list, DefaultTableModel tableModel){
 		tableModel.setRowCount(0);
-		int i = 1;
-		for (StatisticDTO dto : list){
-			tableModel.addRow(new Object[]{
-				i,
-				dto.getName(),
-				dto.getTotalQty(),
-				dto.getTotalPrice()
-			});
-			i++;
+		if (list != null){
+			int i = 1;
+			for (StatisticDTO dto : list){
+				tableModel.addRow(new Object[]{
+						i,
+						dto.getName(),
+						dto.getTotalQty(),
+						dto.getTotalPrice()
+				});
+				i++;
+			}
 		}
 	}
 }
