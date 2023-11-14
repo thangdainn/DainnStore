@@ -5,6 +5,9 @@ import com.dainn.controller.CustomerController_QT;
 import com.dainn.controller.admin.AdminAnalyticsController;
 import com.dainn.controller.admin.AdminHomeController;
 import com.dainn.dto.AccountDTO;
+import com.dainn.dto.StatisticDTO;
+import com.dainn.service.IStatisticService;
+import com.dainn.service.impl.StatisticService;
 import com.dainn.utils.NumberTextField;
 
 import javax.swing.*;
@@ -21,6 +24,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.toedter.calendar.JDateChooser;
 
 public class AdminUI extends JFrame {
@@ -76,10 +82,15 @@ public class AdminUI extends JFrame {
 	private JTextField textField_2;
 	private JTable table_category;
 	private JTextField txtpointCustomer;
-	private JTable table_analyticCate;
-	private JTable table_analyticProduct;
-	private JTable table_analyticEmployee;
+	public JTable table_analyticCate;
+	public JTable table_analyticProduct;
+	public JTable table_analyticEmployee;
 	private JPanel panel_analytic;
+	private IStatisticService statisticService = new StatisticService();
+	private List<StatisticDTO> statistics = new ArrayList<>();
+	public JDateChooser toDateChooser;
+	public JDateChooser fromDateChooser;
+	public int currentStatistic = 0;
 
 	public AdminUI(AccountDTO account) {
 		this.init();
@@ -107,7 +118,7 @@ public class AdminUI extends JFrame {
 		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(128, 0, 255));
+		panel.setBackground(new Color(84, 40, 132));
 		panel.setBounds(0, 0, 242, 620);
 		contentPane.add(panel);
 		panel.setLayout(null);
@@ -239,7 +250,7 @@ public class AdminUI extends JFrame {
                 new LoginUI();
             }
 		});
-		panel_logOut.setBackground(new Color(128, 0, 255));
+		panel_logOut.setBackground(new Color(84, 40, 132));
 		panel_logOut.setBounds(10, 565, 45, 45);
 		panel.add(panel_logOut);
 		panel_logOut.setLayout(null);
@@ -265,7 +276,7 @@ public class AdminUI extends JFrame {
 		lblNewLabel_6_1.setBounds(10, 3, 40, 40);
 		btn_category.add(lblNewLabel_6_1);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Quản lý loại hàng");
+		JLabel lblNewLabel_1_1_1 = new JLabel("Quản lý danh mục");
 		lblNewLabel_1_1_1.setFont(new Font("Arial", Font.BOLD, 16));
 		lblNewLabel_1_1_1.setForeground(Color.BLACK);
 		lblNewLabel_1_1_1.setBackground(new Color(143, 88, 199));
@@ -642,7 +653,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_9_1_3);
 
 		txtidCustomer = new JTextField();
-		txtidCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		txtidCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtidCustomer.setEditable(false);
 		txtidCustomer.setColumns(10);
 		txtidCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -650,7 +661,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(txtidCustomer);
 
 		txtnameCustomer = new JTextField();
-		txtnameCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		txtnameCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtnameCustomer.setColumns(10);
 		txtnameCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtnameCustomer.setBounds(203, 75, 124, 19);
@@ -667,7 +678,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_9_3_3);
 
 		txtphoneCustomer = new JTextField();
-		txtphoneCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		txtphoneCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		NumberTextField.numberTextField(txtphoneCustomer);
 		txtphoneCustomer.setColumns(10);
 		txtphoneCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -675,7 +686,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(txtphoneCustomer);
 
 		txtaddressCustomer = new JTextField();
-		txtaddressCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		txtaddressCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtaddressCustomer.setColumns(10);
 		txtaddressCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtaddressCustomer.setBounds(461, 75, 124, 19);
@@ -687,7 +698,7 @@ public class AdminUI extends JFrame {
 		cus_infor.add(lblNewLabel_10);
 		
 		txtpointCustomer = new JTextField();
-		txtpointCustomer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		txtpointCustomer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		txtpointCustomer.setColumns(10);
 		txtpointCustomer.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
 		txtpointCustomer.setBounds(683, 29, 124, 19);
@@ -704,7 +715,7 @@ public class AdminUI extends JFrame {
 		panel_3_2.add(scrollPane_2);
 
 		table_customer = new JTable();
-		table_customer.setFont(new Font("Times New Roman", Font.PLAIN, 11));
+		table_customer.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //		table_customer.addMouseListener(adminCusController);
 //		table_customer.addKeyListener(adminCusController);
 		table_customer.setRowHeight(24);
@@ -860,6 +871,7 @@ public class AdminUI extends JFrame {
 		panel_accList.add(panel_5_3);
 
 		textField_accFind = new JTextField();
+		textField_accFind.setFont(new Font("Tahoma", Font.PLAIN, 11));
 //		textField_accFind.addFocusListener(adminAccController);
 		textField_accFind.setColumns(10);
 		textField_accFind.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
@@ -1346,7 +1358,7 @@ public class AdminUI extends JFrame {
 		btn_analyticCate.setBounds(10, 91, 162, 21);
 		panel_5_4_1_1.add(btn_analyticCate);
 		
-		JDateChooser toDateChooser = new JDateChooser();
+		toDateChooser = new JDateChooser();
 		toDateChooser.setDateFormatString("yyyy-MM-dd");
 		toDateChooser.setBounds(455, 23, 105, 21);
 		panel_5_4_1_1.add(toDateChooser);
@@ -1361,7 +1373,7 @@ public class AdminUI extends JFrame {
 		lblNewLabel_9_4_1_1_1.setBounds(389, 23, 56, 13);
 		panel_5_4_1_1.add(lblNewLabel_9_4_1_1_1);
 		
-		JDateChooser fromDateChooser = new JDateChooser();
+		fromDateChooser = new JDateChooser();
 		fromDateChooser.setDateFormatString("yyyy-MM-dd");
 		fromDateChooser.setBounds(231, 23, 105, 21);
 		panel_5_4_1_1.add(fromDateChooser);
@@ -1400,7 +1412,7 @@ public class AdminUI extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"STT", "T\u00EAn lo\u1EA1i", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
+				"STT", "T\u00EAn danh m\u1EE5c", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
@@ -1490,11 +1502,11 @@ public class AdminUI extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"STT", "T\u00EAn \u0111\u0103ng nh\u1EADp", "T\u00EAn nh\u00E2n vi\u00EAn", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
+				"STT", "T\u00EAn \u0111\u0103ng nh\u1EADp", "S\u1ED1 l\u01B0\u1EE3ng \u0111\u00E3 b\u00E1n", "T\u1ED5ng doanh thu"
 			}
 		) {
 			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false
+				false, false, false, false
 			};
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
@@ -1505,35 +1517,33 @@ public class AdminUI extends JFrame {
 		table_analyticEmployee.getColumnModel().getColumn(1).setResizable(false);
 		table_analyticEmployee.getColumnModel().getColumn(1).setPreferredWidth(101);
 		table_analyticEmployee.getColumnModel().getColumn(2).setResizable(false);
-		table_analyticEmployee.getColumnModel().getColumn(2).setPreferredWidth(145);
+		table_analyticEmployee.getColumnModel().getColumn(2).setPreferredWidth(110);
 		table_analyticEmployee.getColumnModel().getColumn(3).setResizable(false);
-		table_analyticEmployee.getColumnModel().getColumn(3).setPreferredWidth(110);
-		table_analyticEmployee.getColumnModel().getColumn(4).setResizable(false);
-		table_analyticEmployee.getColumnModel().getColumn(4).setPreferredWidth(134);
+		table_analyticEmployee.getColumnModel().getColumn(3).setPreferredWidth(134);
 		scrollPane_9.setViewportView(table_analyticEmployee);
 
 		JPanel panel_header = new JPanel();
-		panel_header.setBackground(new Color(128, 128, 255));
+		panel_header.setBackground(new Color(100, 98, 179));
 		panel_header.setBounds(241, 0, 842, 71);
 		contentPane.add(panel_header);
 		panel_header.setLayout(null);
 
 		lbl_header = new JLabel("Quản lý sản phẩm");
 		lbl_header.setFont(new Font("Times New Roman", Font.BOLD, 28));
-		lbl_header.setBounds(290, 22, 271, 33);
+		lbl_header.setBounds(21, 28, 271, 33);
 		panel_header.add(lbl_header);
 
-		JLabel lblNewLabel_7 = new JLabel("ADMIN");
+		JLabel lblNewLabel_7 = new JLabel("Administrator");
 		lblNewLabel_7.setFont(new Font("Times New Roman", Font.BOLD, 18));
-		lblNewLabel_7.setBounds(55, 0, 91, 21);
+		lblNewLabel_7.setBounds(38, 0, 124, 21);
 		panel_header.add(lblNewLabel_7);
 
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(10, 22, 176, 2);
+		separator_1.setBounds(32, 19, 176, 2);
 		panel_header.add(separator_1);
 
 		JSeparator separator_3_1 = new JSeparator();
-		separator_3_1.setBounds(261, 55, 300, 2);
+		separator_3_1.setBounds(10, 59, 300, 2);
 		panel_header.add(separator_3_1);
 
 		this.setVisible(true);
@@ -1622,25 +1632,55 @@ public class AdminUI extends JFrame {
 			cardLayout.show(panel_cards, "panel_receipt");
 
 		} else if (panel.getName().equals("category")) {
-			this.lbl_header.setText("Quản lý loại hàng");
+			this.lbl_header.setText("Quản lý danh mục");
 			cardLayout.show(panel_cards, "panel_category");
 
 		} else if (panel.getName().equals("analytics")) {
 			this.lbl_header.setText("Thống kê");
+			statistics = statisticService.findByCategory(1);
+			DefaultTableModel tableModel = (DefaultTableModel) table_analyticCate.getModel();
+			showAnalyticCToTable(statistics, tableModel);
 			cardLayout.show(panel_cards, "panel_analytics");
 		}
 	}
 	public void handleShowCartAnalytics(JButton panel) {
 		CardLayout cardLayout = (CardLayout) this.panel_analytic.getLayout();
+		DefaultTableModel tableModel;
 		if (panel.getName().equals("analyticCate")) {
 			cardLayout.show(panel_analytic, "analyticCate");
+			statistics = statisticService.findByCategory(1);
+			tableModel = (DefaultTableModel) table_analyticCate.getModel();
+			showAnalyticCToTable(statistics, tableModel);
+			this.currentStatistic = 0;
 
 		} else if (panel.getName().equals("analyticProduct")) {
 			cardLayout.show(panel_analytic, "analyticProduct");
+			statistics = statisticService.findByProduct(1);
+			tableModel = (DefaultTableModel) table_analyticProduct.getModel();
+			showAnalyticCToTable(statistics, tableModel);
+			this.currentStatistic = 1;
 
 		} else if (panel.getName().equals("analyticEmployee")) {
 			cardLayout.show(panel_analytic, "analyticEmployee");
+			statistics = statisticService.findByAccount(1);
+			tableModel = (DefaultTableModel) table_analyticEmployee.getModel();
+			showAnalyticCToTable(statistics, tableModel);
+			this.currentStatistic = 2;
+
 		}
 	}
 
+	public void showAnalyticCToTable(List<StatisticDTO> list, DefaultTableModel tableModel){
+		tableModel.setRowCount(0);
+		int i = 1;
+		for (StatisticDTO dto : list){
+			tableModel.addRow(new Object[]{
+				i,
+				dto.getName(),
+				dto.getTotalQty(),
+				dto.getTotalPrice()
+			});
+			i++;
+		}
+	}
 }
