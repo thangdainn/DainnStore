@@ -58,4 +58,9 @@ public class CartService implements ICartService {
     public Connection getConnection() {
         return cartDAO.getConnection();
     }
+
+    @Override
+    public Integer countProduct() {
+        return cartDAO.countProduct();
+    }
 }

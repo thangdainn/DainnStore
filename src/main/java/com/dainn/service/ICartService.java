@@ -13,4 +13,5 @@ public interface ICartService {
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(CartDTO dto);
     void dropTable();
     Connection getConnection();
+    Integer countProduct();
 }

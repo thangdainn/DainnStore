@@ -51,4 +51,10 @@ public class CartDAO extends AbstractDAO<CartDTO> implements ICartDAO {
         String sql = "DELETE FROM cart";
         update(sql);
     }
+
+    @Override
+    public Integer countProduct() {
+        String sql = "SELECT COUNT(product_id) FROM cart";
+        return count(sql);
+    }
 }

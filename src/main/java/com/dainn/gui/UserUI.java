@@ -63,6 +63,7 @@ public class UserUI extends JFrame {
     public JComboBox comboBox_receiptProdId;
     public JComboBox comboBox_receiptSuppName;
     public JComboBox comboBox_receiptRom;
+    public static JLabel lblQtyInCart;
 
     public UserUI(AccountDTO account) {
         this.frame = this;
@@ -72,6 +73,7 @@ public class UserUI extends JFrame {
         this.roms = romService.findAll();
         this.suppliers = supplierService.findAll();
         this.init();
+        UserUI.lblQtyInCart.setText(cartService.countProduct().toString());
         List<ProductDTO> products = productService.findByQuantityGreaterZero(1);
         this.currentPanel = this.addPanelProduct(this.panel_3, products, userProductController);
     }
@@ -350,7 +352,7 @@ public class UserUI extends JFrame {
         lbl_cart.setHorizontalAlignment(SwingConstants.CENTER);
         lbl_cart.setIcon(new ImageIcon(AdminUI.class.getResource("/icons/icons8-cart-42.png")));
         
-        JLabel lblQtyInCart = new JLabel("0");
+        lblQtyInCart = new JLabel("0");
         lblQtyInCart.setBounds(30, 27, 21, 18);
         btn_cart.add(lblQtyInCart);
         lblQtyInCart.setFont(new Font("Tahoma", Font.PLAIN, 12));

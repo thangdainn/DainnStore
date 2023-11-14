@@ -14,4 +14,5 @@ public interface ICartDAO {
     CartDTO findByAccount_IdAndProduct_IdAndRom_Id(Integer accountId, Integer productId, Integer romId);
     void dropTable();
     Connection getConnection();
+    Integer countProduct();
 }

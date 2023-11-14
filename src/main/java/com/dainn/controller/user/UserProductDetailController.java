@@ -5,6 +5,7 @@ import com.dainn.dto.CartDTO;
 import com.dainn.dto.ProductDTO;
 import com.dainn.dto.RomDTO;
 import com.dainn.gui.ProductDetailUI;
+import com.dainn.gui.UserUI;
 import com.dainn.service.ICartService;
 import com.dainn.service.IRomService;
 import com.dainn.service.impl.CartService;
@@ -58,6 +59,7 @@ public class UserProductDetailController implements ActionListener {
                 if (cartDTO == null){
                     dto.setQuantity(1);
                     dto = cartService.save(dto);
+                    UserUI.lblQtyInCart.setText(Integer.parseInt(UserUI.lblQtyInCart.getText()) + 1 + "");
 
                 } else if (cartDTO.getQuantity() == romService.getQuantityOfPR(product.getId(), dto.getRomId())){
                     JOptionPane.showMessageDialog(productDetailUI, "Sản phẩm đã hết hàng!!!");
@@ -70,6 +72,7 @@ public class UserProductDetailController implements ActionListener {
                     JOptionPane.showMessageDialog(productDetailUI, "Đã thêm vào giỏ hàng!!!");
                     productDetailUI.dispose();
                 }
+
             }
         }
     }
