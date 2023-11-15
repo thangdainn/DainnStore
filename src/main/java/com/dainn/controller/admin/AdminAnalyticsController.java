@@ -2,6 +2,7 @@ package com.dainn.controller.admin;
 
 import com.dainn.dto.StatisticDTO;
 import com.dainn.gui.AdminUI;
+import com.dainn.gui.ChartUI;
 import com.dainn.service.IStatisticService;
 import com.dainn.service.impl.StatisticService;
 import com.toedter.calendar.JDateChooser;
@@ -30,11 +31,10 @@ public class AdminAnalyticsController implements MouseListener, ActionListener, 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-//		String action = e.getActionCommand();
-//		Object source = e.getSource();
-//		if (source == this.adminUI.fromDateChooser || source == this.adminUI.toDateChooser){
-//			handleShowAnalyticDate();
-//		}
+		String action = e.getActionCommand();
+		if (action.equals("Xem biểu đồ")){
+			new ChartUI(adminUI.statistics);
+		}
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class AdminAnalyticsController implements MouseListener, ActionListener, 
 	}
 
 	private void handleShowAnalyticDate(){
-		List<StatisticDTO> list = new ArrayList<>();
+//		List<StatisticDTO> list = new ArrayList<>();
 		Date fromDate = adminUI.fromDateChooser.getDate();
 		Date toDate = adminUI.toDateChooser.getDate();
 		if (fromDate == null){
@@ -79,16 +79,16 @@ public class AdminAnalyticsController implements MouseListener, ActionListener, 
 		}
 		DefaultTableModel tableModel = null;
 		if (adminUI.currentStatistic == 0){
-			list = statisticService.findByCategoryAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
+			adminUI.statistics = statisticService.findByCategoryAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticCate.getModel();
 		} else if (adminUI.currentStatistic == 1){
-			list = statisticService.findByProductAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
+			adminUI.statistics = statisticService.findByProductAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticProduct.getModel();
 		} else if (adminUI.currentStatistic == 2){
-			list = statisticService.findByAccountAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
+			adminUI.statistics = statisticService.findByAccountAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticEmployee.getModel();
 		}
-		adminUI.showAnalyticCToTable(list, tableModel);
+		adminUI.showAnalyticCToTable(adminUI.statistics, tableModel);
 	}
 
 
