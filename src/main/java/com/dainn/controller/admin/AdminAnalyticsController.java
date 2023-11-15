@@ -85,7 +85,7 @@ public class AdminAnalyticsController implements MouseListener, ActionListener, 
 			list = statisticService.findByProductAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticProduct.getModel();
 		} else if (adminUI.currentStatistic == 2){
-			list = statisticService.findByProductAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
+			list = statisticService.findByAccountAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticEmployee.getModel();
 		}
 		adminUI.showAnalyticCToTable(list, tableModel);

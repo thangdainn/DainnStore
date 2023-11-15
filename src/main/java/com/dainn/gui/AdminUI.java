@@ -1434,7 +1434,7 @@ public class AdminUI extends JFrame {
 		analyticProduct.setLayout(null);
 		
 		JScrollPane scrollPane_8 = new JScrollPane();
-		scrollPane_8.setBounds(10, 10, 810, 322);
+		scrollPane_8.setBounds(10, 10, 810, 346);
 		analyticProduct.add(scrollPane_8);
 		
 		table_analyticProduct = new JTable();
@@ -1463,11 +1463,11 @@ public class AdminUI extends JFrame {
 		scrollPane_8.setViewportView(table_analyticProduct);
 		
 		JButton btnViewProduct = new JButton("Xuất thống kê");
-		btnViewProduct.setBounds(685, 342, 135, 21);
+		btnViewProduct.setBounds(688, 366, 135, 28);
 		analyticProduct.add(btnViewProduct);
 		
 		JButton btnReportProduct = new JButton("Xem biểu đồ");
-		btnReportProduct.setBounds(540, 342, 135, 21);
+		btnReportProduct.setBounds(543, 366, 135, 28);
 		analyticProduct.add(btnReportProduct);
 		
 		JPanel analyticEmployee = new JPanel();
@@ -1475,15 +1475,15 @@ public class AdminUI extends JFrame {
 		panel_analytic.add(analyticEmployee, "analyticEmployee");
 		
 		JButton btnViewProduct_1 = new JButton("Xuất thống kê");
-		btnViewProduct_1.setBounds(685, 342, 135, 21);
+		btnViewProduct_1.setBounds(685, 367, 135, 27);
 		analyticEmployee.add(btnViewProduct_1);
 		
 		JButton btnReportProduct_1 = new JButton("Xem biểu đồ");
-		btnReportProduct_1.setBounds(540, 342, 135, 21);
+		btnReportProduct_1.setBounds(540, 367, 135, 27);
 		analyticEmployee.add(btnReportProduct_1);
 		
 		JScrollPane scrollPane_9 = new JScrollPane();
-		scrollPane_9.setBounds(10, 10, 810, 317);
+		scrollPane_9.setBounds(10, 10, 810, 347);
 		analyticEmployee.add(scrollPane_9);
 		
 		table_analyticEmployee = new JTable();
