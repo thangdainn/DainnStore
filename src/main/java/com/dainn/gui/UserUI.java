@@ -542,6 +542,13 @@ public class UserUI extends JFrame {
             comboBox_receiptRom.addItem(rom.getCapacity());
         }
         product_infor_1.add(comboBox_receiptRom);
+        
+        JButton btn_importReceipt = new JButton("Nhập phiếu");
+        btn_importReceipt.addActionListener(userReceiptController);
+        btn_importReceipt.setFont(new Font("Tahoma", Font.BOLD, 10));
+        btn_importReceipt.setBackground(new Color(149, 92, 211));
+        btn_importReceipt.setBounds(706, 69, 101, 21);
+        product_infor_1.add(btn_importReceipt);
 
         JPanel product_infor_1_1 = new JPanel();
         product_infor_1_1.setLayout(null);
