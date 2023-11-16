@@ -246,7 +246,11 @@ public class UserReceiptController implements ActionListener {
                     tableModel.addRow(new Object[]{
                             idInteger, nameValue, romValue, quantityInteger, importPriceInteger, amountInteger
                     });
+                    ReceiptDetailDTO receiptDetailDTO = new ReceiptDetailDTO(null, idInteger,
+                            romService.findByCapacity(romValue.toString()).getId(), quantityInteger, importPriceInteger, amountInteger);
+                    receiptDetails.add(receiptDetailDTO);
                 }
+                handleTotalPrice();
                 JOptionPane.showMessageDialog(userUI, "Thêm dữ liệu thành công!");
             } catch (IOException | NullPointerException e){
                 JOptionPane.showMessageDialog(userUI, "File không hợp lệ.");
