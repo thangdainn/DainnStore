@@ -1,4 +1,4 @@
-package com.dainn.controller;
+package com.dainn.controller.admin;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -8,14 +8,14 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.dainn.dao.CustomerService_QT;
 import com.dainn.dto.CustomerDTO;
-import com.dainn.service.CustomerService_QT;
 
 public class CustomerController_QT {
 
 	public static void loadCustomer(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
-		
+
 		try {
 			List<CustomerDTO> customers = CustomerService_QT.getCustomer_QT();
 			tableModel.setRowCount(0);
@@ -26,6 +26,23 @@ public class CustomerController_QT {
 			}
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Error!");
+		}
+	}
+
+	public static void findCustomer(JTable table, JTextField txtFindCus) {
+		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
+		String find = txtFindCus.getText();
+
+		try {
+			List<CustomerDTO> customers = CustomerService_QT.getFindCustomer_QT(find);
+			tableModel.setRowCount(0);
+			for (CustomerDTO customer : customers) {
+				Object[] rowData = { customer.getId(), customer.getName(), customer.getPhone(), customer.getAddress(),
+						customer.getPoints() };
+				tableModel.addRow(rowData);
+			}
+		} catch (SQLException ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -49,26 +66,42 @@ public class CustomerController_QT {
 
 	public static void updateCustomer(JTable dataTable, JTextField idField, JTextField nameField,
 			JTextField addressField, JTextField phoneField, JTextField pointField) {
-		int id = Integer.parseInt(idField.getText());
 		String name = nameField.getText();
 		String address = addressField.getText();
 		String phone = phoneField.getText();
-		int point = Integer.parseInt(pointField.getText());
 
-		CustomerDTO customer = new CustomerDTO();
-		customer.setId(id);
-		customer.setName(name);
-		customer.setAddress(address);
-		customer.setPhone(phone);
-		customer.setPoints(point);
+		if (!nameField.getText().isEmpty() && !phoneField.getText().isEmpty()&& !idField.getText().isEmpty()) {
+			int id = Integer.parseInt(idField.getText());
+			int point = Integer.parseInt(pointField.getText());
 
-		try {
-			CustomerService_QT.updateCustomer(customer);
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			if (isNumeric(phone) && phone.length() == 10 && phone.startsWith("0")) {
+
+				CustomerDTO customer = new CustomerDTO();
+				customer.setId(id);
+				customer.setName(name);
+				customer.setAddress(address);
+				customer.setPhone(phone);
+				customer.setPoints(point);
+
+				try {
+					CustomerService_QT.updateCustomer(customer);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+				
+				resetForm(dataTable, idField, nameField, addressField, phoneField, pointField);
+			} else {
+				JOptionPane.showMessageDialog(null, "Số điện thoạt không hợp lệ!");
+			}
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
 		}
-		
-		resetForm(dataTable, idField, nameField, addressField, phoneField, pointField);
+	}
+
+	public static boolean isNumeric(String str) {
+		return str.matches("\\d+");
 	}
 
 	public static void deleteCustomer(JTable dataTable, JTextField idField, JTextField nameField,
@@ -85,7 +118,7 @@ public class CustomerController_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		
+
 		resetForm(dataTable, idField, nameField, addressField, phoneField, pointField);
 	}
 

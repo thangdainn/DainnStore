@@ -1,4 +1,4 @@
-package com.dainn.service;
+package com.dainn.dao;
 
 import java.sql.*;
 
@@ -13,9 +13,9 @@ public class CustomerService_QT {
 
 	private static Connection connection = null;
 	private static PreparedStatement stmt = null;
-	
+	private static ResultSet rs = null;
+
 	public static List<CustomerDTO> getCustomer_QT() throws SQLException {
-		ResultSet rs = null;
 		List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
 
 		try {
@@ -44,7 +44,7 @@ public class CustomerService_QT {
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "UPDATE customer SET fullname = ?, address = ?, phone= ?, points = ? WHERE id = ?";
-			
+
 			stmt = connection.prepareStatement(query);
 			stmt.setString(1, customer.getName());
 			stmt.setString(2, customer.getAddress());
@@ -67,7 +67,7 @@ public class CustomerService_QT {
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "UPDATE customer SET status = ? WHERE id = ?";
-			
+
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, customer.getStatus());
 			stmt.setInt(2, customer.getId());
@@ -81,5 +81,34 @@ public class CustomerService_QT {
 		} finally {
 			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
 		}
+	}
+
+	public static List<CustomerDTO> getFindCustomer_QT(String find) throws SQLException {
+		List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
+
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "SELECT * FROM customer WHERE status = 1 AND (id=? OR fullname LIKE ? OR phone LIKE ?)";
+
+			stmt = connection.prepareStatement(query);
+			stmt.setString(1, find);
+			stmt.setString(2, "%" + find + "%");
+			stmt.setString(3, "%" + find + "%");
+
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				CustomerDTO customer = new CustomerDTO();
+				customer.setId(rs.getInt("id"));
+				customer.setName(rs.getString("fullname"));
+				customer.setPhone(rs.getString("phone"));
+				customer.setAddress(rs.getString("address"));
+				customer.setPoints(rs.getInt("points"));
+				customer.setStatus(rs.getInt("status"));
+				customers.add(customer);
+			}
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+		}
+		return customers;
 	}
 }
