@@ -1524,6 +1524,8 @@ public class AdminUI extends JFrame {
         panel_analytics.add(btnShowChart);
 
         JButton btnReportAnalytic = new JButton("Xuất thống kê");
+        btnReportAnalytic.addActionListener(adminAnalyticsController);
+
         btnReportAnalytic.setBounds(685, 513, 135, 27);
         panel_analytics.add(btnReportAnalytic);
 

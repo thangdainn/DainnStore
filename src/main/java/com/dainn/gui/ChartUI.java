@@ -5,7 +5,6 @@ import raven.chart.ModelChart;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
