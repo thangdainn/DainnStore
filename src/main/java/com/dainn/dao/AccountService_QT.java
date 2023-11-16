@@ -48,12 +48,12 @@ public class AccountService_QT {
 
 		try {
 			connection = DBService_QT.getConnection();
-			String query = "SELECT * FROM account WHERE status = 1 AND (username LIKE ? OR fullname LIKE ? OR phone LIKE ? OR id=?)";
+			String query = "SELECT * FROM account WHERE status = 1 AND (username LIKE ? OR fullname LIKE ? OR phone = ? OR id = ?)";
 
 			stmt = connection.prepareStatement(query);
 			stmt.setString(1, "%" + find + "%");
 			stmt.setString(2, "%" + find + "%");
-			stmt.setString(3, "%" + find + "%");
+			stmt.setString(3, find);
 			stmt.setString(4, find);
 
 			rs = stmt.executeQuery();

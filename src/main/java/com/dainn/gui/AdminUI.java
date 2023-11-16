@@ -752,6 +752,12 @@ public class AdminUI extends JFrame {
 		btn_deleteCus.setBounds(422, 12, 85, 26);
 		panel_4_2.add(btn_deleteCus);
 
+		JButton btnReloadCus = new JButton("Reload");
+		btnReloadCus.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnReloadCus.setBackground(new Color(149, 92, 211));
+		btnReloadCus.setBounds(517, 12, 85, 26);
+		panel_4_2.add(btnReloadCus);
+
 		JPanel panel_5_2 = new JPanel();
 		panel_5_2.setLayout(null);
 		panel_5_2.setBorder(null);
@@ -1518,13 +1524,13 @@ public class AdminUI extends JFrame {
 		// ADMIN - Customer
 		btn_cusFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerController_QT.findCustomer(table_account, txtFindCus);
+				CustomerController_QT.findCustomer(table_customer, txtFindCus);
 			}
 		});
 		btn_deleteCus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
-						"Confirmation", JOptionPane.YES_NO_OPTION);
+				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Confirmation",
+						JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
 					CustomerController_QT.deleteCustomer(table_customer, txtidCustomer, txtnameCustomer,
 							txtaddressCustomer, txtphoneCustomer, txtpointCustomer);
@@ -1535,6 +1541,14 @@ public class AdminUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				CustomerController_QT.updateCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
 						txtphoneCustomer, txtpointCustomer);
+				txtFindCus.setText("");
+			}
+		});
+		btnReloadCus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				CustomerController_QT.resetForm(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
+						txtphoneCustomer, txtpointCustomer);
+				txtFindCus.setText("");
 			}
 		});
 		CustomerController_QT.loadCustomer(table_customer);
@@ -1562,8 +1576,8 @@ public class AdminUI extends JFrame {
 		});
 		btn_deleteAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int choice = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete your account?",
-						"Confirmation", JOptionPane.YES_NO_OPTION);
+				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản này?", "Confirmation",
+						JOptionPane.YES_NO_OPTION);
 				if (choice == JOptionPane.YES_OPTION) {
 					AccountController_QT.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
 							txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);

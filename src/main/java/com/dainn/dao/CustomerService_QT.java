@@ -31,7 +31,6 @@ public class CustomerService_QT {
 				customer.setPhone(rs.getString("phone"));
 				customer.setAddress(rs.getString("address"));
 				customer.setPoints(rs.getInt("points"));
-				customer.setStatus(rs.getInt("status"));
 				customers.add(customer);
 			}
 		} finally {
@@ -88,14 +87,14 @@ public class CustomerService_QT {
 
 		try {
 			connection = DBService_QT.getConnection();
-			String query = "SELECT * FROM customer WHERE status = 1 AND (id=? OR fullname LIKE ? OR phone LIKE ?)";
-
+			String query = "SELECT * FROM customer WHERE status = 1 AND (id = ? OR fullname LIKE ? OR phone = ?)";
+			
 			stmt = connection.prepareStatement(query);
 			stmt.setString(1, find);
 			stmt.setString(2, "%" + find + "%");
-			stmt.setString(3, "%" + find + "%");
+			stmt.setString(3, find);
 
-			rs = stmt.executeQuery(query);
+			rs = stmt.executeQuery();
 			while (rs.next()) {
 				CustomerDTO customer = new CustomerDTO();
 				customer.setId(rs.getInt("id"));
@@ -103,8 +102,8 @@ public class CustomerService_QT {
 				customer.setPhone(rs.getString("phone"));
 				customer.setAddress(rs.getString("address"));
 				customer.setPoints(rs.getInt("points"));
-				customer.setStatus(rs.getInt("status"));
 				customers.add(customer);
+				System.out.println(find +customer);
 			}
 		} finally {
 			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
