@@ -93,7 +93,7 @@ public class AdminUI extends JFrame {
     public List<StatisticDTO> statistics = new ArrayList<>();
     public JDateChooser toDateChooser;
     public JDateChooser fromDateChooser;
-    public int currentStatistic = 0;
+    public static int currentStatistic = 0;
 
     public AdminUI(AccountDTO account) {
         this.init();

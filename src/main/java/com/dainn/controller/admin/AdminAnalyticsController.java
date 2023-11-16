@@ -78,13 +78,13 @@ public class AdminAnalyticsController implements MouseListener, ActionListener, 
 			toDate = new Date();
 		}
 		DefaultTableModel tableModel = null;
-		if (adminUI.currentStatistic == 0){
+		if (AdminUI.currentStatistic == 0){
 			adminUI.statistics = statisticService.findByCategoryAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticCate.getModel();
-		} else if (adminUI.currentStatistic == 1){
+		} else if (AdminUI.currentStatistic == 1){
 			adminUI.statistics = statisticService.findByProductAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticProduct.getModel();
-		} else if (adminUI.currentStatistic == 2){
+		} else if (AdminUI.currentStatistic == 2){
 			adminUI.statistics = statisticService.findByAccountAndDate(1, new Timestamp(fromDate.getTime()), new Timestamp(toDate.getTime()));
 			tableModel = (DefaultTableModel) adminUI.table_analyticEmployee.getModel();
 		}

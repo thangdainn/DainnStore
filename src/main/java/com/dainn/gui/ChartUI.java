@@ -40,8 +40,6 @@ public class ChartUI extends JFrame {
         chart.addData(new ModelChart("April", new double[]{480, 700, 100}));
         chart.addData(new ModelChart("May", new double[]{350, 540, 500}));
         chart.addData(new ModelChart("June", new double[]{450, 800, 100}));
-        chart.addData(new ModelChart("June", new double[]{450, 800, 100}));
-        chart.addData(new ModelChart("June", new double[]{450, 800, 100}));
         chart.start();
     }
 
@@ -107,31 +105,4 @@ public class ChartUI extends JFrame {
         setLocationRelativeTo(null);
     }
 
-//    public static void main( String[] args )
-//    {
-//        try {
-//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-//                if ("Nimbus".equals(info.getName())) {
-//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-//                    break;
-//                }
-//            }
-//        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(ChartUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(ChartUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(ChartUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(ChartUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-//        }
-//        //</editor-fold>
-//
-//        /* Create and display the form */
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new ChartUI().setVisible(true);
-//            }
-//        });
-//    }
 }
