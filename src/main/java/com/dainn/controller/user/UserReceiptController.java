@@ -50,6 +50,7 @@ public class UserReceiptController implements ActionListener {
             if (row == -1){
                 JOptionPane.showMessageDialog(userUI, "Chọn sản phẩm để xóa.");
             } else {
+                Object value = tableModel.getValueAt(row, 0);
                 Integer prodId = (Integer) tableModel.getValueAt(row, 0);
                 String romCapacity = (String) tableModel.getValueAt(row, 2);
                 Integer romId = romService.findByCapacity(romCapacity).getId();
@@ -237,13 +238,20 @@ public class UserReceiptController implements ActionListener {
                     Object importPriceValue = getCellValue(excelImportPrice);
                     Object amountValue = getCellValue(excelAmount);
 
+                    Integer idInteger = Integer.valueOf(idValue.toString());
+                    Integer quantityInteger = Integer.valueOf(quantityValue.toString());
+                    Integer importPriceInteger = Integer.valueOf(importPriceValue.toString());
+                    Integer amountInteger = Integer.valueOf(amountValue.toString());
+
                     tableModel.addRow(new Object[]{
-                            idValue, nameValue, romValue, quantityValue, importPriceValue, amountValue
+                            idInteger, nameValue, romValue, quantityInteger, importPriceInteger, amountInteger
                     });
                 }
                 JOptionPane.showMessageDialog(userUI, "Thêm dữ liệu thành công!");
-            } catch (IOException e){
-                JOptionPane.showMessageDialog(null, e.getMessage());
+            } catch (IOException | NullPointerException e){
+                JOptionPane.showMessageDialog(userUI, "File không hợp lệ.");
+            } catch (NumberFormatException e1){
+                JOptionPane.showMessageDialog(userUI, "Thêm dữ liệu thất bại.");
             } finally {
                 try {
                     if (excelFIS != null) {
