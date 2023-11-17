@@ -84,7 +84,7 @@ public class AccountController_QT {
 
 			if (!username.isEmpty() && !password.isEmpty() && !fullname.isEmpty() && !phone.isEmpty()) {
 
-				if (username.length() > 3 && password.length() > 3 && isNumeric(phone) && phone.length() == 10) {
+				if (username.length() > 3 && password.length() > 3) {
 
 					if (isNumeric(phone) && phone.length() == 10 && phone.startsWith("0")) {
 
@@ -188,20 +188,28 @@ public class AccountController_QT {
 			JTextField txtPhoneAcc) {
 
 		if (!txtIdAcc.getText().isEmpty()) {
-			int id = Integer.parseInt(txtIdAcc.getText());
-			int status = 0;
 
-			AccountDTO account = new AccountDTO();
-			account.setId(id);
-			account.setStatus(status);
+			int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản này?", "Confirmation",
+					JOptionPane.YES_NO_OPTION);
+			if (choice == JOptionPane.YES_OPTION) {
+				int id = Integer.parseInt(txtIdAcc.getText());
+				int status = 0;
 
-			try {
-				AccountService_QT.deleteAccount(account);
-			} catch (Exception ex) {
-				JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+				AccountDTO account = new AccountDTO();
+				account.setId(id);
+				account.setStatus(status);
+
+				try {
+					AccountService_QT.deleteAccount(account);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc,
+						txtPhoneAcc);
 			}
 
-			resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);
 		} else {
 			JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
 		}

@@ -1529,12 +1529,8 @@ public class AdminUI extends JFrame {
 		});
 		btn_deleteCus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Confirmation",
-						JOptionPane.YES_NO_OPTION);
-				if (choice == JOptionPane.YES_OPTION) {
 					CustomerController_QT.deleteCustomer(table_customer, txtidCustomer, txtnameCustomer,
 							txtaddressCustomer, txtphoneCustomer, txtpointCustomer);
-				}
 			}
 		});
 		btn_updateCus.addActionListener(new ActionListener() {
@@ -1576,12 +1572,8 @@ public class AdminUI extends JFrame {
 		});
 		btn_deleteAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản này?", "Confirmation",
-						JOptionPane.YES_NO_OPTION);
-				if (choice == JOptionPane.YES_OPTION) {
 					AccountController_QT.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
 							txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);
-				}
 			}
 		});
 		btn_resetAcc.addActionListener(new ActionListener() {

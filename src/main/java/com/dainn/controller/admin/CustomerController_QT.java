@@ -70,7 +70,7 @@ public class CustomerController_QT {
 		String address = addressField.getText();
 		String phone = phoneField.getText();
 
-		if (!nameField.getText().isEmpty() && !phoneField.getText().isEmpty()&& !idField.getText().isEmpty()) {
+		if (!nameField.getText().isEmpty() && !phoneField.getText().isEmpty() && !idField.getText().isEmpty()) {
 			int id = Integer.parseInt(idField.getText());
 			int point = Integer.parseInt(pointField.getText());
 
@@ -89,7 +89,7 @@ public class CustomerController_QT {
 					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
-				
+
 				resetForm(dataTable, idField, nameField, addressField, phoneField, pointField);
 			} else {
 				JOptionPane.showMessageDialog(null, "Số điện thoạt không hợp lệ!");
@@ -106,20 +106,32 @@ public class CustomerController_QT {
 
 	public static void deleteCustomer(JTable dataTable, JTextField idField, JTextField nameField,
 			JTextField addressField, JTextField phoneField, JTextField pointField) {
-		int id = Integer.parseInt(idField.getText());
-		int status = 0;
 
-		CustomerDTO customer = new CustomerDTO();
-		customer.setId(id);
-		customer.setStatus(status);
+		if (!idField.getText().isEmpty()) {
 
-		try {
-			CustomerService_QT.deleteCustomer(customer);
-		} catch (Exception ex) {
-			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+			int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa khách hàng này?", "Confirmation",
+					JOptionPane.YES_NO_OPTION);
+			if (choice == JOptionPane.YES_OPTION) {
+				int id = Integer.parseInt(idField.getText());
+				int status = 0;
+
+				CustomerDTO customer = new CustomerDTO();
+				customer.setId(id);
+				customer.setStatus(status);
+
+				try {
+					CustomerService_QT.deleteCustomer(customer);
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
+							JOptionPane.ERROR_MESSAGE);
+				}
+
+				resetForm(dataTable, idField, nameField, addressField, phoneField, pointField);
+			}
+
+		} else {
+			JOptionPane.showMessageDialog(null, "Dữ liệu rỗng !");
 		}
-
-		resetForm(dataTable, idField, nameField, addressField, phoneField, pointField);
 	}
 
 	public static void resetForm(JTable dataTable, JTextField idField, JTextField nameField, JTextField addressField,
