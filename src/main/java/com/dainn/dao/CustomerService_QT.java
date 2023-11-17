@@ -103,7 +103,7 @@ public class CustomerService_QT {
 				customer.setAddress(rs.getString("address"));
 				customer.setPoints(rs.getInt("points"));
 				customers.add(customer);
-				System.out.println(find +customer);
+//				System.out.println(find +customer);
 			}
 		} finally {
 			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
