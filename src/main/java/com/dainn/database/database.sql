@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th10 16, 2023 lúc 08:57 AM
+-- Thời gian đã tạo: Th10 17, 2023 lúc 06:32 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -33,7 +33,7 @@ CREATE TABLE `account` (
   `password` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `fullname` varchar(100) COLLATE utf8mb4_general_ci NOT NULL,
   `phone` varchar(20) COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `status` int NOT NULL DEFAULT '1',
   `role_id` varchar(11) COLLATE utf8mb4_general_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -43,9 +43,10 @@ CREATE TABLE `account` (
 --
 
 INSERT INTO `account` (`id`, `username`, `password`, `fullname`, `phone`, `address`, `status`, `role_id`) VALUES
-(1, 'admin', 'admin', 'Administrator', '123123123', 'Buôn Ma Thuột', 1, 'ADMIN'),
-(2, 'ducthang', '123', 'dao duc thang', '0123123123', 'thu duc', 1, 'STAFF'),
-(3, 'hongson', '111', 'Hồng Sơn', '0123456789', 'Vũng Tàu', 1, 'STAFF');
+(1, 'admin', 'admin', 'Administrator', '0123123123', NULL, 1, 'ADMIN'),
+(2, 'ducthang', '123', 'dao duc thang', '0123123123', NULL, 1, 'STAFF'),
+(3, 'hongson', '111', 'Hồng Sơn', '0123456789', NULL, 1, 'STAFF'),
+(5, 'zzzz', 'zzzz', 'zzzz', '0123123123', NULL, 1, 'STAFF');
 
 -- --------------------------------------------------------
 
@@ -608,7 +609,7 @@ ALTER TABLE `supplier`
 -- AUTO_INCREMENT cho bảng `account`
 --
 ALTER TABLE `account`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT cho bảng `cart`
