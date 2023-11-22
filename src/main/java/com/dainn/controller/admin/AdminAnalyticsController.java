@@ -139,8 +139,6 @@ public class AdminAnalyticsController implements MouseListener, ActionListener, 
 				wb.close();
 				output.close();
 				openFile(saveFile.toString());
-			} else {
-				JOptionPane.showMessageDialog(null, "Error");
 			}
 		} catch (IOException e){
 			System.out.println(e);

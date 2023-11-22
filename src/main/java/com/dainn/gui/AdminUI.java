@@ -1,13 +1,16 @@
 package com.dainn.gui;
 
-import com.dainn.controller.admin.AccountController_QT;
-import com.dainn.controller.admin.CustomerController_QT;
-import com.dainn.controller.admin.AdminAnalyticsController;
-import com.dainn.controller.admin.AdminHomeController;
+import com.dainn.controller.admin.*;
 import com.dainn.dto.AccountDTO;
+import com.dainn.dto.ReceiptDTO;
 import com.dainn.dto.StatisticDTO;
+import com.dainn.dto.SupplierDTO;
+import com.dainn.service.IReceiptService;
 import com.dainn.service.IStatisticService;
+import com.dainn.service.ISupplierService;
+import com.dainn.service.impl.ReceiptService;
 import com.dainn.service.impl.StatisticService;
+import com.dainn.service.impl.SupplierService;
 import com.dainn.utils.NumberTextField;
 
 import javax.swing.*;
@@ -24,6 +27,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -75,10 +79,7 @@ public class AdminUI extends JFrame {
 	public JTextField textField_receiptTotalPrice;
 	public JTextField textField_receiptDate;
 	public JTable table_receipt;
-	public JTextField textField_receiptQuantity;
-	public JTable table_receiptProd;
 	private JTextField textField_receiptAccId;
-	private JTextField textField_receiptPrice;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_4;
@@ -90,15 +91,21 @@ public class AdminUI extends JFrame {
 	public JTable table_analyticEmployee;
 	private JPanel panel_analytic;
 	private IStatisticService statisticService = new StatisticService();
+	public IReceiptService receiptService = new ReceiptService();
+	private ISupplierService supplierService = new SupplierService();
 	public List<StatisticDTO> statistics = new ArrayList<>();
+	private List<ReceiptDTO> receipts = new ArrayList<>();
 	public JDateChooser toDateChooser;
 	public JDateChooser fromDateChooser;
 	public static int currentStatistic = 0;
 	private JTextField txtPhoneAcc;
+	public JComboBox comboBox_receiptSuppId;
+	public JComboBox comboBox_receiptMonth;
 
 	public AdminUI(AccountDTO account) {
 		this.init();
 		this.accountDTO = account;
+		this.receipts = receiptService.findAll(1);
 	}
 
 	public void init() {
@@ -113,6 +120,7 @@ public class AdminUI extends JFrame {
 
 		AdminHomeController adminHomeController = new AdminHomeController(this);
 		AdminAnalyticsController adminAnalyticsController = new AdminAnalyticsController(this);
+		AdminReceiptController adminReceiptController = new AdminReceiptController(this);
 //		AdminProductController adminProductController = new AdminProductController(this);
 //		AdminOrderController adminOrderController = new AdminOrderController(this);
 //		AdminCusController adminCusController = new AdminCusController(this);
@@ -609,7 +617,7 @@ public class AdminUI extends JFrame {
 //		comboBox_orderMonth.addActionListener(adminOrderController);
 		comboBox_orderMonth.addItem("Tháng đặt hàng");
 		for (int i = 1; i <= 12; i++) {
-			comboBox_orderMonth.addItem("Tháng " + i);
+			comboBox_orderMonth.addItem(i);
 		}
 		comboBox_orderMonth.setBounds(586, 15, 114, 20);
 		panel_5_1.add(comboBox_orderMonth);
@@ -983,14 +991,16 @@ public class AdminUI extends JFrame {
 		panel_5_4.add(lblNewLabel_8_4);
 
 		JButton btn_receiptFind = new JButton("Tìm");
+		btn_receiptFind.addActionListener(adminReceiptController);
 		btn_receiptFind.setBackground(new Color(149, 92, 211));
 		btn_receiptFind.setBounds(455, 15, 85, 21);
 		panel_5_4.add(btn_receiptFind);
 
-		JComboBox comboBox_receiptMonth = new JComboBox();
+		comboBox_receiptMonth = new JComboBox();
+		comboBox_receiptMonth.addActionListener(adminReceiptController);
 		comboBox_receiptMonth.addItem("Tháng nhập hàng");
 		for (int i = 1; i <= 12; i++) {
-			comboBox_receiptMonth.addItem("Tháng " + i);
+			comboBox_receiptMonth.addItem(i);
 		}
 		comboBox_receiptMonth.setBounds(690, 15, 113, 20);
 		panel_5_4.add(comboBox_receiptMonth);
@@ -1044,7 +1054,10 @@ public class AdminUI extends JFrame {
 		textField_receiptDate.setBounds(403, 68, 126, 19);
 		product_infor_1.add(textField_receiptDate);
 
-		JComboBox comboBox_receiptSuppId = new JComboBox();
+		comboBox_receiptSuppId = new JComboBox();
+		for (SupplierDTO suppl : supplierService.findAll()){
+			comboBox_receiptSuppId.addItem(suppl.getId());
+		}
 		comboBox_receiptSuppId.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		comboBox_receiptSuppId.setBounds(140, 68, 126, 19);
 		product_infor_1.add(comboBox_receiptSuppId);
@@ -1066,14 +1079,16 @@ public class AdminUI extends JFrame {
 		panel_3_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
 				"Danh s\u00E1ch phi\u1EBFu nh\u1EADp", TitledBorder.LEADING, TitledBorder.TOP, null,
 				new Color(0, 0, 0)));
-		panel_3_4.setBounds(0, 161, 453, 338);
+		panel_3_4.setBounds(0, 161, 842, 338);
 		panel_receipt.add(panel_3_4);
 
 		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setBounds(10, 22, 433, 308);
+		scrollPane_4.setBounds(10, 22, 822, 308);
 		panel_3_4.add(scrollPane_4);
 
 		table_receipt = new JTable();
+		table_receipt.addMouseListener(adminReceiptController);
+		table_receipt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_receipt.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "M\u00E3 phi\u1EBFu nh\u1EADp", "M\u00E3 t\u00E0i kho\u1EA3n",
 						"M\u00E3 nh\u00E0 cung c\u1EA5p", "Th\u00E0nh ti\u1EC1n", "Ng\u00E0y t\u1EA1o phi\u1EBFu" }) {
@@ -1100,106 +1115,29 @@ public class AdminUI extends JFrame {
 		panel_4_1.setBounds(0, 499, 842, 51);
 		panel_receipt.add(panel_4_1);
 
-		JButton btn_addReceipt = new JButton("Tạo phiếu");
-		btn_addReceipt.setBackground(new Color(149, 92, 211));
-		btn_addReceipt.setBounds(188, 15, 85, 21);
-		panel_4_1.add(btn_addReceipt);
-
 		JButton btn_updateReceipt = new JButton("Lưu phiếu");
+		btn_updateReceipt.addActionListener(adminReceiptController);
 		btn_updateReceipt.setBackground(new Color(149, 92, 211));
-		btn_updateReceipt.setBounds(283, 15, 85, 21);
+		btn_updateReceipt.setBounds(241, 15, 85, 21);
 		panel_4_1.add(btn_updateReceipt);
 
 		JButton btn_deleteReceipt = new JButton("Xóa phiếu");
+		btn_deleteReceipt.addActionListener(adminReceiptController);
 		btn_deleteReceipt.setBackground(new Color(149, 92, 211));
-		btn_deleteReceipt.setBounds(378, 15, 85, 21);
+		btn_deleteReceipt.setBounds(336, 15, 85, 21);
 		panel_4_1.add(btn_deleteReceipt);
 
 		JButton btn_deleteAllReceipt = new JButton("Xóa tất cả");
+		btn_deleteAllReceipt.addActionListener(adminReceiptController);
 		btn_deleteAllReceipt.setBackground(new Color(149, 92, 211));
-		btn_deleteAllReceipt.setBounds(473, 15, 85, 21);
+		btn_deleteAllReceipt.setBounds(431, 15, 85, 21);
 		panel_4_1.add(btn_deleteAllReceipt);
 
 		JButton btn_resetReceipt = new JButton("Làm mới");
+		btn_resetReceipt.addActionListener(adminReceiptController);
 		btn_resetReceipt.setBackground(new Color(149, 92, 211));
-		btn_resetReceipt.setBounds(568, 15, 85, 21);
+		btn_resetReceipt.setBounds(526, 15, 85, 21);
 		panel_4_1.add(btn_resetReceipt);
-
-		JPanel panel_3_4_1 = new JPanel();
-		panel_3_4_1.setLayout(null);
-		panel_3_4_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-				"Danh s\u00E1ch h\u00E0ng nh\u1EADp", TitledBorder.LEADING, TitledBorder.TOP, null,
-				new Color(0, 0, 0)));
-		panel_3_4_1.setBounds(477, 236, 365, 232);
-		panel_receipt.add(panel_3_4_1);
-
-		JScrollPane scrollPane_5 = new JScrollPane();
-		scrollPane_5.setBounds(10, 20, 345, 202);
-		panel_3_4_1.add(scrollPane_5);
-
-		table_receiptProd = new JTable();
-		table_receiptProd.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "M\u00E3 s\u1EA3n ph\u1EA9m",
-				"T\u00EAn s\u1EA3n ph\u1EA9m", "S\u1ED1 l\u01B0\u1EE3ng", "\u0110\u01A1n gi\u00E1" }) {
-			boolean[] columnEditables = new boolean[] { false, false, false, false };
-
-			public boolean isCellEditable(int row, int column) {
-				return columnEditables[column];
-			}
-		});
-		table_receiptProd.getColumnModel().getColumn(0).setResizable(false);
-		table_receiptProd.getColumnModel().getColumn(1).setResizable(false);
-		table_receiptProd.getColumnModel().getColumn(1).setPreferredWidth(115);
-		table_receiptProd.getColumnModel().getColumn(2).setResizable(false);
-		table_receiptProd.getColumnModel().getColumn(3).setResizable(false);
-		scrollPane_5.setViewportView(table_receiptProd);
-
-		JLabel lblNewLabel_9_2_2_1_1 = new JLabel("Mã sản phẩm:");
-		lblNewLabel_9_2_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_2_2_1_1.setBounds(487, 175, 77, 13);
-		panel_receipt.add(lblNewLabel_9_2_2_1_1);
-
-		final JComboBox comboBox_receiptProdId = new JComboBox();
-		comboBox_receiptProdId.addItem("Chọn mã");
-		comboBox_receiptProdId.setBounds(563, 172, 77, 19);
-		panel_receipt.add(comboBox_receiptProdId);
-
-		JLabel lblNewLabel_9_2_2_1_1_1 = new JLabel("Số lượng:");
-		lblNewLabel_9_2_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_2_2_1_1_1.setBounds(680, 175, 66, 13);
-		panel_receipt.add(lblNewLabel_9_2_2_1_1_1);
-
-		textField_receiptQuantity = new JTextField();
-		NumberTextField.numberTextField(textField_receiptQuantity);
-		textField_receiptQuantity.setColumns(10);
-		textField_receiptQuantity.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_receiptQuantity.setBounds(737, 172, 77, 19);
-		panel_receipt.add(textField_receiptQuantity);
-
-		JButton btnReceipt_addProduct = new JButton("Thêm");
-		btnReceipt_addProduct.setBackground(new Color(149, 92, 211));
-		btnReceipt_addProduct.setBounds(584, 478, 85, 21);
-		panel_receipt.add(btnReceipt_addProduct);
-
-		JButton btnReceipt_deleteProd = new JButton("Xóa");
-		btnReceipt_deleteProd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnReceipt_deleteProd.setBackground(new Color(149, 92, 211));
-		btnReceipt_deleteProd.setBounds(681, 478, 85, 21);
-		panel_receipt.add(btnReceipt_deleteProd);
-
-		JLabel lblNewLabel_9_2_2_2 = new JLabel("Giá nhập:");
-		lblNewLabel_9_2_2_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		lblNewLabel_9_2_2_2.setBounds(488, 208, 62, 13);
-		panel_receipt.add(lblNewLabel_9_2_2_2);
-
-		textField_receiptPrice = new JTextField();
-		NumberTextField.numberTextField(textField_receiptPrice);
-		textField_receiptPrice.setColumns(10);
-		textField_receiptPrice.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-		textField_receiptPrice.setBounds(563, 207, 106, 19);
-		panel_receipt.add(textField_receiptPrice);
 
 		JPanel panel_category = new JPanel();
 		panel_category.setLayout(null);
@@ -1225,10 +1163,10 @@ public class AdminUI extends JFrame {
 		lblNewLabel_8_4_1.setBounds(43, 19, 45, 13);
 		panel_5_4_1.add(lblNewLabel_8_4_1);
 
-		JButton btn_receiptFind_1 = new JButton("Tìm");
-		btn_receiptFind_1.setBackground(new Color(149, 92, 211));
-		btn_receiptFind_1.setBounds(455, 15, 85, 21);
-		panel_5_4_1.add(btn_receiptFind_1);
+		JButton btn_cateFind = new JButton("Tìm");
+		btn_cateFind.setBackground(new Color(149, 92, 211));
+		btn_cateFind.setBounds(455, 15, 85, 21);
+		panel_5_4_1.add(btn_cateFind);
 
 		JPanel product_infor_1_1 = new JPanel();
 		product_infor_1_1.setLayout(null);
@@ -1639,6 +1577,7 @@ public class AdminUI extends JFrame {
 		} else if (panel.getName().equals("receipt")) {
 			this.lbl_header.setText("Quản lý nhập hàng");
 			cardLayout.show(panel_cards, "panel_receipt");
+			handleShowReceiptToTable(receipts);
 
 		} else if (panel.getName().equals("category")) {
 			this.lbl_header.setText("Quản lý danh mục");
@@ -1697,5 +1636,58 @@ public class AdminUI extends JFrame {
 				i++;
 			}
 		}
+	}
+
+
+//	Receipt
+	public void addRowReceipt(ReceiptDTO dto){
+		DefaultTableModel tableModel = (DefaultTableModel) table_receipt.getModel();
+		tableModel.addRow(new Object[]{
+				dto.getId(),
+				dto.getAccountId(),
+				dto.getSupplierId(),
+				dto.getTotalPrice(),
+				dto.getCreatedDate()
+		});
+	}
+
+	public void handleShowReceiptToTable(List<ReceiptDTO> list){
+		DefaultTableModel tableModel = (DefaultTableModel) table_receipt.getModel();
+		tableModel.setRowCount(0);
+		if (list != null){
+			for (ReceiptDTO dto : list){
+				addRowReceipt(dto);
+			}
+		}
+
+	}
+
+	public void showReceiptToCpn(int row){
+		DefaultTableModel tableModel = (DefaultTableModel) table_receipt.getModel();
+		String id = tableModel.getValueAt(row, 0).toString();
+		String accId = tableModel.getValueAt(row, 1).toString();
+		int supplId = (int) tableModel.getValueAt(row, 2);
+		String amount = tableModel.getValueAt(row, 3).toString();
+		String createdDate = tableModel.getValueAt(row, 4).toString();
+
+		textField_receiptId.setText(id);
+		textField_receiptAccId.setText(accId);
+		textField_receiptTotalPrice.setText(amount);
+		textField_receiptDate.setText(createdDate);
+		comboBox_receiptSuppId.setSelectedItem(supplId);
+	}
+
+	public void formCleanReceipt(){
+		textField_receiptFind.setText("");
+		textField_receiptId.setText("");
+		textField_receiptAccId.setText("");
+		textField_receiptTotalPrice.setText("");
+		textField_receiptDate.setText("");
+		comboBox_receiptSuppId.setSelectedIndex(0);
+	}
+
+	public void handleFormCleanReceipt(){
+		formCleanReceipt();
+		handleShowReceiptToTable(receiptService.findAll(1));
 	}
 }
