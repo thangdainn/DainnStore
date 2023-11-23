@@ -12,7 +12,10 @@ public interface IProductDAO {
     List<ProductDTO> findByInRanges(Integer fromPrice, Integer toPrice, Integer status, String keyword);
     List<ProductDTO> findByNameContaining(String keyword, Integer categoryId, Integer status);
     List<ProductDTO> findByNameContaining(String keyword, Integer status);
+    List<ProductDTO> findByIdOrNameContaining(String keyword, Integer status);
     ProductDTO findById(Integer id);
     void updateQuantityById(Integer id);
     void update(ProductDTO dto);
+    Integer save(ProductDTO dto);
+    void delete(Integer id);
 }

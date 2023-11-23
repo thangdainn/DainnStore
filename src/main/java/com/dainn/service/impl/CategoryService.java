@@ -15,7 +15,18 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
-    public List<CategoryDTO> findAll() {
-        return null;
+    public List<CategoryDTO> findAll(Integer status) {
+        List<CategoryDTO> list = categoryDAO.findALl(1);
+        return list.isEmpty() ? null : list;
+    }
+
+    @Override
+    public CategoryDTO findByName(String name) {
+        return categoryDAO.findByName(name);
+    }
+
+    @Override
+    public CategoryDTO finById(Integer id) {
+        return categoryDAO.findById(id);
     }
 }

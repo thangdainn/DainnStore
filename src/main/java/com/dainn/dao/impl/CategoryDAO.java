@@ -13,4 +13,17 @@ public class CategoryDAO extends AbstractDAO<CategoryDTO> implements ICategoryDA
         List<CategoryDTO> categories = query(sql, new CategoryMapper(), name);
         return categories.isEmpty() ? null : categories.get(0);
     }
+
+    @Override
+    public CategoryDTO findById(Integer id) {
+        String sql = "SELECT * FROM category WHERE id = ?";
+        List<CategoryDTO> categories = query(sql, new CategoryMapper(), id);
+        return categories.isEmpty() ? null : categories.get(0);
+    }
+
+    @Override
+    public List<CategoryDTO> findALl(Integer status) {
+        String sql = "SELECT * FROM category WHERE status = ?";
+        return query(sql, new CategoryMapper(), status);
+    }
 }

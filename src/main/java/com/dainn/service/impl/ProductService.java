@@ -59,6 +59,11 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public List<ProductDTO> findByIdOrNameContaining(String keyword, Integer status) {
+        return productDAO.findByIdOrNameContaining(keyword, status);
+    }
+
+    @Override
     public ProductDTO findById(Integer id) {
         return productDAO.findById(id);
     }
@@ -73,5 +78,16 @@ public class ProductService implements IProductService {
         Integer id = dto.getId();
         productDAO.update(dto);
         return productDAO.findById(id);
+    }
+
+    @Override
+    public ProductDTO save(ProductDTO dto) {
+        Integer id = productDAO.save(dto);
+        return productDAO.findById(id);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        productDAO.delete(id);
     }
 }

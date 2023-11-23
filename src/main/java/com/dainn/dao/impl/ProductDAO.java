@@ -54,6 +54,13 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
     }
 
     @Override
+    public List<ProductDTO> findByIdOrNameContaining(String keyword, Integer status) {
+        keyword = "%" + keyword + "%";
+        String sql = "SELECT * FROM product WHERE status = ? AND name LIKE ? OR id LIKE ?";
+        return query(sql, new ProductMapper(), status, keyword, keyword);
+    }
+
+    @Override
     public ProductDTO findById(Integer id) {
         String sql = "SELECT * FROM product WHERE id = ?";
         List<ProductDTO> list = query(sql, new ProductMapper(), id);
@@ -75,8 +82,19 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
 
     @Override
     public void update(ProductDTO dto) {
-        String sql = "UPDATE product SET category_id =?, name=?, price=?, quantity=?, image=?, status=? WHERE id =?";
-        update(sql, dto.getCategoryId(), dto.getName(), dto.getPrice(), dto.getQuantity(), dto.getImage(),
-                dto.getStatus(), dto.getId());
+        String sql = "UPDATE product SET category_id =?, name=?, price=?, quantity=?, image=? WHERE id =?";
+        update(sql, dto.getCategoryId(), dto.getName(), dto.getPrice(), dto.getQuantity(), dto.getImage(), dto.getId());
+    }
+
+    @Override
+    public Integer save(ProductDTO dto) {
+        String sql = "INSERT INTO product(category_id, name, price, quantity, image) VALUES (?,?,?,?,?)";
+        return insert(sql, dto.getCategoryId(), dto.getName(), dto.getPrice(), dto.getQuantity(), dto.getImage());
+    }
+
+    @Override
+    public void delete(Integer id) {
+        String sql = "UPDATE product SET status=0 WHERE id =?";
+        update(sql, id);
     }
 }
