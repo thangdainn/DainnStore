@@ -1,11 +1,8 @@
 package com.dainn.dao.impl;
 
 import com.dainn.dao.IReceiptDAO;
-import com.dainn.dao.ISupplierDAO;
 import com.dainn.dto.ReceiptDTO;
-import com.dainn.dto.SupplierDTO;
 import com.dainn.mapper.ReceiptMapper;
-import com.dainn.mapper.SupplierMapper;
 
 import java.util.List;
 
