@@ -56,7 +56,7 @@ public class ProductDAO extends AbstractDAO<ProductDTO> implements IProductDAO {
     @Override
     public List<ProductDTO> findByIdOrNameContaining(String keyword, Integer status) {
         keyword = "%" + keyword + "%";
-        String sql = "SELECT * FROM product WHERE status = ? AND name LIKE ? OR id LIKE ?";
+        String sql = "SELECT * FROM product WHERE status = ? AND (name LIKE ? OR id LIKE ?)";
         return query(sql, new ProductMapper(), status, keyword, keyword);
     }
 

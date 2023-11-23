@@ -74,11 +74,11 @@ public class AdminUI extends JFrame {
     public JTextField textField_receiptDate;
     public JTable table_receipt;
     private JTextField textField_receiptAccId;
-    private JTextField textField;
-    private JTextField textField_1;
-    private JTextField textField_4;
-    private JTextField textField_2;
-    private JTable table_category;
+    public JTextField textField_cateFind;
+    public JTextField textField_cateId;
+    public JTextField textField_cateDescription;
+    public JTextField textField_cateName;
+    public JTable table_category;
     private JTextField txtpointCustomer;
     public JTable table_analyticCate;
     public JTable table_analyticProduct;
@@ -117,6 +117,7 @@ public class AdminUI extends JFrame {
         AdminAnalyticsController adminAnalyticsController = new AdminAnalyticsController(this);
         AdminReceiptController adminReceiptController = new AdminReceiptController(this);
         AdminProductController adminProductController = new AdminProductController(this);
+        AdminCategoryController adminCategoryController = new AdminCategoryController(this);
 //		AdminProductController adminOrderController = new AdminProductController(this);
 //		AdminCusController adminCusController = new AdminCusController(this);
 //		AdminAccController adminAccController = new AdminAccController(this);
@@ -1144,18 +1145,19 @@ public class AdminUI extends JFrame {
         panel_5_4_1.setBounds(0, 0, 842, 51);
         panel_category.add(panel_5_4_1);
 
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-        textField.setBackground(Color.WHITE);
-        textField.setBounds(98, 16, 347, 19);
-        panel_5_4_1.add(textField);
+        textField_cateFind = new JTextField();
+        textField_cateFind.setColumns(10);
+        textField_cateFind.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+        textField_cateFind.setBackground(Color.WHITE);
+        textField_cateFind.setBounds(98, 16, 347, 19);
+        panel_5_4_1.add(textField_cateFind);
 
         JLabel lblNewLabel_8_4_1 = new JLabel("Tìm kiếm");
         lblNewLabel_8_4_1.setBounds(43, 19, 45, 13);
         panel_5_4_1.add(lblNewLabel_8_4_1);
 
         JButton btn_cateFind = new JButton("Tìm");
+        btn_cateFind.addActionListener(adminCategoryController);
         btn_cateFind.setBackground(new Color(149, 92, 211));
         btn_cateFind.setBounds(455, 15, 85, 21);
         panel_5_4_1.add(btn_cateFind);
@@ -1163,51 +1165,47 @@ public class AdminUI extends JFrame {
         JPanel product_infor_1_1 = new JPanel();
         product_infor_1_1.setLayout(null);
         product_infor_1_1
-                .setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-                        "Th\u00F4ng tin lo\u1EA1i h\u00E0ng", TitledBorder.LEADING, TitledBorder.TOP, null,
-                        new Color(0, 0, 0)));
+                .setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Th\u00F4ng tin danh m\u1EE5c", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         product_infor_1_1.setBounds(0, 50, 842, 112);
         panel_category.add(product_infor_1_1);
 
-        JLabel lblNewLabel_9_4_1 = new JLabel("Mã loại hàng:");
+        JLabel lblNewLabel_9_4_1 = new JLabel("Mã danh mục:");
         lblNewLabel_9_4_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
         lblNewLabel_9_4_1.setBounds(53, 29, 91, 13);
         product_infor_1_1.add(lblNewLabel_9_4_1);
 
-        JLabel lblNewLabel_9_1_2_1 = new JLabel("Tên loại hàng:");
+        JLabel lblNewLabel_9_1_2_1 = new JLabel("Tên danh mục:");
         lblNewLabel_9_1_2_1.setFont(new Font("Tahoma", Font.PLAIN, 11));
         lblNewLabel_9_1_2_1.setBounds(53, 71, 91, 13);
         product_infor_1_1.add(lblNewLabel_9_1_2_1);
 
-        textField_1 = new JTextField();
-        textField_1.setEditable(false);
-        textField_1.setColumns(10);
-        textField_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-        textField_1.setBounds(140, 27, 126, 19);
-        product_infor_1_1.add(textField_1);
+        textField_cateId = new JTextField();
+        textField_cateId.setEditable(false);
+        textField_cateId.setColumns(10);
+        textField_cateId.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+        textField_cateId.setBounds(140, 27, 126, 19);
+        product_infor_1_1.add(textField_cateId);
 
         JLabel lblNewLabel_9_2_2_1_2 = new JLabel("Mô tả:");
         lblNewLabel_9_2_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 11));
         lblNewLabel_9_2_2_1_2.setBounds(348, 29, 45, 13);
         product_infor_1_1.add(lblNewLabel_9_2_2_1_2);
 
-        textField_4 = new JTextField();
-        textField_4.setColumns(10);
-        textField_4.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-        textField_4.setBounds(403, 26, 347, 19);
-        product_infor_1_1.add(textField_4);
+        textField_cateDescription = new JTextField();
+        textField_cateDescription.setColumns(10);
+        textField_cateDescription.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+        textField_cateDescription.setBounds(403, 26, 347, 19);
+        product_infor_1_1.add(textField_cateDescription);
 
-        textField_2 = new JTextField();
-        textField_2.setColumns(10);
-        textField_2.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
-        textField_2.setBounds(140, 68, 126, 19);
-        product_infor_1_1.add(textField_2);
+        textField_cateName = new JTextField();
+        textField_cateName.setColumns(10);
+        textField_cateName.setBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(149, 92, 211), null));
+        textField_cateName.setBounds(140, 68, 126, 19);
+        product_infor_1_1.add(textField_cateName);
 
         JPanel panel_3_4_2 = new JPanel();
         panel_3_4_2.setLayout(null);
-        panel_3_4_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null),
-                "Danh s\u00E1ch lo\u1EA1i h\u00E0ng", TitledBorder.LEADING, TitledBorder.TOP, null,
-                new Color(0, 0, 0)));
+        panel_3_4_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.RAISED, new Color(149, 92, 211), null), "Danh s\u00E1ch danh m\u1EE5c", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         panel_3_4_2.setBounds(0, 161, 842, 338);
         panel_category.add(panel_3_4_2);
 
@@ -1216,9 +1214,18 @@ public class AdminUI extends JFrame {
         panel_3_4_2.add(scrollPane_6);
 
         table_category = new JTable();
-        table_category.setModel(new DefaultTableModel(new Object[][]{},
-                new String[]{"M\u00E3 lo\u1EA1i h\u00E0ng", "T\u00EAn lo\u1EA1i h\u00E0ng", "M\u00F4 t\u1EA3"}) {
-            boolean[] columnEditables = new boolean[]{false, false, false};
+        table_category.addMouseListener(adminCategoryController);
+        table_category.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        table_category.setModel(new DefaultTableModel(
+                new Object[][]{
+                },
+                new String[]{
+                        "M\u00E3 danh m\u1EE5c", "T\u00EAn danh m\u1EE5c", "M\u00F4 t\u1EA3"
+                }
+        ) {
+            boolean[] columnEditables = new boolean[]{
+                    false, false, false
+            };
 
             public boolean isCellEditable(int row, int column) {
                 return columnEditables[column];
@@ -1237,26 +1244,31 @@ public class AdminUI extends JFrame {
         panel_category.add(panel_4_1_1);
 
         JButton btn_addCategory = new JButton("Thêm");
+        btn_addCategory.addActionListener(adminCategoryController);
         btn_addCategory.setBackground(new Color(149, 92, 211));
         btn_addCategory.setBounds(188, 15, 85, 21);
         panel_4_1_1.add(btn_addCategory);
 
-        JButton btn_updateCategory = new JButton("Sửa");
+        JButton btn_updateCategory = new JButton("Lưu");
+        btn_updateCategory.addActionListener(adminCategoryController);
         btn_updateCategory.setBackground(new Color(149, 92, 211));
         btn_updateCategory.setBounds(283, 15, 85, 21);
         panel_4_1_1.add(btn_updateCategory);
 
         JButton btn_deleteCategory = new JButton("Xóa");
+        btn_deleteCategory.addActionListener(adminCategoryController);
         btn_deleteCategory.setBackground(new Color(149, 92, 211));
         btn_deleteCategory.setBounds(378, 15, 85, 21);
         panel_4_1_1.add(btn_deleteCategory);
 
         JButton btn_deleteAllCategory = new JButton("Xóa tất cả");
+        btn_deleteAllCategory.addActionListener(adminCategoryController);
         btn_deleteAllCategory.setBackground(new Color(149, 92, 211));
         btn_deleteAllCategory.setBounds(473, 15, 85, 21);
         panel_4_1_1.add(btn_deleteAllCategory);
 
         JButton btn_resetCategory = new JButton("Làm mới");
+        btn_resetCategory.addActionListener(adminCategoryController);
         btn_resetCategory.setBackground(new Color(149, 92, 211));
         btn_resetCategory.setBounds(568, 15, 85, 21);
         panel_4_1_1.add(btn_resetCategory);
@@ -1554,6 +1566,7 @@ public class AdminUI extends JFrame {
             this.lbl_header.setText("Quản lý sản phẩm");
             cardLayout.show(panel_cards, "panel_productList");
             showListProductToTable(productService.findAll(1));
+
         } else if (panel.getName().equals("orderList")) {
             this.lbl_header.setText("Quản lý đơn hàng");
             cardLayout.show(panel_cards, "panel_orderList");
@@ -1574,6 +1587,7 @@ public class AdminUI extends JFrame {
         } else if (panel.getName().equals("category")) {
             this.lbl_header.setText("Quản lý danh mục");
             cardLayout.show(panel_cards, "panel_category");
+            showListCateToTable(categoryService.findAll(1));
 
         } else if (panel.getName().equals("analytics")) {
             this.lbl_header.setText("Thống kê");
@@ -1684,20 +1698,20 @@ public class AdminUI extends JFrame {
     }
 
     //	Product
-	public void formClearProd() {
-		this.textfiel_proFind.setText("");
-		this.textField_proId.setText("");
-		this.textField_proName.setText("");
-		this.textField_proPrice.setText("");
-		this.textField_proQuantity.setText("");
-		this.comboBox_prodCateId.setSelectedIndex(0);
-		this.lbl_image.setIcon(null);
-	}
+    public void formClearProd() {
+        this.textfiel_proFind.setText("");
+        this.textField_proId.setText("");
+        this.textField_proName.setText("");
+        this.textField_proPrice.setText("");
+        this.textField_proQuantity.setText("");
+        this.comboBox_prodCateId.setSelectedIndex(0);
+        this.lbl_image.setIcon(null);
+    }
 
-	public void handleFormCleanProd() {
-		this.formClearProd();
-		this.showListProductToTable(productService.findAll(1));
-	}
+    public void handleFormCleanProd() {
+        this.formClearProd();
+        this.showListProductToTable(productService.findAll(1));
+    }
 
     public void addRowProduct(ProductDTO product) {
         DefaultTableModel tableProdModel = (DefaultTableModel) this.table_product.getModel();
@@ -1736,5 +1750,48 @@ public class AdminUI extends JFrame {
         this.textField_proQuantity.setText(quantity);
         this.comboBox_prodCateId.setSelectedItem(cateName);
         ImageUtil.scaleImage(imgPath, lbl_image);
+    }
+
+    //    Category
+    public void showCateDataToComponents(int row) {
+        DefaultTableModel tableProdModel = (DefaultTableModel) this.table_category.getModel();
+        String id = tableProdModel.getValueAt(row, 0) + "";
+        String name = tableProdModel.getValueAt(row, 1) + "";
+        String description = tableProdModel.getValueAt(row, 2) + "";
+
+        this.textField_cateId.setText(id);
+        this.textField_cateName.setText(name);
+        this.textField_cateDescription.setText(description);
+    }
+
+    public void addRowCategory(CategoryDTO category) {
+        DefaultTableModel tableProdModel = (DefaultTableModel) this.table_category.getModel();
+        tableProdModel.addRow(new Object[]{
+                category.getId(),
+                category.getName(),
+                category.getDescription()
+        });
+    }
+
+    public void showListCateToTable(List<CategoryDTO> list) {
+        DefaultTableModel tableProdModel = (DefaultTableModel) this.table_category.getModel();
+        tableProdModel.setRowCount(0);
+        if (list != null) {
+            for (CategoryDTO category : list) {
+                this.addRowCategory(category);
+            }
+        }
+    }
+
+    public void formCleanCate() {
+        this.textField_cateFind.setText("");
+        this.textField_cateId.setText("");
+        this.textField_cateName.setText("");
+        this.textField_cateDescription.setText("");
+    }
+
+    public void handleFormCleanCate() {
+        this.formCleanCate();
+        this.showListCateToTable(categoryService.findAll(1));
     }
 }
