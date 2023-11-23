@@ -5,6 +5,8 @@ import com.dainn.dao.impl.ReceiptDetailDAO;
 import com.dainn.dto.ReceiptDetailDTO;
 import com.dainn.service.IReceiptDetailService;
 
+import java.util.List;
+
 public class ReceiptDetailService implements IReceiptDetailService {
     private IReceiptDetailDAO receiptDetailDAO;
 
@@ -16,5 +18,11 @@ public class ReceiptDetailService implements IReceiptDetailService {
     @Override
     public void save(ReceiptDetailDTO dto) {
         receiptDetailDAO.save(dto);
+    }
+
+    @Override
+    public List<ReceiptDetailDTO> findByReceipt_Id(Integer id) {
+        List<ReceiptDetailDTO> list = receiptDetailDAO.findByReceipt_Id(id);
+        return list.isEmpty() ? null : list;
     }
 }

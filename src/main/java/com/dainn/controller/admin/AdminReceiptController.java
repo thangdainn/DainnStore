@@ -3,6 +3,7 @@ package com.dainn.controller.admin;
 import com.dainn.dto.CustomerDTO;
 import com.dainn.dto.ReceiptDTO;
 import com.dainn.gui.AdminUI;
+import com.dainn.gui.ReceiptDetailUI;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -33,20 +34,23 @@ public class AdminReceiptController implements ActionListener, MouseListener {
             adminUI.handleFormCleanReceipt();
         } else if (action.equals("Tìm")) {
             handleFindByKeyword();
-        } else if (source == adminUI.comboBox_receiptMonth){
+        } else if (source == adminUI.comboBox_receiptMonth) {
             handleFindByMonth();
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int row = adminUI.table_receipt.getSelectedRow();
-        adminUI.showReceiptToCpn(row);
+        if (e.getClickCount() == 2) {
+            int row = adminUI.table_receipt.getSelectedRow();
+            handleShowReceiptDetail(row);
+        }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        int row = adminUI.table_receipt.getSelectedRow();
+        adminUI.showReceiptToCpn(row);
     }
 
     @Override
@@ -62,6 +66,12 @@ public class AdminReceiptController implements ActionListener, MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    private void handleShowReceiptDetail(int row) {
+        DefaultTableModel tableOrderModel = (DefaultTableModel) this.adminUI.table_receipt.getModel();
+        Integer id = Integer.valueOf(tableOrderModel.getValueAt(row, 0) + "");
+        new ReceiptDetailUI(id);
     }
 
     private void handleUpdate() {
@@ -97,7 +107,7 @@ public class AdminReceiptController implements ActionListener, MouseListener {
     private void handleDeleteAll() {
         int confirm = JOptionPane.showConfirmDialog(adminUI, "Bạn có chắc chắn xóa tất cả?", "Conform", JOptionPane.YES_NO_OPTION);
         if (confirm == JOptionPane.YES_OPTION) {
-            for (ReceiptDTO dto : adminUI.receiptService.findAll(1)){
+            for (ReceiptDTO dto : adminUI.receiptService.findAll(1)) {
                 adminUI.receiptService.delete(dto.getId());
             }
             adminUI.formCleanReceipt();
@@ -106,13 +116,13 @@ public class AdminReceiptController implements ActionListener, MouseListener {
         }
     }
 
-    private void handleFindByKeyword(){
+    private void handleFindByKeyword() {
         String keyword = adminUI.textField_receiptFind.getText();
         adminUI.handleShowReceiptToTable(adminUI.receiptService.findByKeyword(keyword, 1));
     }
 
-    private void handleFindByMonth(){
-        if (adminUI.comboBox_receiptMonth.getSelectedIndex() != 0){
+    private void handleFindByMonth() {
+        if (adminUI.comboBox_receiptMonth.getSelectedIndex() != 0) {
             Integer month = (Integer) adminUI.comboBox_receiptMonth.getSelectedItem();
             adminUI.handleShowReceiptToTable(adminUI.receiptService.findByMonth(month, 1));
         }
