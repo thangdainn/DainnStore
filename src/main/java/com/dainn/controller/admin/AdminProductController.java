@@ -73,7 +73,7 @@ public class AdminProductController implements MouseListener, ActionListener {
         } else if (quantity.isEmpty()) {
             error = "Nhập số lượng sản phẩm.";
         } else if (this.adminUI.comboBox_prodCateId.getSelectedIndex() < 1) {
-            error = "Chọn mã loại sản phẩm.";
+            error = "Chọn loại sản phẩm.";
         } else if (this.adminUI.lbl_image.getIcon() == null) {
             error = "Chọn ảnh sản phẩm.";
         }
