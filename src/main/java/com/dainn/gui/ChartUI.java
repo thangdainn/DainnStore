@@ -16,17 +16,6 @@ public class ChartUI extends JFrame {
         initComponents();
         chart.setTitle("Chart Data");
         chart.addLegend("Amount 1", Color.decode("#7b4397"), Color.decode("#dc2430"));
-//        int countTab = list.size() / 10 + 1;
-//        if (list.size() % 10 != 0){
-//            countTab++;
-//        }
-//        for (int i = 0; i < countTab; i++) {
-//            chart.addLegend("Amount " + (i + 1) , Color.decode("#7b4397"), Color.decode("#dc2430"));
-//        }
-//        chart.addLegend("Cost", Color.decode("#e65c00"), Color.decode("#F9D423"));
-//        chart.addLegend("Profit", Color.decode("#0099F7"), Color.decode("#F11712"));
-//        chart.addLegend("Profit", Color.decode("#0099F7"), Color.decode("#F11712"));
-//        app();
         setData(list);
         setVisible(true);
     }
