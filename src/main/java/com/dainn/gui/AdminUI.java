@@ -67,7 +67,6 @@ public class AdminUI extends JFrame {
     public JComboBox comboBox_prodCateId;
     public JButton btn_orderFind;
     public JComboBox comboBox_orderMonth;
-    public JComboBox comboBox_orderStatus;
     public JTextField textField_receiptFind;
     public JTextField textField_receiptId;
     public JTextField textField_receiptTotalPrice;
@@ -538,20 +537,28 @@ public class AdminUI extends JFrame {
         table_order = new JTable();
 //		table_order.addMouseListener(adminOrderController);
         table_order.setRowHeight(24);
-        table_order.setModel(new DefaultTableModel(new Object[][]{},
-                new String[]{"M\u00E3 \u0111\u01A1n h\u00E0ng", "M\u00E3 kh\u00E1ch h\u00E0ng",
-                        "Ng\u00E0y \u0111\u1EB7t h\u00E0ng", "T\u1ED5ng ti\u1EC1n", "Tr\u1EA1ng th\u00E1i"}) {
-            boolean[] columnEditables = new boolean[]{false, false, false, false, false};
-
-            public boolean isCellEditable(int row, int column) {
-                return columnEditables[column];
-            }
+        table_order.setModel(new DefaultTableModel(
+        	new Object[][] {
+        	},
+        	new String[] {
+        		"M\u00E3 \u0111\u01A1n h\u00E0ng", "T\u00EAn kh\u00E1ch h\u00E0ng", "T\u00EAn nh\u00E2n vi\u00EAn", "Ng\u00E0y \u0111\u1EB7t h\u00E0ng", "T\u1ED5ng ti\u1EC1n"
+        	}
+        ) {
+        	boolean[] columnEditables = new boolean[] {
+        		false, false, false, false, false
+        	};
+        	public boolean isCellEditable(int row, int column) {
+        		return columnEditables[column];
+        	}
         });
         table_order.getColumnModel().getColumn(0).setResizable(false);
         table_order.getColumnModel().getColumn(1).setResizable(false);
+        table_order.getColumnModel().getColumn(1).setPreferredWidth(120);
         table_order.getColumnModel().getColumn(2).setResizable(false);
         table_order.getColumnModel().getColumn(3).setResizable(false);
+        table_order.getColumnModel().getColumn(3).setPreferredWidth(126);
         table_order.getColumnModel().getColumn(4).setResizable(false);
+        table_order.getColumnModel().getColumn(4).setPreferredWidth(145);
         scrollPane_1.setViewportView(table_order);
 
         JPanel panel_ = new JPanel();
@@ -559,22 +566,10 @@ public class AdminUI extends JFrame {
         panel_.setBounds(0, 499, 842, 51);
         panel_orderList.add(panel_);
 
-        JButton btn_confirmOrder = new JButton("Xác nhận");
-//		btn_confirmOrder.addActionListener(adminOrderController);
-        btn_confirmOrder.setBackground(new Color(149, 92, 211));
-        btn_confirmOrder.setBounds(283, 15, 85, 21);
-        panel_.add(btn_confirmOrder);
-
-        JButton btn_cancelOrder = new JButton("Hủy");
-//		btn_cancelOrder.addActionListener(adminOrderController);
-        btn_cancelOrder.setBackground(new Color(149, 92, 211));
-        btn_cancelOrder.setBounds(378, 15, 85, 21);
-        panel_.add(btn_cancelOrder);
-
         JButton btn_resetOrder = new JButton("Làm mới");
 //		btn_resetOrder.addActionListener(adminOrderController);
         btn_resetOrder.setBackground(new Color(149, 92, 211));
-        btn_resetOrder.setBounds(473, 15, 85, 21);
+        btn_resetOrder.setBounds(378, 15, 85, 21);
         panel_.add(btn_resetOrder);
 
         JPanel panel_5_1 = new JPanel();
@@ -612,19 +607,8 @@ public class AdminUI extends JFrame {
         for (int i = 1; i <= 12; i++) {
             comboBox_orderMonth.addItem(i);
         }
-        comboBox_orderMonth.setBounds(586, 15, 114, 20);
+        comboBox_orderMonth.setBounds(718, 15, 114, 20);
         panel_5_1.add(comboBox_orderMonth);
-
-        comboBox_orderStatus = new JComboBox();
-        comboBox_orderStatus.setFont(new Font("Tahoma", Font.PLAIN, 11));
-//		comboBox_orderStatus.addActionListener(adminOrderController);
-//		comboBox_orderStatus.addActionListener(adminOrderController);
-        comboBox_orderStatus.addItem("Trạng thái");
-        comboBox_orderStatus.addItem("Đang xử lý");
-        comboBox_orderStatus.addItem("Đã xử lý");
-        comboBox_orderStatus.addItem("Đã hủy");
-        comboBox_orderStatus.setBounds(710, 15, 85, 20);
-        panel_5_1.add(comboBox_orderStatus);
 
         JPanel panel_cusList = new JPanel();
         panel_cusList.setLayout(null);
