@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th10 17, 2023 lúc 06:32 AM
+-- Thời gian đã tạo: Th10 26, 2023 lúc 12:19 PM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -46,7 +46,7 @@ INSERT INTO `account` (`id`, `username`, `password`, `fullname`, `phone`, `addre
 (1, 'admin', 'admin', 'Administrator', '0123123123', NULL, 1, 'ADMIN'),
 (2, 'ducthang', '123', 'dao duc thang', '0123123123', NULL, 1, 'STAFF'),
 (3, 'hongson', '111', 'Hồng Sơn', '0123456789', NULL, 1, 'STAFF'),
-(5, 'zzzz', 'zzzz', 'zzzz', '0123123123', NULL, 1, 'STAFF');
+(5, 'zzzz', 'zzzz', 'zzzz', '0123123123', NULL, 0, 'STAFF');
 
 -- --------------------------------------------------------
 
@@ -81,11 +81,12 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `name`, `description`, `status`) VALUES
-(1, 'iPhone', 'iPhone', 1),
+(1, 'iPhone', 'Cac sp iPhone', 1),
 (2, 'iPad', 'iPad', 1),
 (3, 'Mac', 'Mac', 1),
 (4, 'Watch', 'Watch', 1),
-(5, 'AirPods', 'AirPods', 1);
+(5, 'AirPods', 'AirPods', 1),
+(6, 'adad', 'adad', 0);
 
 -- --------------------------------------------------------
 
@@ -108,7 +109,7 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`id`, `fullname`, `address`, `phone`, `points`, `status`) VALUES
 (1, 'dao duc thangg', 'thu duc', '0123123111', 12, 1),
-(2, 'hong son', 'vung tau', '0123123112', 3, 1),
+(2, 'hong son', 'vung tau', '0123123112', 4, 1),
 (3, 'luong chi  tai', 'binh tan', '0123123113', 3, 1);
 
 -- --------------------------------------------------------
@@ -154,7 +155,8 @@ INSERT INTO `order` (`id`, `createddate`, `totalprice`, `account_id`, `customer_
 (27, '2023-10-14 09:49:30', 12740000, 2, 2),
 (28, '2023-10-17 08:44:48', 20342595, 2, 1),
 (29, '2023-10-26 07:21:34', 20119050, 2, 1),
-(30, '2023-11-13 07:06:18', 33753250, 2, 1);
+(30, '2023-11-13 07:06:18', 33753250, 2, 1),
+(31, '2023-11-17 06:35:54', 49735295, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -230,7 +232,9 @@ INSERT INTO `orderdetail` (`order_id`, `product_id`, `rom_id`, `quantity`, `pric
 (28, 7, 2, 1, 22354500),
 (29, 7, 2, 1, 22354500),
 (30, 5, 1, 1, 18500000),
-(30, 5, 2, 1, 19425000);
+(30, 5, 2, 1, 19425000),
+(31, 7, 2, 1, 22354500),
+(31, 8, 3, 1, 28919000);
 
 -- --------------------------------------------------------
 
@@ -259,8 +263,8 @@ INSERT INTO `product` (`id`, `category_id`, `name`, `price`, `quantity`, `image`
 (4, 1, 'iPhone 12 Pro Max', 17490000, 70, '/iphones/iPhone12_ProMax.png', 1),
 (5, 1, 'iPhone 13 Pro', 18500000, 54, '/iphones/iPhone13_Pro.png', 1),
 (6, 1, 'iPhone 13 Pro Max', 23000000, 77, '/iphones/iPhone13_ProMax.png', 1),
-(7, 1, 'iPhone 14 Plus', 21290000, 55, '/iphones/iPhone14_Plus.png', 1),
-(8, 1, 'iPhone 14 Pro Max', 26290000, 47, '/iphones/iPhone14_ProMax.png', 1),
+(7, 1, 'iPhone 14 Plus', 21290000, 54, '/iphones/iPhone14_Plus.png', 1),
+(8, 1, 'iPhone 14 Pro Max', 26290000, 46, '/iphones/iPhone14_ProMax.png', 1),
 (9, 1, 'iPhone 15 Plus', 24490000, 18, '/iphones/iPhone15_Plus.png', 1),
 (10, 1, 'iPhone 15 Pro Max', 34000000, 36, '/iphones/iPhone15_ProMax.png', 1),
 (11, 2, 'iPad Pro M2', 23990000, 46, '/ipads/iPad_ProM2.png', 1),
@@ -276,7 +280,7 @@ INSERT INTO `product` (`id`, `category_id`, `name`, `price`, `quantity`, `image`
 (21, 4, 'Apple Watch SE Cellular 44mm Sport Loop', 8490000, 1, '/applewatchs/Watch_SECellular.png', 1),
 (22, 4, 'Apple Watch Ultra 2 LTE 49mm Titanium', 21990000, 15, '/applewatchs/Watch_Ultra2.png', 1),
 (23, 4, 'Apple Watch S9 GPS', 10490000, 10, '/applewatchs/Watch_S9.png', 1),
-(24, 5, 'AirPods Pro (2nd Gen) USB-C', 6200000, 0, '/airpods/AirPods_ProUSBC.png', 1),
+(24, 5, 'AirPods Pro (2nd Gen) USB-C', 6200000, 10, '/iphones/iPhone11.png', 1),
 (25, 5, 'AirPods 3', 4290000, 18, '/airpods/AirPods_3.png', 1),
 (26, 5, 'AirPods 2', 2600000, 13, '/airpods/AirPods_2.png', 1);
 
@@ -316,10 +320,10 @@ INSERT INTO `product_rom` (`id`, `product_id`, `rom_id`, `quantity`) VALUES
 (16, 6, 1, 19),
 (17, 6, 2, 29),
 (18, 6, 3, 29),
-(19, 7, 2, 9),
+(19, 7, 2, 8),
 (20, 7, 3, 24),
 (21, 7, 4, 22),
-(22, 8, 3, 18),
+(22, 8, 3, 17),
 (23, 8, 4, 14),
 (24, 8, 5, 15),
 (25, 9, 3, 18),
@@ -409,9 +413,9 @@ CREATE TABLE `receipt` (
 --
 
 INSERT INTO `receipt` (`id`, `supplier_id`, `account_id`, `createddate`, `totalprice`, `status`) VALUES
-(2, 1, 2, '2023-10-09 15:01:53', 24000000, 1),
-(3, 1, 2, '2023-10-09 15:05:53', 24000000, 1),
-(4, 2, 2, '2023-10-10 07:58:55', 66000000, 1);
+(2, 3, 2, '2023-11-22 16:22:01', 24000000, 1),
+(3, 1, 2, '2023-11-23 14:34:21', 24000000, 1),
+(4, 2, 2, '2023-11-22 16:22:01', 66000000, 1);
 
 -- --------------------------------------------------------
 
@@ -615,13 +619,13 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT cho bảng `customer`
@@ -633,7 +637,7 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT cho bảng `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT cho bảng `product`
