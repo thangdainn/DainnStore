@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th10 26, 2023 lúc 12:19 PM
+-- Thời gian đã tạo: Th10 26, 2023 lúc 12:53 PM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -280,9 +280,10 @@ INSERT INTO `product` (`id`, `category_id`, `name`, `price`, `quantity`, `image`
 (21, 4, 'Apple Watch SE Cellular 44mm Sport Loop', 8490000, 1, '/applewatchs/Watch_SECellular.png', 1),
 (22, 4, 'Apple Watch Ultra 2 LTE 49mm Titanium', 21990000, 15, '/applewatchs/Watch_Ultra2.png', 1),
 (23, 4, 'Apple Watch S9 GPS', 10490000, 10, '/applewatchs/Watch_S9.png', 1),
-(24, 5, 'AirPods Pro (2nd Gen) USB-C', 6200000, 10, '/iphones/iPhone11.png', 1),
+(24, 5, 'AirPods Pro (2nd Gen) USB-C', 6200000, 10, '/airpods/AirPods_ProUSBC.png', 1),
 (25, 5, 'AirPods 3', 4290000, 18, '/airpods/AirPods_3.png', 1),
-(26, 5, 'AirPods 2', 2600000, 13, '/airpods/AirPods_2.png', 1);
+(26, 5, 'AirPods 2', 2600000, 13, '/airpods/AirPods_2.png', 1),
+(27, 3, 'aa', 12444, 12, '/iphones/iPhone15_ProMax.png', 0);
 
 -- --------------------------------------------------------
 
@@ -361,7 +362,7 @@ INSERT INTO `product_rom` (`id`, `product_id`, `rom_id`, `quantity`) VALUES
 (57, 21, 6, 1),
 (58, 22, 6, 15),
 (59, 23, 6, 10),
-(60, 24, 6, 0),
+(60, 24, 6, 10),
 (61, 25, 6, 18),
 (62, 26, 6, 13),
 (63, 10, 3, 31),
@@ -619,7 +620,7 @@ ALTER TABLE `account`
 -- AUTO_INCREMENT cho bảng `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=144;
 
 --
 -- AUTO_INCREMENT cho bảng `category`
@@ -643,7 +644,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT cho bảng `product`
 --
 ALTER TABLE `product`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT cho bảng `product_rom`
