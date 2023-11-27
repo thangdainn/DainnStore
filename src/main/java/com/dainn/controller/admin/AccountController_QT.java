@@ -188,9 +188,9 @@ public class AccountController_QT {
 			JTextField txtPhoneAcc) {
 
 		if (!txtIdAcc.getText().isEmpty()) {
-
 			int choice = JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn xóa tài khoản này?", "Confirmation",
 					JOptionPane.YES_NO_OPTION);
+			
 			if (choice == JOptionPane.YES_OPTION) {
 				int id = Integer.parseInt(txtIdAcc.getText());
 				int status = 0;
