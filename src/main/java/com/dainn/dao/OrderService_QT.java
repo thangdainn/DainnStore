@@ -21,7 +21,7 @@ public class OrderService_QT {
 
 		try {
 			connection = DBService_QT.getConnection();
-			String query = "SELECT * FROM `order`";
+			String query = "SELECT * FROM `order` Where status = 1";
 			stmt = connection.prepareStatement(query);
 
 			rs = stmt.executeQuery();
@@ -30,7 +30,7 @@ public class OrderService_QT {
 				order.setId(rs.getInt("id"));
 				order.setCustomerId(rs.getInt("customer_id"));
 				order.setAccountId(rs.getInt("account_id"));
-				order.setCreatedDate(rs.getDate("createddate"));
+				order.setCreatedDate(rs.getTimestamp("createddate"));
 				order.setTotalPrice(rs.getInt("totalprice"));
 				orders.add(order);
 			}
@@ -58,7 +58,7 @@ public class OrderService_QT {
 				order.setId(rs.getInt("id"));
 				order.setCustomerId(rs.getInt("customer_id"));
 				order.setAccountId(rs.getInt("account_id"));
-				order.setCreatedDate(rs.getDate("createddate"));
+				order.setCreatedDate(rs.getTimestamp("createddate"));
 				order.setTotalPrice(rs.getInt("totalprice"));
 				orders.add(order);
 			}
@@ -86,7 +86,7 @@ public class OrderService_QT {
 				order.setId(rs.getInt("id"));
 				order.setCustomerId(rs.getInt("customer_id"));
 				order.setAccountId(rs.getInt("account_id"));
-				order.setCreatedDate(rs.getDate("createddate"));
+				order.setCreatedDate(rs.getTimestamp("createddate"));
 				order.setTotalPrice(rs.getInt("totalprice"));
 				orders.add(order);
 			}
@@ -98,9 +98,9 @@ public class OrderService_QT {
 		return orders;
 	}
 
-	public static OrderDetailDTO getOrderDetail_QT(int orderId) throws SQLException {
+	public static List<OrderDetailDTO> getOrderDetail_QT(int orderId) throws SQLException {
 		OrderDetailDTO orderDetail = new OrderDetailDTO();
-		
+		List<OrderDetailDTO> list = new ArrayList<>();
 		try {
 			connection = DBService_QT.getConnection();
 			String query = "SELECT * FROM `orderdetail` WHERE order_id = ?";
@@ -114,12 +114,13 @@ public class OrderService_QT {
 				orderDetail.setRomId(rs.getInt("rom_id"));
 				orderDetail.setQuantity(rs.getInt("quantity"));
 				orderDetail.setPrice(rs.getInt("price"));
+				list.add(orderDetail);
 			}
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
 			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
-		return orderDetail;
+		return list;
 	}
 }

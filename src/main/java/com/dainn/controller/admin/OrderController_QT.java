@@ -71,10 +71,13 @@ public class OrderController_QT {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 		try {
 			tableModel.setRowCount(0);
-			OrderDetailDTO OrderDetail = OrderService_QT.getOrderDetail_QT(orderId);
-			Object[] rowData = { OrderDetail.getOrderId(), OrderDetail.getProductId(), OrderDetail.getRomId(),
-					OrderDetail.getQuantity(), OrderDetail.getPrice() };
-			tableModel.addRow(rowData);
+			List<OrderDetailDTO> list = OrderService_QT.getOrderDetail_QT(orderId);
+			for (OrderDetailDTO dto : list){
+				Object[] rowData = { dto.getOrderId(), dto.getProductId(), dto.getRomId(),
+						dto.getQuantity(), dto.getPrice() };
+				tableModel.addRow(rowData);
+			}
+
 		} catch (SQLException ex) {
 			JOptionPane.showMessageDialog(null, "Error!");
 		}

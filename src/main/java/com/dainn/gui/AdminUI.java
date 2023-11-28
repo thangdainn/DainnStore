@@ -1399,10 +1399,16 @@ public class AdminUI extends JFrame {
 		panel_1.setLayout(null);
 
 		JButton btn_resetOrder = new JButton("Làm mới");
-		btn_resetOrder.setBounds(383, 23, 77, 23);
+		btn_resetOrder.setBounds(336, 22, 77, 23);
 		panel_1.add(btn_resetOrder);
 		btn_resetOrder.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		btn_resetOrder.setBackground(new Color(149, 92, 211));
+		
+		JButton btn_deleteOrder = new JButton("Xóa");
+		btn_deleteOrder.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btn_deleteOrder.setBackground(new Color(149, 92, 211));
+		btn_deleteOrder.setBounds(431, 22, 77, 23);
+		panel_1.add(btn_deleteOrder);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(32, 19, 176, 2);
