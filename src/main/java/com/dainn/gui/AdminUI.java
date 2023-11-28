@@ -1439,6 +1439,12 @@ public class AdminUI extends JFrame {
 				txtNhpMn.setText("");
 			}
 		});
+		btn_deleteOrder.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				OrderController_QT.deleteOrder(table_order);
+				txtNhpMn.setText("");
+			}
+		});
 		btn_orderFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				OrderController_QT.findOrder(table_order, txtNhpMn);

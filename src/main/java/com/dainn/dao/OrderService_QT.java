@@ -47,7 +47,7 @@ public class OrderService_QT {
 
 		try {
 			connection = DBService_QT.getConnection();
-			String query = "SELECT * FROM `order` WHERE id = ?";
+			String query = "SELECT * FROM `order` WHERE id = ? AND status = 1";
 
 			stmt = connection.prepareStatement(query);
 			stmt.setString(1, find);
@@ -75,7 +75,7 @@ public class OrderService_QT {
 
 		try {
 			connection = DBService_QT.getConnection();
-			String query = "SELECT * FROM `order` WHERE MONTH(createddate) = ?";
+			String query = "SELECT * FROM `order` WHERE MONTH(createddate) = ? AND status = 1";
 
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, month);
@@ -122,5 +122,19 @@ public class OrderService_QT {
 			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return list;
+	}
+
+	public static void deleteOrder(Integer orderId) throws SQLException {
+		try {
+			connection = DBService_QT.getConnection();
+			String query = "UPDATE `order` SET status = 0 WHERE id = ?";
+			stmt = connection.prepareStatement(query);
+			stmt.setInt(1, orderId);
+			stmt.executeUpdate();
+		} catch (Exception ex) {
+			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		} finally {
+			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+		}
 	}
 }

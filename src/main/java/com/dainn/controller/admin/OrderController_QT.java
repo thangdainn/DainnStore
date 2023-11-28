@@ -66,6 +66,25 @@ public class OrderController_QT {
 		findField.setText("");
 		loadOrder(dataTable);
 	}
+	public static void deleteOrder(JTable dataTable) {
+		DefaultTableModel tableModel = (DefaultTableModel) dataTable.getModel();
+		try {
+			int row = dataTable.getSelectedRow();
+			if (row != -1){
+				int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn xóa?", "Conform", JOptionPane.YES_NO_OPTION);
+				if (confirm == JOptionPane.YES_OPTION) {
+					OrderService_QT.deleteOrder((Integer) tableModel.getValueAt(row, 0));
+					JOptionPane.showMessageDialog(null, "Xóa đơn hàng thành công.");
+					loadOrder(dataTable);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "Chọn hóa đơn để xóa!");
+			}
+		} catch (SQLException ex){
+			JOptionPane.showMessageDialog(null, "Error!");
+		}
+
+	}
 
 	public static void loadOrderDetail(JTable table, int orderId) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
