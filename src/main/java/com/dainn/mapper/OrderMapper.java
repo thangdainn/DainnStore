@@ -14,7 +14,7 @@ public class OrderMapper implements IRowMapper<OrderDTO>{
             dto.setTotalPrice(rs.getInt("totalprice"));
             dto.setAccountId(rs.getInt("account_id"));
             dto.setCustomerId(rs.getInt("customer_id"));
-            dto.setCreatedDate(rs.getTimestamp("createddate"));
+            dto.setCreatedDate(rs.getDate("createddate"));
             return dto;
         } catch (SQLException e){
             e.printStackTrace();

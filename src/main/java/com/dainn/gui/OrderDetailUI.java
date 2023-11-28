@@ -13,25 +13,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import com.dainn.controller.admin.OrderController_QT;
+
 import javax.swing.SwingConstants;
 
 public class OrderDetailUI extends JFrame {
+	private static final long serialVersionUID = 1L;
 
-	private Integer orderId;
-	private JPanel contentPane;
+	public JPanel contentPane;
 	public JTable table_orderDetail;
-	private JTextField textField_totalPrice;
+	public JTextField textField_totalPrice;
 
-	public OrderDetailUI(Integer orderId) {
+	public OrderDetailUI(Integer orderId, Integer totalPrice) {
+		this.init(orderId, totalPrice);
 		setTitle("Chi tiết đơn hàng");
 		setResizable(false);
-		this.init();
-		this.orderId = orderId;
-//		this.showDataOrderDetailToComponents();
-//		this.showListOrderDetailToTable();
 	}
 
-	public void init() {
+	@SuppressWarnings("serial")
+	public void init(int orderId, int totalPrice) {
 		setSize(1047, 618);
 		setLocationRelativeTo(null);
 		contentPane = new JPanel();
@@ -42,8 +43,7 @@ public class OrderDetailUI extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("Chi tiết đơn hàng");
 		lblNewLabel.setForeground(new Color(128, 0, 255));
-		lblNewLabel.setFont(
-				new Font("Times New Roman", Font.BOLD, 36));
+		lblNewLabel.setFont(new Font("Times New Roman", Font.BOLD, 36));
 		lblNewLabel.setBounds(36, 10, 294, 59);
 		contentPane.add(lblNewLabel);
 
@@ -55,16 +55,10 @@ public class OrderDetailUI extends JFrame {
 
 		table_orderDetail = new JTable();
 		table_orderDetail.setRowHeight(24);
-		table_orderDetail.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"M\u00E3 s\u1EA3n ph\u1EA9m", "T\u00EAn s\u1EA3n ph\u1EA9m", "S\u1ED1 l\u01B0\u1EE3ng", "Dung l\u01B0\u1EE3ng", "\u0110\u01A1n gi\u00E1", "Th\u00E0nh ti\u1EC1n"
-			}
-		) {
-			boolean[] columnEditables = new boolean[] {
-				false, false, false, false, false, false
-			};
+		table_orderDetail.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Mã hóa đơn", "Mã sản phẩm", "Mã ROM", "Số lượng", "Đơn giá" }) {
+			boolean[] columnEditables = new boolean[] { false, false, false, false, false };
+
 			public boolean isCellEditable(int row, int column) {
 				return columnEditables[column];
 			}
@@ -74,7 +68,6 @@ public class OrderDetailUI extends JFrame {
 		table_orderDetail.getColumnModel().getColumn(2).setResizable(false);
 		table_orderDetail.getColumnModel().getColumn(3).setResizable(false);
 		table_orderDetail.getColumnModel().getColumn(4).setResizable(false);
-		table_orderDetail.getColumnModel().getColumn(5).setResizable(false);
 		scrollPane.setViewportView(table_orderDetail);
 
 		JLabel lblNewLabel_1_6 = new JLabel("Tổng tiền:");
@@ -92,6 +85,10 @@ public class OrderDetailUI extends JFrame {
 		contentPane.add(textField_totalPrice);
 
 		this.setVisible(true);
+
+		// QT
+		textField_totalPrice.setText(String.valueOf(totalPrice));
+		OrderController_QT.loadOrderDetail(table_orderDetail, orderId);
 	}
 
 //	public void addRowOrderDetail(OrderDetail orderDetail) {
