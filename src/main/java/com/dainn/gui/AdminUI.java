@@ -1437,6 +1437,7 @@ public class AdminUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				OrderBUS.resetForm(table_order, txtNhpMn);
 				txtNhpMn.setText("");
+				comboBox_orderMonth.setSelectedIndex(0);
 			}
 		});
 		btn_deleteOrder.addActionListener(new ActionListener() {

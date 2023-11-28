@@ -14,7 +14,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.controller.admin.OrderBUS;
+import com.dainn.service.OrderBUS;
 
 import javax.swing.SwingConstants;
 
