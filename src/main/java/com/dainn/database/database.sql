@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:3306
--- Thời gian đã tạo: Th10 28, 2023 lúc 01:40 AM
+-- Thời gian đã tạo: Th10 28, 2023 lúc 02:25 AM
 -- Phiên bản máy phục vụ: 8.0.30
 -- Phiên bản PHP: 8.1.10
 
@@ -132,7 +132,7 @@ CREATE TABLE `order` (
 --
 
 INSERT INTO `order` (`id`, `createddate`, `status`, `totalprice`, `account_id`, `customer_id`) VALUES
-(6, '2023-10-08 11:46:46', 1, 22926600, 2, 1),
+(6, '2023-11-28 02:20:51', 0, 22926600, 2, 1),
 (7, '2023-10-08 11:49:41', 1, 48284670, 2, 1),
 (8, '2023-10-08 11:56:22', 1, 16090800, 2, 1),
 (9, '2023-10-08 12:04:09', 1, 5642000, 2, 1),
