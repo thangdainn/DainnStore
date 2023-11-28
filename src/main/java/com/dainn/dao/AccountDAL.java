@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.dainn.dto.AccountDTO;
 
-public class AccountService_QT {
+public class AccountDAL {
 
 	private static Connection connection = null;
 	private static PreparedStatement stmt = null;
@@ -19,7 +19,7 @@ public class AccountService_QT {
 		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM account WHERE status = 1";
 			stmt = connection.prepareStatement(query);
 
@@ -38,7 +38,7 @@ public class AccountService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return accounts;
 	}
@@ -47,7 +47,7 @@ public class AccountService_QT {
 		List<AccountDTO> accounts = new ArrayList<AccountDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM account WHERE status = 1 AND (username LIKE ? OR fullname LIKE ? OR phone = ? OR id = ?)";
 
 			stmt = connection.prepareStatement(query);
@@ -71,14 +71,14 @@ public class AccountService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return accounts;
 	}
 
 	public static void insertAccount(AccountDTO account) throws SQLException {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "INSERT INTO account (username, password, fullname, role_id, phone) VALUES (?, ?, ?, ?, ?)";
 
 			stmt = connection.prepareStatement(query);
@@ -95,13 +95,13 @@ public class AccountService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, null);
 		}
 	}
 
 	public static void updateAccount(AccountDTO account) throws SQLException {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "UPDATE account SET username = ?, password = ?, fullname = ?, role_id = ?, phone = ? WHERE id = ?";
 
 			stmt = connection.prepareStatement(query);
@@ -119,13 +119,13 @@ public class AccountService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, null);
 		}
 	}
 
 	public static void deleteAccount(AccountDTO account) throws SQLException {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "UPDATE account SET status = ? WHERE id = ?";
 
 			stmt = connection.prepareStatement(query);
@@ -139,13 +139,13 @@ public class AccountService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, null);
 		}
 	}
 
 	public static boolean isNameExistsInsert(String username) {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT username FROM account WHERE username = ? AND status = 1";
 
 			stmt = connection.prepareStatement(query);
@@ -157,13 +157,13 @@ public class AccountService_QT {
 			JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 	}
 
 	public static boolean isNameExistsUpdate(String username, int id) {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT username FROM account WHERE username = ? AND id != ? AND status = 1";
 
 			stmt = connection.prepareStatement(query);
@@ -176,7 +176,7 @@ public class AccountService_QT {
 			JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			return false;
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 	}
 }

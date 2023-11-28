@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderDetailDTO {
-	
 	private Integer orderId;
 	private Integer productId;
 	private Integer romId;

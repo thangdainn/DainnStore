@@ -9,16 +9,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.dao.AccountService_QT;
+import com.dainn.dao.AccountDAL;
 import com.dainn.dto.AccountDTO;
 
-public class AccountController {
+public class AccountBUS {
 
 	public static void loadAccount(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 
 		try {
-			List<AccountDTO> accounts = AccountService_QT.getAccount_QT();
+			List<AccountDTO> accounts = AccountDAL.getAccount_QT();
 			tableModel.setRowCount(0);
 			for (AccountDTO account : accounts) {
 				Object[] rowData = { account.getId(), account.getUsername(), account.getPassword(), account.getRoleId(),
@@ -35,7 +35,7 @@ public class AccountController {
 		String find = textFindAcc.getText();
 
 		try {
-			List<AccountDTO> accounts = AccountService_QT.getFindAccount_QT(find);
+			List<AccountDTO> accounts = AccountDAL.getFindAccount_QT(find);
 			tableModel.setRowCount(0);
 			for (AccountDTO account : accounts) {
 				Object[] rowData = { account.getId(), account.getUsername(), account.getPassword(), account.getRoleId(),
@@ -88,7 +88,7 @@ public class AccountController {
 
 					if (isNumeric(phone) && phone.length() == 10 && phone.startsWith("0")) {
 
-						if (!AccountService_QT.isNameExistsInsert(username)) {
+						if (!AccountDAL.isNameExistsInsert(username)) {
 							AccountDTO account = new AccountDTO();
 							account.setUsername(username);
 							account.setPassword(password);
@@ -97,7 +97,7 @@ public class AccountController {
 							account.setPhone(phone);
 
 							try {
-								AccountService_QT.insertAccount(account);
+								AccountDAL.insertAccount(account);
 							} catch (Exception ex) {
 								JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage(), "Error",
 										JOptionPane.ERROR_MESSAGE);
@@ -144,7 +144,7 @@ public class AccountController {
 				if (isNumeric(phone) && phone.length() == 10 && phone.startsWith("0")) {
 
 					int id = Integer.parseInt(idd);
-					if (!AccountService_QT.isNameExistsUpdate(username, id)) {
+					if (!AccountDAL.isNameExistsUpdate(username, id)) {
 						AccountDTO account = new AccountDTO();
 						account.setId(id);
 						account.setUsername(username);
@@ -154,7 +154,7 @@ public class AccountController {
 						account.setPhone(phone);
 
 						try {
-							AccountService_QT.updateAccount(account);
+							AccountDAL.updateAccount(account);
 						} catch (Exception ex) {
 							JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
 									JOptionPane.ERROR_MESSAGE);
@@ -200,7 +200,7 @@ public class AccountController {
 				account.setStatus(status);
 
 				try {
-					AccountService_QT.deleteAccount(account);
+					AccountDAL.deleteAccount(account);
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
 							JOptionPane.ERROR_MESSAGE);

@@ -8,17 +8,17 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.dao.OrderService_QT;
+import com.dainn.dao.OrderDAL;
 import com.dainn.dto.OrderDTO;
 import com.dainn.dto.OrderDetailDTO;
 
-public class OrderController {
+public class OrderBUS {
 
 	public static void loadOrder(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 
 		try {
-			List<OrderDTO> Orders = OrderService_QT.getOrder_QT();
+			List<OrderDTO> Orders = OrderDAL.getOrder_QT();
 			tableModel.setRowCount(0);
 			for (OrderDTO Order : Orders) {
 				Object[] rowData = { Order.getId(), Order.getCustomerId(), Order.getAccountId(), Order.getCreatedDate(),
@@ -35,7 +35,7 @@ public class OrderController {
 		String find = findField.getText();
 
 		try {
-			List<OrderDTO> orders = OrderService_QT.getFindOrder_QT(find);
+			List<OrderDTO> orders = OrderDAL.getFindOrder_QT(find);
 			tableModel.setRowCount(0);
 			for (OrderDTO order : orders) {
 				Object[] rowData = { order.getId(), order.getCustomerId(), order.getAccountId(), order.getCreatedDate(),
@@ -50,7 +50,7 @@ public class OrderController {
 	public static void findOrderFromMonth(JTable table, int month) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 		try {
-			List<OrderDTO> orders = OrderService_QT.getFindOrderFromMonth_QT(month);
+			List<OrderDTO> orders = OrderDAL.getFindOrderFromMonth_QT(month);
 			tableModel.setRowCount(0);
 			for (OrderDTO order : orders) {
 				Object[] rowData = { order.getId(), order.getCustomerId(), order.getAccountId(), order.getCreatedDate(),
@@ -66,6 +66,7 @@ public class OrderController {
 		findField.setText("");
 		loadOrder(dataTable);
 	}
+	
 	public static void deleteOrder(JTable dataTable) {
 		DefaultTableModel tableModel = (DefaultTableModel) dataTable.getModel();
 		try {
@@ -73,7 +74,7 @@ public class OrderController {
 			if (row != -1){
 				int confirm = JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn xóa?", "Conform", JOptionPane.YES_NO_OPTION);
 				if (confirm == JOptionPane.YES_OPTION) {
-					OrderService_QT.deleteOrder((Integer) tableModel.getValueAt(row, 0));
+					OrderDAL.deleteOrder((Integer) tableModel.getValueAt(row, 0));
 					JOptionPane.showMessageDialog(null, "Xóa đơn hàng thành công.");
 					loadOrder(dataTable);
 				}
@@ -90,7 +91,7 @@ public class OrderController {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 		try {
 			tableModel.setRowCount(0);
-			List<OrderDetailDTO> list = OrderService_QT.getOrderDetail_QT(orderId);
+			List<OrderDetailDTO> list = OrderDAL.getOrderDetail_QT(orderId);
 			for (OrderDetailDTO dto : list){
 				Object[] rowData = { dto.getOrderId(), dto.getProductId(), dto.getRomId(),
 						dto.getQuantity(), dto.getPrice() };

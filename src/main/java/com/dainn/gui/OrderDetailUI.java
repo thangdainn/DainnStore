@@ -14,7 +14,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.controller.admin.OrderController;
+import com.dainn.controller.admin.OrderBUS;
 
 import javax.swing.SwingConstants;
 
@@ -88,30 +88,6 @@ public class OrderDetailUI extends JFrame {
 
 		// QT
 		textField_totalPrice.setText(String.valueOf(totalPrice));
-		OrderController.loadOrderDetail(table_orderDetail, orderId);
+		OrderBUS.loadOrderDetail(table_orderDetail, orderId);
 	}
-
-//	public void addRowOrderDetail(OrderDetail orderDetail) {
-//		DefaultTableModel tableDetailModel = (DefaultTableModel) this.table_orderDetail.getModel();
-//		tableDetailModel
-//				.addRow(new Object[] { orderDetail.getProduct().getId() + "", orderDetail.getProduct().getName(),
-//						orderDetail.getQuantity() + "",orderDetail.getProduct().getPrice() + "" , orderDetail.getPrice() + "" });
-//	}
-//
-//	public void showListOrderDetailToTable() {
-//		List<OrderDetail> orderDetails = OrderDetailDAO.getInstance().selectAllByOrderId(this.orderId);
-//		for (OrderDetail orderDetail : orderDetails) {
-//			this.addRowOrderDetail(orderDetail);
-//		}
-//	}
-//
-//	public void showDataOrderDetailToComponents() {
-//		CustomerOrder order = CustomerOrderDAO.getInstance().selectById(this.orderId.toString());
-//		this.textField_detailCusId.setText(order.getCustomer().getId() + "");
-//		this.textField_detailName.setText(order.getName());
-//		this.textField_detailPhone.setText(order.getPhone());
-//		this.textField_detailDate.setText(order.getOrderDate() + "");
-//		this.textField_detailAddress.setText(order.getAddress());
-//		this.textField_totalPrice.setText(order.getTotalPrice() + "");
-//	}
 }

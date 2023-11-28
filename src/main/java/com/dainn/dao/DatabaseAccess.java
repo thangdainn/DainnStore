@@ -4,7 +4,7 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
-public class DBService_QT {
+public class DatabaseAccess {
 
 	private static final String url = "jdbc:mysql://localhost:3306/dainnstore";
 	private static final String username = "root";

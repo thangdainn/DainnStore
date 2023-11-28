@@ -8,16 +8,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.dao.CustomerService_QT;
+import com.dainn.dao.CustomerDAL;
 import com.dainn.dto.CustomerDTO;
 
-public class CustomerController {
+public class CustomerBUS {
 
 	public static void loadCustomer(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();
 
 		try {
-			List<CustomerDTO> customers = CustomerService_QT.getCustomer_QT();
+			List<CustomerDTO> customers = CustomerDAL.getCustomer_QT();
 			tableModel.setRowCount(0);
 			for (CustomerDTO customer : customers) {
 				Object[] rowData = { customer.getId(), customer.getName(), customer.getPhone(), customer.getAddress(),
@@ -34,7 +34,7 @@ public class CustomerController {
 		String find = txtFindCus.getText();
 
 		try {
-			List<CustomerDTO> customers = CustomerService_QT.getFindCustomer_QT(find);
+			List<CustomerDTO> customers = CustomerDAL.getFindCustomer_QT(find);
 			tableModel.setRowCount(0);
 			for (CustomerDTO customer : customers) {
 				Object[] rowData = { customer.getId(), customer.getName(), customer.getPhone(), customer.getAddress(),
@@ -84,7 +84,7 @@ public class CustomerController {
 				customer.setPoints(point);
 
 				try {
-					CustomerService_QT.updateCustomer(customer);
+					CustomerDAL.updateCustomer(customer);
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
 							JOptionPane.ERROR_MESSAGE);
@@ -120,7 +120,7 @@ public class CustomerController {
 				customer.setStatus(status);
 
 				try {
-					CustomerService_QT.deleteCustomer(customer);
+					CustomerDAL.deleteCustomer(customer);
 				} catch (Exception ex) {
 					JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error",
 							JOptionPane.ERROR_MESSAGE);

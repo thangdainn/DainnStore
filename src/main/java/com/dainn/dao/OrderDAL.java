@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import com.dainn.dto.OrderDTO;
 import com.dainn.dto.OrderDetailDTO;
 
-public class OrderService_QT {
+public class OrderDAL {
 
 	private static Connection connection = null;
 	private static PreparedStatement stmt = null;
@@ -20,7 +20,7 @@ public class OrderService_QT {
 		List<OrderDTO> orders = new ArrayList<OrderDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM `order` Where status = 1";
 			stmt = connection.prepareStatement(query);
 
@@ -37,7 +37,7 @@ public class OrderService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return orders;
 	}
@@ -46,7 +46,7 @@ public class OrderService_QT {
 		List<OrderDTO> orders = new ArrayList<OrderDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM `order` WHERE id = ? AND status = 1";
 
 			stmt = connection.prepareStatement(query);
@@ -65,7 +65,7 @@ public class OrderService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return orders;
 	}
@@ -74,7 +74,7 @@ public class OrderService_QT {
 		List<OrderDTO> orders = new ArrayList<OrderDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM `order` WHERE MONTH(createddate) = ? AND status = 1";
 
 			stmt = connection.prepareStatement(query);
@@ -93,7 +93,7 @@ public class OrderService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return orders;
 	}
@@ -102,7 +102,7 @@ public class OrderService_QT {
 		OrderDetailDTO orderDetail = new OrderDetailDTO();
 		List<OrderDetailDTO> list = new ArrayList<>();
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM `orderdetail` WHERE order_id = ?";
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, orderId);
@@ -119,14 +119,14 @@ public class OrderService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return list;
 	}
 
 	public static void deleteOrder(Integer orderId) throws SQLException {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "UPDATE `order` SET status = 0 WHERE id = ?";
 			stmt = connection.prepareStatement(query);
 			stmt.setInt(1, orderId);
@@ -134,7 +134,7 @@ public class OrderService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 	}
 }

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import com.dainn.dto.CustomerDTO;
 
-public class CustomerService_QT {
+public class CustomerDAL {
 
 	private static Connection connection = null;
 	private static PreparedStatement stmt = null;
@@ -19,7 +19,7 @@ public class CustomerService_QT {
 		List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM customer WHERE status = 1";
 			stmt = connection.prepareStatement(query);
 
@@ -34,14 +34,14 @@ public class CustomerService_QT {
 				customers.add(customer);
 			}
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return customers;
 	}
 
 	public static void updateCustomer(CustomerDTO customer) throws SQLException {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "UPDATE customer SET fullname = ?, address = ?, phone= ?, points = ? WHERE id = ?";
 
 			stmt = connection.prepareStatement(query);
@@ -58,13 +58,13 @@ public class CustomerService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, null);
 		}
 	}
 
 	public static void deleteCustomer(CustomerDTO customer) throws SQLException {
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "UPDATE customer SET status = ? WHERE id = ?";
 
 			stmt = connection.prepareStatement(query);
@@ -78,7 +78,7 @@ public class CustomerService_QT {
 		} catch (Exception ex) {
 			JOptionPane.showMessageDialog(null, "Error!: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, null);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, null);
 		}
 	}
 
@@ -86,7 +86,7 @@ public class CustomerService_QT {
 		List<CustomerDTO> customers = new ArrayList<CustomerDTO>();
 
 		try {
-			connection = DBService_QT.getConnection();
+			connection = DatabaseAccess.getConnection();
 			String query = "SELECT * FROM customer WHERE status = 1 AND (id = ? OR fullname LIKE ? OR phone = ?)";
 			
 			stmt = connection.prepareStatement(query);
@@ -106,7 +106,7 @@ public class CustomerService_QT {
 //				System.out.println(find +customer);
 			}
 		} finally {
-			DBService_QT.closeResourcesPreparedStatement(stmt, connection, rs);
+			DatabaseAccess.closeResourcesPreparedStatement(stmt, connection, rs);
 		}
 		return customers;
 	}
