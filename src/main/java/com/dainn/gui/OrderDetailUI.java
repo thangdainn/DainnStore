@@ -14,7 +14,7 @@ import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.dainn.controller.admin.OrderController_QT;
+import com.dainn.controller.admin.OrderController;
 
 import javax.swing.SwingConstants;
 
@@ -88,7 +88,7 @@ public class OrderDetailUI extends JFrame {
 
 		// QT
 		textField_totalPrice.setText(String.valueOf(totalPrice));
-		OrderController_QT.loadOrderDetail(table_orderDetail, orderId);
+		OrderController.loadOrderDetail(table_orderDetail, orderId);
 	}
 
 //	public void addRowOrderDetail(OrderDetail orderDetail) {

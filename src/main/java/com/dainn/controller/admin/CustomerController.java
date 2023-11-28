@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import com.dainn.dao.CustomerService_QT;
 import com.dainn.dto.CustomerDTO;
 
-public class CustomerController_QT {
+public class CustomerController {
 
 	public static void loadCustomer(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();

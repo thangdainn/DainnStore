@@ -12,7 +12,7 @@ import com.dainn.dao.OrderService_QT;
 import com.dainn.dto.OrderDTO;
 import com.dainn.dto.OrderDetailDTO;
 
-public class OrderController_QT {
+public class OrderController {
 
 	public static void loadOrder(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();

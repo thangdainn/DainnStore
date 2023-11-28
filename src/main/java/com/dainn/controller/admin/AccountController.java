@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import com.dainn.dao.AccountService_QT;
 import com.dainn.dto.AccountDTO;
 
-public class AccountController_QT {
+public class AccountController {
 
 	public static void loadAccount(JTable table) {
 		DefaultTableModel tableModel = (DefaultTableModel) table.getModel();

@@ -1422,32 +1422,32 @@ public class AdminUI extends JFrame {
 
 		// QT
 		// ADMIN - Order
-		OrderController_QT.loadOrder(table_order);
+		OrderController.loadOrder(table_order);
 		comboBox_orderMonth.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Object selectedMonth = comboBox_orderMonth.getSelectedItem();
 				if (selectedMonth instanceof Integer) {
 					int month = (int) selectedMonth;
-					OrderController_QT.findOrderFromMonth(table_order, month);
+					OrderController.findOrderFromMonth(table_order, month);
 				}
 			}
 		});
 		btn_resetOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				OrderController_QT.resetForm(table_order, txtNhpMn);
+				OrderController.resetForm(table_order, txtNhpMn);
 				txtNhpMn.setText("");
 			}
 		});
 		btn_deleteOrder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				OrderController_QT.deleteOrder(table_order);
+				OrderController.deleteOrder(table_order);
 				txtNhpMn.setText("");
 			}
 		});
 		btn_orderFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				OrderController_QT.findOrder(table_order, txtNhpMn);
+				OrderController.findOrder(table_order, txtNhpMn);
 			}
 		});
 		table_order.addMouseListener(new MouseAdapter() {
@@ -1466,28 +1466,28 @@ public class AdminUI extends JFrame {
 		});
 
 		// ADMIN - Customer
-		CustomerController_QT.loadCustomer(table_customer);
+		CustomerController.loadCustomer(table_customer);
 		btn_cusFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerController_QT.findCustomer(table_customer, txtFindCus);
+				CustomerController.findCustomer(table_customer, txtFindCus);
 			}
 		});
 		btn_deleteCus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerController_QT.deleteCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
+				CustomerController.deleteCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
 						txtphoneCustomer, txtpointCustomer);
 			}
 		});
 		btn_updateCus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerController_QT.updateCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
+				CustomerController.updateCustomer(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
 						txtphoneCustomer, txtpointCustomer);
 				txtFindCus.setText("");
 			}
 		});
 		btnReloadCus.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				CustomerController_QT.resetForm(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
+				CustomerController.resetForm(table_customer, txtidCustomer, txtnameCustomer, txtaddressCustomer,
 						txtphoneCustomer, txtpointCustomer);
 				txtFindCus.setText("");
 			}
@@ -1497,41 +1497,41 @@ public class AdminUI extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				int selectedRow = table_customer.getSelectedRow();
-				CustomerController_QT.loadFormCustomer(table_customer, selectedRow, txtidCustomer, txtnameCustomer,
+				CustomerController.loadFormCustomer(table_customer, selectedRow, txtidCustomer, txtnameCustomer,
 						txtphoneCustomer, txtaddressCustomer, txtpointCustomer);
 			}
 		});
 
 		// ADMIN - Account
-		AccountController_QT.loadAccount(table_account);
+		AccountController.loadAccount(table_account);
 		btn_addAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AccountController_QT.insertAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
+				AccountController.insertAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
 						txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);
 			}
 		});
 		btn_updateAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AccountController_QT.updateAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
+				AccountController.updateAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
 						txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);
 			}
 		});
 		btn_deleteAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AccountController_QT.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
+				AccountController.deleteAccount(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc,
 						txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);
 			}
 		});
 		btn_resetAcc.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AccountController_QT.resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc,
+				AccountController.resetForm(table_account, txtIdAcc, txtUsernameAcc, txtPasswordAcc, txtFullNameAcc,
 						cbbRoleAcc, txtPhoneAcc);
 				txtFindAcc.setText("");
 			}
 		});
 		btn_accFind.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				AccountController_QT.findAccount(table_account, txtFindAcc);
+				AccountController.findAccount(table_account, txtFindAcc);
 			}
 		});
 		table_account.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -1539,7 +1539,7 @@ public class AdminUI extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				int selectedRow = table_account.getSelectedRow();
-				AccountController_QT.loadFormAccount(table_account, selectedRow, txtIdAcc, txtUsernameAcc,
+				AccountController.loadFormAccount(table_account, selectedRow, txtIdAcc, txtUsernameAcc,
 						txtPasswordAcc, txtFullNameAcc, cbbRoleAcc, txtPhoneAcc);
 			}
 		});
