@@ -11,5 +11,5 @@ public class OrderDTO {
     private Integer totalPrice;
     private Integer accountId;
     private Integer customerId;
-
+    private Integer status;
 }
