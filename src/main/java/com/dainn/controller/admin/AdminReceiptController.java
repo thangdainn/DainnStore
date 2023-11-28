@@ -51,6 +51,7 @@ public class AdminReceiptController implements ActionListener, MouseListener {
     public void mousePressed(MouseEvent e) {
         int row = adminUI.table_receipt.getSelectedRow();
         adminUI.showReceiptToCpn(row);
+
     }
 
     @Override
