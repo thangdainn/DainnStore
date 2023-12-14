@@ -27,14 +27,13 @@ public class UserProductController implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton btn = (JButton) e.getSource();
-        if (btn.getName().equals("addCart")){
-        } else if (btn.getName().equals("filterByPrice")){
+        if (btn.getName().equals("filterByPrice")) {
             try {
                 Integer minPrice = Integer.valueOf(userUI.tF_minPrice.getText());
                 Integer maxPrice = Integer.valueOf(userUI.tF_maxPrice.getText());
                 userUI.currentPanel.setVisible(false);
                 List<ProductDTO> products;
-                if (userUI.currentCategoryName.equals("all")){
+                if (userUI.currentCategoryName.equals("all")) {
                     products = productService.findByPriceInRanges(minPrice, maxPrice, 1, userUI.tF_find.getText().trim());
                 } else {
                     products = productService.findByPriceInRanges(minPrice, maxPrice,
@@ -44,11 +43,11 @@ public class UserProductController implements ActionListener, MouseListener {
             } catch (NumberFormatException numberFormatException) {
                 JOptionPane.showMessageDialog(userUI, "Vui lòng nhập giá.");
             }
-        } else if (btn.getName().equals("find")){
+        } else if (btn.getName().equals("find")) {
             List<ProductDTO> products;
             userUI.currentPanel.setVisible(false);
             String keyword = userUI.tF_find.getText().trim();
-            if (userUI.currentCategoryName.equals("all")){
+            if (userUI.currentCategoryName.equals("all")) {
                 products = productService.findByNameContaining(keyword, 1);
             } else {
                 products = productService.findByNameContaining(keyword, userUI.currentCategoryName, 1);

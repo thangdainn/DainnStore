@@ -72,7 +72,6 @@ public class UserProductDetailController implements ActionListener {
                     JOptionPane.showMessageDialog(productDetailUI, "Đã thêm vào giỏ hàng!!!");
                     productDetailUI.dispose();
                 }
-
             }
         }
     }

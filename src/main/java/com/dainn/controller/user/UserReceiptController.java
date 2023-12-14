@@ -123,7 +123,7 @@ public class UserReceiptController implements ActionListener {
             receiptDetailService.save(dto);
             romService.updateQuantityOfPR(dto.getProductId(), dto.getRomId(), dto.getQuantity());
             ProductDTO product = productService.findById(dto.getProductId());
-            product.setPrice(dto.getImportPrice());
+//            product.setPrice((int) (dto.getImportPrice() + dto.getImportPrice()*0.2));
             product.setQuantity(product.getQuantity() + dto.getQuantity());
             productService.update(product);
             productService.updateQuantityById(dto.getProductId());
