@@ -1742,6 +1742,7 @@ public class AdminUI extends JFrame {
 		this.textField_proPrice.setText(price);
 		this.textField_proQuantity.setText(quantity);
 		this.comboBox_prodCateId.setSelectedItem(cateName);
+		this.imgPath = imgPath;
 		ImageUtil.scaleImage(imgPath, lbl_image);
 	}
 
